@@ -24,6 +24,9 @@ def main():
     print("Media: ",avg*1000,"ms")
 
     #SumBool1 = 11.002283999999996 ms
+    #ProdBool1 = 8.900487999999996 ms
+
+
     #SumInt1 = 3.904572000000001 ms
 
 

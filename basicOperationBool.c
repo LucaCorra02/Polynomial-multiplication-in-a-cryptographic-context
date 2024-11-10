@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
     unsigned int operations[file_rows][num_operands];
     int ris = load_vector(argv[1],file_rows,num_operands, operations); //carico i dati da file in un array bidemensionale
     if (ris != 0){return 1;}
-    long double total_time = benchmark(f3_sum, file_rows, num_operands, operations);
+    long double total_time = benchmark(f3_prod, file_rows, num_operands, operations);
     printf("%Lfs\n", total_time);
     return 0;
 }
