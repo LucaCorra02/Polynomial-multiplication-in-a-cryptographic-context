@@ -28,6 +28,7 @@ def main():
     #SumInt1 = 3.904572000000001 ms
     #MediaProd1 = 3.239713999999997 ms
 
+
     #SumBool2 Media:  12.462761999999987 ms
     #ProdBool2 Media:  12.002687999999992 ms
     #SumInt2 = Media:  4.530682000000002 ms
