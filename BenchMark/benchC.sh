@@ -1,7 +1,7 @@
 #!/bin/bash
 
-input_file="../TestFile/Cifra1/inputTest.txt"
-output_file="prodBool1.txt"
+input_file="../TestFile/Cifra2/inputTest.txt"
+output_file="Cifra2/prodBool2.txt"
 > "$output_file"  # Svuoto file
 
 output=""

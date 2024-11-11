@@ -80,6 +80,7 @@ long double benchmark(f3_element f3_operation(f3_element a, f3_element b),unsign
 
     start_time = get_current_time();
     for(i = 0; i < num_operations; i++){
+        //printf("bool %d %d\n",operations[i][0],operations[i][1]);
         f3_element ris = f3_operation(int_to_f3(operations[i][0]),int_to_f3(operations[i][1]));
         //printf("%d\n",f3_to_int(ris));
     }
@@ -100,6 +101,7 @@ int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
     unsigned int operations[file_rows][num_operands];
     int ris = load_vector(argv[1],file_rows,num_operands, operations); //carico i dati da file in un array bidemensionale
     if (ris != 0){return 1;}
+    //long double total_time = benchmark(f3_sum, file_rows, num_operands, operations);
     long double total_time = benchmark(f3_prod, file_rows, num_operands, operations);
     printf("%Lfs\n", total_time);
     return 0;

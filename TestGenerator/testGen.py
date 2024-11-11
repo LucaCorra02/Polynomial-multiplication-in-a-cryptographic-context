@@ -31,9 +31,9 @@ def main():
     #100000 -> 999999 = 6
     #1000000 -> 9999999 = 7 
     
-    gen_input_file(1000000,0,9);
-    #args = sys.argv[1:]
+    #gen_input_file(1000000,10,99);
+    args = sys.argv[1:]
     #gen_correct_output_sum(args[0]);
-    #gen_correct_output_prod(args[0]);
+    gen_correct_output_prod(args[0]);
 
 main()
