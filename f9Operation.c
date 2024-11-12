@@ -1,85 +1,31 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "utils.h"
+#include "f3Utils.h"
 #include "getTime.h"
-
-const unsigned int look_up_table[] = {0b00,0b01,0b10,0b00};
-const unsigned int LSB_I = 0; //la posizione del bit meno significativo
-const unsigned int MSB_I = 1; //posizione bit più significativo
+#include "utils.h"
 
 typedef struct f9_element {unsigned int real; unsigned int imaginary;} f9_element;
 
-unsigned int int_to_f3(unsigned int n) {
-    return look_up_table[n%3];
+void print_f9_element(f9_element n) {
+  printf("real: %d, i: %d\n",n.real,n.imaginary);
 }
 
-unsigned int kth_bit(unsigned int n, unsigned int k) { //ritorna il k-esimo bit di n. In modo da non avere array.
-    return (n & ( 1 << k )) >> k;
+f9_element get_f9_element(int real, int imaginary) {
+  real = abs_f3(real);
+  imaginary = abs_f3(imaginary);
+  f9_element ris;
+  ris.real = real,ris.imaginary = imaginary;
+  return ris;
 }
 
-void print_binary(unsigned int n) { //stampa rappresentazione binaria di un intero.
-    unsigned int i, s = 1<<((sizeof(n)<<3)-1);
-    printf("%d: ",n);
-    for (i = s; i; i>>=1) printf("%d", n & i || 0 );
-    printf("\n");
-}
-
-unsigned int f3_sum(unsigned int a, unsigned int b){
-    /*
-     *  print_binary(a);
-     *  print_binary(b);
-    */
-    unsigned int a1 = kth_bit(a,MSB_I), a0 = kth_bit(a,LSB_I), b1 = kth_bit(b,MSB_I), b0 = kth_bit(b,LSB_I);
-    unsigned int xor00 = a0^b0;
-    unsigned int xor01 = a1^b1;
-    unsigned int and00 = a0&b0;
-    unsigned int and01 = a1&b1;
-
-    unsigned int sum_lo = ((xor00) ^ (and01)) ^ ((xor01) & (and00));
-    unsigned int sum_up = ((xor01) ^ (and00)) ^ ((xor00) & (and01));
-    //printf("Ris of sum in binary: s1: %d, s0: %d\n",sum_up,sum_lo);
-    return look_up_table[sum_up*2+sum_lo]; //Mod 3
-}
-
-unsigned int f3_prod(unsigned int a, unsigned int b){
-    /*
-     *print_binary(a);
-     *print_binary(b);
-    */
-    unsigned int a1 = kth_bit(a,LSB_I), a0 = kth_bit(a,MSB_I), b1 = kth_bit(b,LSB_I), b0 = kth_bit(b,MSB_I);
-    unsigned int and00 = a0&b0;
-    unsigned int and03 = a1&b1;
-    unsigned int and12 = (and00&and03);
-
-    unsigned int prod_lo = and00 ^ and03 ^ (and12);
-    unsigned int prod_up = (a1&b0) ^ (a0&b1) ^ (and12);
-    //printf("Ris of product in binary: s1: %d, s0: %d\n",prod_up,prod_lo);
-    return look_up_table[prod_up*2+prod_lo]; //Mod 3
-}
-
-void swap_bits(int* n, int p1, int p2) {
-    if (((*n & (1 << p1)) >> p1) ^ ((*n & (1 << p2)) >> p2)) {
-      *n ^= 1 << p1;
-      *n ^= 1 << p2;
-    }
-}
-
-unsigned int abs_f3(int n) { //switcha il MSB con il LSB
-  	if (n>=0) return n;
-    n = abs(n);
-    n = int_to_f3(n);
-   	swap_bits(&n,MSB_I,LSB_I);
-    return n;
+f9_element f9_sum(f9_element a, f9_element b) {
+	f9_element ris;
+  	ris.real = f3_sum(a.real,b.real);
+    ris.imaginary = f3_sum(a.imaginary,b.imaginary);
+    return ris;
 }
 
 int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
-    int n = atoi(argv[1]);
-    printf("Prima: ");
-    print_binary(n);
-  	unsigned int ris = abs_f3(n);
-    printf("Dopo: ");
-    print_binary(ris);
-    printf("\n");
-
-
+  f9_element a = get_f9_element(150,-1);
+  f9_element b = get_f9_element(2,1);
+  f9_element ris = f9_sum(a,b);
+  print_f9_element(ris);
 }
