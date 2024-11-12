@@ -8,7 +8,7 @@ const unsigned int LSB_I = 0; //la posizione del bit meno significativo
 const unsigned int MSB_I = 1; //posizione bit più significativo
 
 unsigned int int_to_F3(unsigned int n) {
-    return n%3;
+    return look_up_table[n%3];
 }
 
 unsigned int kth_bit(unsigned int n, unsigned int k) { //ritorna il k-esimo bit di n. In modo da non avere array.
@@ -44,7 +44,7 @@ unsigned int f3_prod(unsigned int a, unsigned int b){
      *print_binary(a);
      *print_binary(b);
     */
-    unsigned int a1 = kth_bit(a,LSB_I), a0 = kth_bit(a,MSB_I), b1 = kth_bit(b,LSB_I), b0 = kth_bit(b,MSB_I);
+    unsigned int a1 = kth_bit(a,MSB_I), a0 = kth_bit(a,LSB_I), b1 = kth_bit(b,MSB_I), b0 = kth_bit(b,LSB_I);
     unsigned int and00 = a0&b0;
     unsigned int and03 = a1&b1;
     unsigned int and12 = (and00&and03);
@@ -65,8 +65,9 @@ long double benchmark(unsigned int f3_operation(unsigned int a, unsigned int b),
 
     start_time = get_current_time();
     for(i = 0; i < num_operations; i++){
+        //printf("%d %d\n",operations[i][0],operations[i][1]);
         unsigned int ris = f3_operation(int_to_F3(operations[i][0]),int_to_F3(operations[i][1]));
-        //printf("%d\n",ris);
+        printf("%d\n",ris);
     }
     end_time = get_current_time();
     total_time = end_time - start_time;
@@ -88,7 +89,7 @@ int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
     if (ris != 0){return 1;}
     //long double total_time = benchmark(f3_sum, file_rows, num_operands, operations);
     long double total_time = benchmark(f3_prod, file_rows, num_operands, operations);
-    printf("Total time spent: %Lf\n", total_time);
+    //printf("Total time spent: %Lf\n", total_time);
     return 0;
 }
 
