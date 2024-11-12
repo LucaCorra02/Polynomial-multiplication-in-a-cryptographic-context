@@ -41,8 +41,8 @@ int read_file(char *filename, unsigned int num_operations,unsigned int operands,
             if (a1 && a0 && b1 && b0) {
                 int a1_img = atoi(a1), a0_real = atoi(a0);
                 int b1_img = atoi(b1), b0_real = atoi(b0);
-                operations[cont][0] = a1_img,operations[cont][1] = a0_real;
-                operations[cont][2] = b1_img,operations[cont][3] = b0_real;
+                operations[cont][0] = a1_img , operations[cont][1] = a0_real;
+                operations[cont][2] = b1_img , operations[cont][3] = b0_real;
             }
         }
         cont++;
