@@ -50,7 +50,6 @@ void swap_bits(int* n, int p1, int p2) {
 }
 
 unsigned int abs_f3(int n) { //switcha il MSB con il LSB
-    if (n>=0) return int_to_f3(n);
     n = abs(n);
     n = int_to_f3(n);
     swap_bits(&n,MSB_I,LSB_I);
