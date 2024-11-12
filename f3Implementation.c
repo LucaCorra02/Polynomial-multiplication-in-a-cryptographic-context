@@ -1,5 +1,9 @@
 #include "f3Utils.h"
 
+const unsigned int look_up_table[] = {0b00,0b01,0b10,0b00};
+const unsigned int LSB_I = 0; //la posizione del bit meno significativo
+const unsigned int MSB_I = 1; //posizione bit più significativo
+
 unsigned int int_to_f3(unsigned int n) {
     return look_up_table[n%3];
 }
