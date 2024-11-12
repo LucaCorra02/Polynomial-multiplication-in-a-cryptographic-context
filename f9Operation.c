@@ -7,8 +7,10 @@ const unsigned int look_up_table[] = {0b00,0b01,0b10,0b00};
 const unsigned int LSB_I = 0; //la posizione del bit meno significativo
 const unsigned int MSB_I = 1; //posizione bit più significativo
 
-unsigned int int_to_F3(unsigned int n) {
-    return n%3;
+typedef struct f9_element {unsigned int real; unsigned int imaginary;} f9_element;
+
+unsigned int int_to_f3(unsigned int n) {
+    return look_up_table[n%3];
 }
 
 unsigned int kth_bit(unsigned int n, unsigned int k) { //ritorna il k-esimo bit di n. In modo da non avere array.
@@ -55,40 +57,29 @@ unsigned int f3_prod(unsigned int a, unsigned int b){
     return look_up_table[prod_up*2+prod_lo]; //Mod 3
 }
 
-long double benchmark(unsigned int f3_operation(unsigned int a, unsigned int b),unsigned int num_operations, unsigned int operands, unsigned int operations[num_operations][operands])
-{
-    // long double mean_time = 0.0;
-    long double total_time = 0.0;
-    long double start_time = 0.0;
-    long double end_time = 0.0;
-    int i;
-
-    start_time = get_current_time();
-    for(i = 0; i < num_operations; i++){
-        //printf("%d %d\n",operations[i][0],operations[i][1]);
-        unsigned int ris = f3_operation(int_to_F3(operations[i][0]),int_to_F3(operations[i][1]));
-        //printf("%d\n",ris);
+void swap_bits(int* n, int p1, int p2) {
+    if (((*n & (1 << p1)) >> p1) ^ ((*n & (1 << p2)) >> p2)) {
+      *n ^= 1 << p1;
+      *n ^= 1 << p2;
     }
-    end_time = get_current_time();
-    total_time = end_time - start_time;
-    //printf("Total time spent: %Lf\n", total_time);
-    //mean_time = total_time / (long double) i; //mean time troppo piccolo
-    //printf("Mean time spent: %Lf\n", mean_time);
-    return total_time;
 }
 
+unsigned int abs_f3(int n) { //switcha il MSB con il LSB
+  	if (n>=0) return n;
+    n = abs(n);
+    n = int_to_f3(n);
+   	swap_bits(&n,MSB_I,LSB_I);
+    return n;
+}
 
 int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
-    if (argc < 4) {
-        fprintf(stderr, "No args\n");
-        return 1;
-    }
-    unsigned int file_rows = atoi(argv[2]), num_operands = atoi(argv[3]);
-    unsigned int operations[file_rows][num_operands];
-    int ris = load_vector(argv[1],file_rows,num_operands, operations); //carico i dati da file in un array bidemensionale
-    if (ris != 0){return 1;}
-    //long double total_time = benchmark(f3_sum, file_rows, num_operands, operations);
-    long double total_time = benchmark(f3_prod, file_rows, num_operands, operations);
-    printf("Total time spent: %Lf\n", total_time);
-    return 0;
+    int n = atoi(argv[1]);
+    printf("Prima: ");
+    print_binary(n);
+  	unsigned int ris = abs_f3(n);
+    printf("Dopo: ");
+    print_binary(ris);
+    printf("\n");
+
+
 }
