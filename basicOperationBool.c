@@ -70,7 +70,7 @@ f3_element f3_prod(f3_element a, f3_element b){
     return ris; //Mod 3
 }
 
-long double benchmark(f3_element f3_operation(f3_element a, f3_element b),unsigned int num_operations, unsigned int operands, unsigned int operations[num_operations][operands])
+long double benchmark(f3_element f3_operation(f3_element a, f3_element b),unsigned int num_operations, unsigned int operands, unsigned int **operations)
 {
     //long double mean_time = 0.0;
     long double total_time = 0.0;
@@ -82,7 +82,7 @@ long double benchmark(f3_element f3_operation(f3_element a, f3_element b),unsign
     for(i = 0; i < num_operations; i++){
         //printf("bool %d %d\n",operations[i][0],operations[i][1]);
         f3_element ris = f3_operation(int_to_f3(operations[i][0]),int_to_f3(operations[i][1]));
-        //printf("%d\n",f3_to_int(ris));
+        printf("%d\n",f3_to_int(ris));
     }
     end_time = get_current_time();
     total_time = end_time - start_time;
@@ -98,11 +98,11 @@ int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
         return 1;
     }
     unsigned int file_rows = atoi(argv[2]), num_operands = atoi(argv[3]);
-    unsigned int operations[file_rows][num_operands];
-    int ris = load_vector(argv[1],file_rows,num_operands, operations); //carico i dati da file in un array bidemensionale
-    if (ris != 0){return 1;}
+    unsigned int **operations = create_vector(file_rows,num_operands);
+    if (load_vector(argv[1],file_rows,operations) != 0){return 1;}
+
     //long double total_time = benchmark(f3_sum, file_rows, num_operands, operations);
     long double total_time = benchmark(f3_prod, file_rows, num_operands, operations);
-    printf("%Lfs\n", total_time);
+    //printf("%Lfs\n", total_time);
     return 0;
 }
