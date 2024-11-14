@@ -55,7 +55,7 @@ unsigned int f3_prod(unsigned int a, unsigned int b){
     return look_up_table[prod_up*2+prod_lo]; //Mod 3
 }
 
-long double benchmark(unsigned int f3_operation(unsigned int a, unsigned int b),unsigned int num_operations, unsigned int operands, unsigned int operations[num_operations][operands])
+long double benchmark(unsigned int f3_operation(unsigned int a, unsigned int b),unsigned int num_operations, unsigned int** operations)
 {
     // long double mean_time = 0.0;
     long double total_time = 0.0;
@@ -84,12 +84,13 @@ int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
         return 1;
     }
     unsigned int file_rows = atoi(argv[2]), num_operands = atoi(argv[3]);
-    unsigned int operations[file_rows][num_operands];
-    int ris = load_vector(argv[1],file_rows,num_operands, operations); //carico i dati da file in un array bidemensionale
-    if (ris != 0){return 1;}
-    //long double total_time = benchmark(f3_sum, file_rows, num_operands, operations);
-    long double total_time = benchmark(f3_prod, file_rows, num_operands, operations);
+    unsigned int** operations = create_vector(file_rows, num_operands);
+    if (load_vector(argv[1],file_rows, operations) !=0 ){return 1;}
+
+    //long double total_time = benchmark(f3_sum, file_rows, operations);
+    long double total_time = benchmark(f3_prod, file_rows, operations);
     //printf("Total time spent: %Lf\n", total_time);
+    free_vector(operations, file_rows);
     return 0;
 }
 
