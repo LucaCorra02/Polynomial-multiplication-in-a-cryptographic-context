@@ -55,8 +55,7 @@ unsigned int f3_prod(unsigned int a, unsigned int b){
     return look_up_table[prod_up*2+prod_lo]; //Mod 3
 }
 
-long double benchmark(unsigned int f3_operation(unsigned int a, unsigned int b),unsigned int num_operations, unsigned int** operations)
-{
+long double benchmark(unsigned int f3_operation(unsigned int a, unsigned int b),unsigned int num_operations, unsigned int** operations){
     // long double mean_time = 0.0;
     long double total_time = 0.0;
     long double start_time = 0.0;
