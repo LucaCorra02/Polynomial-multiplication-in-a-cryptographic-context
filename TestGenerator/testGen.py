@@ -29,7 +29,7 @@ def gen_input_f9(size, min_range, max_range):
         b_real = random.randint(min_range, max_range)
         print("%d,%d;%d,%d"%(a_img,a_real,b_img,b_real))
 
-def gen_correct_output_f9sum(file_name):
+def gen_correct_output_f9prod(file_name):
     with open(file_name, "r") as file:
         for line in file:
             ops = line.split(";")
@@ -53,8 +53,8 @@ def main():
     args = sys.argv[1:]
     #gen_correct_output_sum(args[0]);
     #gen_correct_output_prod(args[0]);
-    #gen_input_f9(1000000,100,999);
-    gen_correct_output_f9sum(args[0]);
+    #gen_input_f9(1000000,-100,1000);
+    gen_correct_output_f9prod(args[0]);
 
 
 main()
