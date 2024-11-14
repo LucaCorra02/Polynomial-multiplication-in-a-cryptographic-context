@@ -2,6 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 
+unsigned int** create_vector(unsigned int num_operations, unsigned int num_operands) {
+    unsigned int **operations = malloc(num_operations * sizeof(unsigned int *));
+    for (int i = 0; i < num_operations; i++) {
+        operations[i] = malloc(num_operands * sizeof(unsigned int));
+    }
+    return operations;
+}
+
+void free_vector(unsigned int **operations, unsigned int num_operations) {
+    for (int i = 0; i < num_operations; i++) {
+        free(operations[i]);
+    }
+    free(operations);
+}
+
 int load_vector(char *filename, unsigned int num_operations,unsigned int operands, unsigned int operations[num_operations][operands]){ //Riempie il vettore operations con i dati presi da file.
     FILE *fp = fopen(filename, "r");
     if(fp != NULL) {
@@ -25,15 +40,15 @@ int load_vector(char *filename, unsigned int num_operations,unsigned int operand
     return 0;
 }
 
-int read_file(char *filename, unsigned int num_operations,unsigned int operands, unsigned int operations[num_operations][operands]) {
+int read_file(char *filename, unsigned int num_operations, unsigned int** operations) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         perror("Errore apertura file");
         return 1;
     }
-    char line[100];
+    char line[256];
     unsigned int cont = 0;
-    while (fgets(line, 100, file) != NULL && cont < num_operations) {
+    while (fgets(line, sizeof(line), file) != NULL && cont < num_operations) {
         char *part1 = strtok(line, ";"), *part2 = strtok(NULL, ";");
         if (part1 && part2) {
             char *a1 = strtok(part1, ","), *a0 = strtok(NULL, ",");
@@ -47,8 +62,6 @@ int read_file(char *filename, unsigned int num_operations,unsigned int operands,
         }
         cont++;
     }
-
-    //printf("A: (img: %d,real: %d), B: (img: %d,real: %d)\n", operations[3][0], operations[3][1], operations[3][2], operations[3][4]);
     fclose(file);
     return 0;
 }
