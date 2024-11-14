@@ -33,7 +33,7 @@ int read_file(char *filename, unsigned int num_operations,unsigned int operands,
     }
     char line[100];
     unsigned int cont = 0;
-    while (fgets(line, sizeof(line), file) != NULL) {
+    while (fgets(line, 100, file) != NULL && cont < num_operations) {
         char *part1 = strtok(line, ";"), *part2 = strtok(NULL, ";");
         if (part1 && part2) {
             char *a1 = strtok(part1, ","), *a0 = strtok(NULL, ",");
@@ -47,6 +47,7 @@ int read_file(char *filename, unsigned int num_operations,unsigned int operands,
         }
         cont++;
     }
+
     //printf("A: (img: %d,real: %d), B: (img: %d,real: %d)\n", operations[3][0], operations[3][1], operations[3][2], operations[3][4]);
     fclose(file);
     return 0;
