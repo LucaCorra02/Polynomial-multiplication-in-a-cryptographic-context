@@ -52,14 +52,16 @@ int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
         return 1;
     }
     unsigned int file_rows = atoi(argv[2]), num_operands = atoi(argv[3]);
-    unsigned int operations[file_rows][num_operands];
-    if (read_file(argv[1],file_rows,num_operands, operations) != 0) return 1;
+	unsigned int** operations = create_vector(file_rows, num_operands);
 
+    if (read_file(argv[1],file_rows,operations) != 0) return 1;
     for (int i = 0; i < file_rows; i++) {
     	f9_element a = get_f9_element(operations[i][0],operations[i][1]);
         f9_element b = get_f9_element(operations[i][2],operations[i][3]);
         f9_element ris = f9_prod(a,b);
 		print_f9_element(ris);
     }
+    free_vector(operations, file_rows);
+    return 0;
 }
 
