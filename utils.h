@@ -17,7 +17,7 @@ void free_vector(unsigned int **operations, unsigned int num_operations) {
     free(operations);
 }
 
-int load_vector(char *filename, unsigned int num_operations,unsigned int operands, unsigned int operations[num_operations][operands]){ //Riempie il vettore operations con i dati presi da file.
+int load_vector(char *filename, unsigned int num_operations, unsigned int **operations){ //Riempie il vettore operations con i dati presi da file.
     FILE *fp = fopen(filename, "r");
     if(fp != NULL) {
         char str[100];
