@@ -29,7 +29,6 @@ def main():
     #ProdInt1 = 3.239713999999997 ms
 
 
-
     #SumBool2 Media:  12.462761999999987 ms
     #ProdBool2 Media:  12.002687999999992 ms
     #SumInt2 = Media:  4.530682000000002 ms
@@ -42,8 +41,8 @@ def main():
     #ProdInt3 = Media:  4.090098000000002 ms
 
 
-
-
-
+    #F9PROD_POSITIVO = Media:  147.27714999999995 ms
+    #F9PROD_IMG_NEG = Media:  226.22134000000005 ms
+    #F9PROD_NEG Media:  196.22944000000004 ms
 
 main()
