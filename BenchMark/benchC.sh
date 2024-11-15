@@ -1,17 +1,17 @@
 #!/bin/bash
 
-input_file="../TestFile/Cifra3/inputTest.txt"
-output_file="Cifra3/prodBool3.txt"
+input_file="../F9Test/RandomNeg/input.txt"
+output_file="prodF9Neg.txt"
 > "$output_file"  # Svuoto file
 
 output=""
 file_rows=1000000
 num_operands=2
 
-for i in {1..500}; do
+for i in {1..100}; do
     ris=""
     output+="Esecuzione #$i: "
-    ris="$(./../basicOperationBool.out "$input_file" "1000000" "2")"
+    ris="$(./../f9Operation.out "$input_file" "1000000" "4")"
     echo "Esecuzione: $i -> $ris"
     output+="$ris\n"
 done
