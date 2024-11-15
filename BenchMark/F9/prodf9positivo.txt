@@ -1,0 +1,3 @@
+Esecuzione #1: 0.086353s
+Esecuzione #2: 0.091755s
+
