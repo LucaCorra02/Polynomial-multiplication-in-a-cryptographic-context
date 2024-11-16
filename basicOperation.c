@@ -8,7 +8,7 @@ const unsigned int LSB_I = 0; //la posizione del bit meno significativo
 const unsigned int MSB_I = 1; //posizione bit più significativo
 
 unsigned int int_to_F3(unsigned int n) {
-    return look_up_table[n%3];
+    return n%3;
 }
 
 unsigned int kth_bit(unsigned int n, unsigned int k) { //ritorna il k-esimo bit di n. In modo da non avere array.
