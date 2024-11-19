@@ -5,10 +5,10 @@ const unsigned int LSB_I = 0; //la posizione del bit meno significativo
 const unsigned int MSB_I = 1; //posizione bit più significativo
 
 unsigned int int_to_f3(unsigned int n) {
-    return look_up_table[n%3];
+    return n%3;
 }
 
-unsigned int kth_bit(unsigned int n, unsigned int k) { //ritorna il k-esimo bit di n. In modo da non avere array.
+unsigned int kth_bit(unsigned int n, unsigned int k) { //ritorna il k-esimo bit di n. In modo da non avere array. 3 operazioni
     return (n & ( 1 << k )) >> k;
 }
 
@@ -42,16 +42,9 @@ unsigned int f3_prod(unsigned int a, unsigned int b){
     return look_up_table[prod_up*2+prod_lo]; //Mod 3
 }
 
-void swap_bits(int* n, int p1, int p2) {
+void swap_bits(int* n, int p1, int p2) { //switcha il MSB con il LSB //Costo per swap_bit da segnalare, non è zero.
     if (((*n & (1 << p1)) >> p1) ^ ((*n & (1 << p2)) >> p2)) {
         *n ^= 1 << p1;
         *n ^= 1 << p2;
     }
-}
-
-unsigned int abs_f3(int n) { //switcha il MSB con il LSB
-    n = abs(n);
-    n = int_to_f3(n);
-    swap_bits(&n,MSB_I,LSB_I);
-    return n;
 }
