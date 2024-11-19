@@ -55,7 +55,6 @@ int read_file(char *filename, int num_rows, int num_terms, int** p1, int** p2) {
                 i++;
             }
 
-            // Parsing della seconda parte
             int j = 0;
             char *token2 = strtok(part2, ",");
             while (token2 && j < num_terms) {
