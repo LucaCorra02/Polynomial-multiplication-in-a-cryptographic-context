@@ -2,13 +2,12 @@ import numpy as np
 import random
 import sys
 
-def gen_random_compleate_poly(max_terms,max_coff):
-    n_terms = random.randint(1, max_terms)
+def gen_random_compleate_poly(n_terms,max_coff):
     coff_a = []
     coff_b = []
     for i in range (0,n_terms):
-        term_a = random.randint(0, max_coff)
-        term_b = random.randint(0, max_coff)
+        term_a = random.randint(1, max_coff)
+        term_b = random.randint(1, max_coff)
         coff_a.append(term_a)
         coff_b.append(term_b)
     return coff_a, coff_b
@@ -48,7 +47,10 @@ def gen_correct_input(rows,n_terms,max_coff):
         print_input(coff_a,coff_b)
 
 def main():
-    #gen_correct_input(10000,10,1000)
+    num_rows = 10000
+    num_terms = 10
+    max_coof = 1000
+    #gen_correct_input(num_rows,num_terms,max_coof)
     args = sys.argv[1:]
     gen_correct_output_prod(args[0])
 
