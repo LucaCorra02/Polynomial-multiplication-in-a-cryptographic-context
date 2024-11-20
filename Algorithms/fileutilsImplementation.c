@@ -41,9 +41,10 @@ int read_file(char *filename, int num_rows, int num_terms, int** p1, int** p2) {
         perror("Errore apertura file");
         return 1;
     }
-    char line[256];
+    int dim_line = (num_terms*2) * sizeof(int);
+	char *line = malloc(dim_line);
     unsigned int cont = 0;
-    while (fgets(line, sizeof(line), file) != NULL && cont < num_rows) {
+    while (fgets(line,dim_line, file) != NULL && cont < num_rows) {
         char *part1 = strtok(line, ";");
         char *part2 = strtok(NULL, ";");
         if (part1 && part2) {
