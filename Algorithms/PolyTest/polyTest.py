@@ -47,9 +47,11 @@ def gen_correct_input(rows,n_terms,max_coff):
         print_input(coff_a,coff_b)
 
 def main():
-    num_rows = 10000
-    num_terms = 10
-    max_coof = 1000
+    #low deg row = 1000 terms = 10
+
+    num_rows = 100
+    num_terms = 10000
+    max_coof = 100
     #gen_correct_input(num_rows,num_terms,max_coof)
     args = sys.argv[1:]
     gen_correct_output_prod(args[0])
