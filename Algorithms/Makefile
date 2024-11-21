@@ -1,18 +1,23 @@
-TARGET = Schoolbook/schoolbook.out #Nome File Eseguibile
-SRC = fileutilsImplementation.c Schoolbook/schoolbook.c
-OBJ = fileutilsImplementation.o Schoolbook/schoolbook.o
+TARGET = testAlgorithms.out
+SRC = algorithms.c choseAlgorithms.c testAlgorithms.c
+OBJ = algorithms.o choseAlgorithms.o testAlgorithms.o
 
 CFLAGS = -O3
 
-all: clean $(TARGET)
+all: $(TARGET)
+
+# Creazione del file eseguibile
 $(TARGET): $(OBJ)
 	gcc $(CFLAGS) $(OBJ) -o $(TARGET)
 
-f3Implementation.o: fileutilsImplementation.c # Compila f3Implementation.c in f3Implementation.o
-	gcc $(CFLAGS) -c fileutilsImplementation.c
+algorithms.o: algorithms.c algorithms.h
+	gcc $(CFLAGS) -c algorithms.c
 
-f9Operation.o: Schoolbook
-	gcc $(CFLAGS) -c Schoolbook/schoolbook.c
+chooseAlgorithms.o: choseAlgorithms.c algorithms.h
+	gcc $(CFLAGS) -c choseAlgorithms.c
+
+testAlgorithms.o: testAlgorithms.c algorithms.h
+	gcc $(CFLAGS) -c testAlgorithms.c
 
 clean:
 	rm -f $(OBJ) $(TARGET)
