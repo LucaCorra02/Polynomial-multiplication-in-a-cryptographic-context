@@ -41,18 +41,18 @@ int read_file(char *filename, int num_rows, int num_terms, int** p1, int** p2) {
         perror("Errore apertura file");
         return 1;
     }
-    int dim_line = (num_terms*2) * sizeof(int);
-	char *line = malloc(dim_line);
+     int dim_line = ((num_terms * 2)) * num_terms; // Approssimazione: 10 cifre per numero + separatori
+    char *line = malloc(dim_line);
     unsigned int cont = 0;
     while (fgets(line,dim_line, file) != NULL && cont < num_rows) {
         char *part1 = strtok(line, ";");
-        char *part2 = strtok(NULL, ";");
+        char *part2 = strtok(0, ";");
         if (part1 && part2) {
             int i = 0;
             char *token = strtok(part1, ",");
             while (token && i < num_terms) {
                 p1[cont][i] = atoi(token);
-                token = strtok(NULL, ",");
+                token = strtok(0, ",");
                 i++;
             }
 
@@ -60,7 +60,7 @@ int read_file(char *filename, int num_rows, int num_terms, int** p1, int** p2) {
             char *token2 = strtok(part2, ",");
             while (token2 && j < num_terms) {
                 p2[cont][j] = atoi(token2);
-                token2 = strtok(NULL, ",");
+                token2 = strtok(0, ",");
                 j++;
             }
         }
@@ -69,4 +69,3 @@ int read_file(char *filename, int num_rows, int num_terms, int** p1, int** p2) {
     fclose(file);
     return 0;
 }
-
