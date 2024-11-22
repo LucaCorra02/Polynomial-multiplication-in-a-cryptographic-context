@@ -48,6 +48,8 @@ def gen_correct_input(rows,n_terms,max_coff):
 
 def main():
     #low deg row = 1000 terms = 10
+    #Medium 1000 *
+    #BIG 100 * 10000
 
     num_rows = 100
     num_terms = 10000
