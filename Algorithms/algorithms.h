@@ -2,8 +2,6 @@
 
 typedef int* (*NextAlgorithms)(int n, int* p1, int* p2);
 
-int* schoolbook_recursive(int n, int* p1, int* p2, int* ris);
-
 int* schoolbook_r(int n, int* p1, int* p2);
 
 int* karatsuba(int n, int* p1, int* p2);
