@@ -1,6 +1,6 @@
 TARGET = testAlgorithms.out
-SRC = algorithms.c choseAlgorithms.c testAlgorithms.c
-OBJ = algorithms.o choseAlgorithms.o testAlgorithms.o
+SRC = algorithms.c choseAlgorithms.c fileutilsImplementation.c testAlgorithms.c
+OBJ = algorithms.o choseAlgorithms.o fileutilsImplementation.o testAlgorithms.o
 
 CFLAGS = -O3
 
@@ -15,6 +15,9 @@ algorithms.o: algorithms.c algorithms.h
 
 chooseAlgorithms.o: choseAlgorithms.c algorithms.h
 	gcc $(CFLAGS) -c choseAlgorithms.c
+
+fileutilsImplementation.o: fileutilsImplementation.c fileutils.h
+	gcc $(CFLAGS) -c fileutilsImplementation.c
 
 testAlgorithms.o: testAlgorithms.c algorithms.h
 	gcc $(CFLAGS) -c testAlgorithms.c
