@@ -18,7 +18,7 @@ int* schoolbook_r(int n, int* p1, int* p2) {
         ris[max_deg + i] += mst_p2 * p1[i];
     }
 
-    NextAlgorithms next = choose_next_algo(n-1, p1, p2);
+    NextAlgorithms next = choose_next_algo(n-1, p1, p2); // Scelgo algoritmo per la successiva chiamata ricorsiva
     int* sub_result = next(n - 1, p1, p2);
     for (int i = 0; i < (dim_ris - 1); i++) { // Combino i risultati
         ris[i] += sub_result[i];
@@ -44,7 +44,7 @@ int* karatsuba(int n, int* p1, int* p2) {
         b0b1[i] = b0[i] + b1[i];
     }
 
-    NextAlgorithms next_P0 =choose_next_algo(k, a0, b0);
+    NextAlgorithms next_P0 =choose_next_algo(k, a0, b0); // Scelgo algoritmo per la successiva chiamata ricorsiva
     NextAlgorithms next_P2 =choose_next_algo(k, a1, b1);
     NextAlgorithms next_P1 =choose_next_algo(k, a0a1, b0b1);
 
