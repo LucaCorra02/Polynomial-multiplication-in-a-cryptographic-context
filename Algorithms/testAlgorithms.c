@@ -2,46 +2,23 @@
 #include <stdlib.h>
 #include <string.h>
 #include "algorithms.h"
+#include "fileutils.h"
 
-int main() {
-
-    /*
-    int p1[] = {1, 2, 3, 4};
-    int p2[] = {4, 3, 2, 1};
-    int n = 4;
-    */
-    /*
-    int p1[] = {1, 2, 3, 4, 7, 20, 9, 22};
-    int p2[] = {4, 3, 2, 1, 10, 5, 3, 10};
-    int n = 8;
-    */
-
-    // Calcola il prodotto usando Karatsuba
-    /*
-    int p1[] = {1, 2, 3, 4, 7, 20};
-    int p2[] = {4, 3, 2, 1, -10, 5};
-    //RIS: 4, 11, 20, 30, 38, 97, 58, 22, -30, -165, 100
-    int n = 6;
-    /*
-    int p1[] = {1, 2, 3, 4, 7, 20, 9, 22, 5, 56, 73, 90, 2, 4, 57, 21};
-    int p2[] = {4, 3, 2, 1, 10, 5, 3, 10, 1, 39, 20, 112, 3, 1, 2, 10};
-    int n = 16;
-    */
-
-    int p1[] = {1, 2, 3, 4, 7, 20};
-    int p2[] = {4, 3, 2, 1, -10, 5};
-    int n = 6;
-    int* result =  karatsuba(n, p1, p2);
-
-
-    // Stampa il risultato
-    printf("Risultato: ");
-    for (int i = 0; i < (2 * n) - 1; i++) {
-        printf("%d ", result[i]);
+int main(int argc, char *argv[]) {
+	if (argc < 4) {
+        fprintf(stderr, "No args\n");
+        return 1;
     }
-    printf("\n");
+    int num_rows = atoi(argv[2]), num_terms = atoi(argv[3]);
+    int** p1 = create_vector(num_rows,num_terms);
+    int** p2 = create_vector(num_rows,num_terms);
 
-    free(result);
-
+    if(read_file(argv[1], num_rows, num_terms, p1, p2) != 0){return 1;};
+	for(int i = 0; i < num_rows; i++){
+        int* ris = karatsuba(num_terms, p1[i], p2[i]);
+        print_output_poly(ris,(num_terms*2)-1);
+    }
+    free_vector(p1, num_rows);
+    free_vector(p2, num_rows);
     return 0;
 }
