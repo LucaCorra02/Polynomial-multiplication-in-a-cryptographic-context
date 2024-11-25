@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "utils.h"
-#include "getTime.h"
+#include "../utils.h"
+#include "../getTime.h"
 
 const unsigned int look_up_table[] = {0b00,0b01,0b10,0b00};
 const unsigned int LSB_I = 0; //la posizione del bit meno significativo
@@ -66,7 +66,7 @@ long double benchmark(unsigned int f3_operation(unsigned int a, unsigned int b),
     for(i = 0; i < num_operations; i++){
         //printf("%d %d\n",operations[i][0],operations[i][1]);
         unsigned int ris = f3_operation(int_to_F3(operations[i][0]),int_to_F3(operations[i][1]));
-        printf("%d\n",ris);
+        //printf("%d\n",ris);
     }
     end_time = get_current_time();
     total_time = end_time - start_time;
@@ -86,9 +86,9 @@ int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
     unsigned int** operations = create_vector(file_rows, num_operands);
     if (load_vector(argv[1],file_rows, operations) !=0 ){return 1;}
 
-    //long double total_time = benchmark(f3_sum, file_rows, operations);
-    long double total_time = benchmark(f3_prod, file_rows, operations);
-    //printf("Total time spent: %Lf\n", total_time);
+    long double total_time = benchmark(f3_sum, file_rows, operations);
+    //long double total_time = benchmark(f3_prod, file_rows, operations);
+    printf("Total time spent: %Lf\n", total_time);
     free_vector(operations, file_rows);
     return 0;
 }

@@ -3,8 +3,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include <time.h>
-#include "getTime.h"
-#include "utils.h"
+#include "../getTime.h"
+#include "../utils.h"
 
 /*
     TODO : metodo chw switcha i bit ( fa il meno) .
