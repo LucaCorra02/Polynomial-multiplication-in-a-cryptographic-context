@@ -9,7 +9,7 @@ unsigned int mod (int a, int b) { // a mod b. con b >= 0
 }
 
 unsigned int int_to_f3(int n) {
-    return mod(n , 3);
+    return ( n >= 0 ) ? n%3 : mod(n, 3);
 }
 
 unsigned int kth_bit(unsigned int n, unsigned int k) { //ritorna il k-esimo bit di n. In modo da non avere array. 3 operazioni
