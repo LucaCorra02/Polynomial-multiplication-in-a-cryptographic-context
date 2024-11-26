@@ -1,6 +1,7 @@
 #include "f3Utils.h"
 
 const unsigned int look_up_table[] = {0b00,0b01,0b10,0b00};
+const unsigned int swap_look_up_table[] = {0b00,0b10,0b01,0b00};
 const unsigned int LSB_I = 0; //la posizione del bit meno significativo
 const unsigned int MSB_I = 1; //posizione bit più significativo
 
@@ -13,7 +14,7 @@ unsigned int int_to_f3(int n) {
 }
 
 unsigned int kth_bit(unsigned int n, unsigned int k) { //ritorna il k-esimo bit di n. In modo da non avere array. 3 operazioni
-    return (n & ( 1 << k )) >> k;
+    return (k == MSB_I) ? (*(char*)&n & 2) >> 1 : *(char*)&n & 1;
 }
 
 void print_binary(unsigned int n) { //stampa rappresentazione binaria di un intero.
@@ -46,9 +47,12 @@ unsigned int f3_prod(unsigned int a, unsigned int b){
     return look_up_table[prod_up*2+prod_lo]; //Mod 3
 }
 
+unsigned int swap_bits(unsigned int n){  return swap_look_up_table[n]; }
+
+/*
 void swap_bits(int* n, int p1, int p2) { //switcha il MSB con il LSB //Costo per swap_bit da segnalare, non è zero.
     if (((*n & (1 << p1)) >> p1) ^ ((*n & (1 << p2)) >> p2)) {
         *n ^= 1 << p1;
         *n ^= 1 << p2;
     }
-}
+}*/

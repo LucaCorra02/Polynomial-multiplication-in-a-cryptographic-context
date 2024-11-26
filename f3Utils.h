@@ -3,7 +3,7 @@
 
 unsigned int kth_bit(unsigned int n, unsigned int k);//ritorna il k-esimo bit di n. In modo da non avere array.
 
-void swap_bits(int* n, int p1, int p2);
+unsigned int swap_bits(unsigned int n);
 
 unsigned int int_to_f3(int n);
 
