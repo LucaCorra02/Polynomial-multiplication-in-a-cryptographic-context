@@ -62,13 +62,15 @@ def main():
     #100000 -> 999999 = 6
     #1000000 -> 9999999 = 7 
     
-    #gen_input_file(1000000,100,999);
+    #gen_input_file(100000000,100, 999);
     args = sys.argv[1:]
     #gen_correct_output_sum(args[0]);
-    #gen_correct_output_prod(args[0]);
+    gen_correct_output_prod(args[0]);
+
+    ######## F9 Generator
     #gen_input_f9(1000000,999999,10000000)
     #gen_input_f9_neg(1000000,999999,10000000)
-    gen_correct_output_f9prod(args[0])
+    #gen_correct_output_f9prod(args[0])
 
 
 main()
