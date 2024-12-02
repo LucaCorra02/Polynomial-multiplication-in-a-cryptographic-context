@@ -1,8 +1,10 @@
 #ifndef BENCHMARK_H
 #define BENCHMARK_H
+#include "f3UtilsBool.h"
 
 typedef struct {
   long double total_time;
+  long double mean_time;
   int result;
 } results; // Struttura per ritornare i risultati del benchmark
 
