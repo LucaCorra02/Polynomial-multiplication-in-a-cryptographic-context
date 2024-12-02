@@ -20,6 +20,7 @@ results benchmark_f3(unsigned int f3_operation(unsigned int a, unsigned int b),u
     }
     end_time = get_current_time();
     total_time = end_time - start_time;
-    results results = {total_time, total_ris};
+    mean_time = total_time / (long double) num_operations;
+    results results = {total_time, mean_time, total_ris};
     return results;
 }
