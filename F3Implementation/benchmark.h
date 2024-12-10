@@ -1,6 +1,5 @@
 #ifndef BENCHMARK_H
 #define BENCHMARK_H
-#include "f3UtilsBool.h"
 
 typedef struct {
   long double total_time;

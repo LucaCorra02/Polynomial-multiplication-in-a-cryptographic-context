@@ -11,8 +11,8 @@ unsigned int int_to_F3(unsigned int n) {
 }
 
 unsigned int kth_bit(unsigned int n, unsigned int k) { //ritorna il k-esimo bit di n. In modo da non avere array.
-    //return (n & ( 1 << k )) >> k;
-    return (k == MSB_I) ? (*(char*)&n & 2) >> 1 : *(char*)&n & 1;
+    return (n & ( 1 << k )) >> k;
+    //return (k == MSB_I) ? (*(char*)&n & 2) >> 1 : *(char*)&n & 1;
 }
 
 void print_binary(unsigned int n) { //stampa rappresentazione binaria di un intero.
