@@ -24,8 +24,8 @@ mainOperation.o: mainOperation.c getTime.h
 	gcc $(CFLAGS) -c mainOperation.c
 
 benchmarks: utilsImplementation.o benchmarkImplementation.o f9Operation.o f3Implementation.o benchmarks.cpp #Make benchmarks compila solo i benchmarks
-	g++ -c benchmarks.cpp -o benchmarks.o -I./benchmark/include
-	g++ benchmarks.o utilsImplementation.o benchmarkImplementation.o f9Operation.o f3Implementation.o -std=c++11 -I. -isystem -I./benchmark/include -L./benchmark/build/src -lbenchmark -lpthread -o benchmarks.out
+	g++ -c benchmarks.cpp -o benchmarks.o -I./../benchmark/include
+	g++ benchmarks.o utilsImplementation.o benchmarkImplementation.o f9Operation.o f3Implementation.o -std=c++11 -I. -isystem -I../benchmark/include -L../benchmark/build/src -lbenchmark -lpthread -o benchmarks.out
 
 clean:
 	rm -f $(OBJ) $(TARGET)
