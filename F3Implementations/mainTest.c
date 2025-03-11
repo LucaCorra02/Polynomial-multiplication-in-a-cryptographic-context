@@ -23,8 +23,8 @@ int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
         return 1;
     }
 
-    // ./mainTest.out ../TestFile/Cifra1/inputTest.txt 1000000 2 > ../BenchMark/Cifra1/sumIntV1.txt
-    // python3 ../BenchMark/calc.py ../BenchMark/Cifra1/sumIntV1.txt
+    // ./mainTest.out ../TestFile/Cifra1/inputTest.txt 1000000 2 > ../BenchmarkFile/Cifra1/sumIntV1.txt
+    // python3 ../BenchmarkFile/calc.py ../BenchmarkFile/Cifra1/sumIntV1.txt
 
     unsigned int file_rows = atoi(argv[2]), num_operands = atoi(argv[3]);
     unsigned int** operations = create_vector(file_rows, num_operands);
