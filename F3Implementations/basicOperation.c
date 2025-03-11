@@ -1,13 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "f3Utils.h"
+#include "f3bits.h"
 
 const unsigned int look_up_table[] = {0b00,0b01,0b10,0b00};
 const unsigned int LSB_I = 0; //la posizione del bit meno significativo
 const unsigned int MSB_I = 1; //posizione bit più significativo
 
-unsigned int int_to_F3(unsigned int n) {
-    return n%3;
+unsigned int mod (int a, int b) { // a mod b. con b >= 0
+    return ((a % b) + b) % b;
+}
+
+unsigned int int_to_F3(int n) {
+    return ( n >= 0 ) ? n%3 : mod(n, 3);
 }
 
 unsigned int kth_bit(unsigned int n, unsigned int k) { //ritorna il k-esimo bit di n. In modo da non avere array.
