@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "benchmark.h"
+#include "benchmarkf3.h"
 #include "f3bits.h"
-#include "../utils.h"
+#include "../PolyImplementation/utils.h"
 
 
 void testFile(unsigned int f3_operation(unsigned int a, unsigned int b),unsigned int file_rows, unsigned int** operations){

@@ -1,23 +1,20 @@
-TARGET = mainTest.out #Nome File Eseguibile
-SRC = basicOperation.c benchmarkImplementation.c mainTest.c
-OBJ = basicOperation.o benchmarkImplementation.o mainTest.o
-
 CFLAGS = -O3 -flto
 
-all: clean $(TARGET)
-$(TARGET): $(OBJ)
-	gcc $(CFLAGS) $(OBJ) -o $(TARGET)
+all: benchmarks.out
 
-basicOperation.o: basicOperation.c f3bits.h # Compila f3Implementation.c in f3Implementation.o
-	gcc $(CFLAGS) -c basicOperation.c
+f3UtilsImplementation.o: f3UtilsImplementation.c f3Utils.h
+	gcc $(CFLAGS) -c f3UtilsImplementation.c -o f3UtilsImplementation.o
 
-benchmarkImplementation.o: benchmarkImplementation.c benchmark.h
-	gcc $(CFLAGS) -c benchmarkImplementation.c
+basicOperation.o: basicOperation.c f3bits.h f3Utils.h
+	gcc $(CFLAGS) -c basicOperation.c -o basicOperation.o
 
-mainTest.o: mainTest.c benchmark.h benchmark.h f3bits.h
-	gcc $(CFLAGS) -c mainTest.c
+basicOperationBool.o: basicOperationBool.c f3bool.h f3Utils.h
+	gcc $(CFLAGS) -c basicOperationBool.c -o basicOperationBool.o
 
+benchmarks.o: benchmarks.cpp
+	g++ -c benchmarks.cpp -o benchmarks.o -I./../benchmark/include
+
+benchmarks.out: basicOperation.o basicOperationBool.o f3UtilsImplementation.o benchmarks.o
+	g++ benchmarks.o basicOperation.o basicOperationBool.o f3UtilsImplementation.o -std=c++11 -I. -isystem -I../benchmark/include -L../benchmark/build/src -lbenchmark -lpthread -o benchmarks.out
 clean:
-	rm -f $(OBJ) $(TARGET)
-
-.PHONY: all clean
+	rm -f *.o benchmarks.out

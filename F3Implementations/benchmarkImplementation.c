@@ -1,4 +1,4 @@
-#include "benchmark.h"
+#include "benchmarkf3.h"
 #include "f3bits.h"
 #include "../getTime.h"
 #include <stdio.h>

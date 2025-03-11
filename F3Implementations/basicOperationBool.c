@@ -1,21 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <stdbool.h>
-
-typedef struct {
-    long double total_time;
-    long double mean_time;
-    int result;
-} results;
-
-typedef struct f3_element {bool bits[2];} f3_element;
-
-#define CHECK_BIT(n,pos) ((n) & (1<<(pos))) //macro per controllare se l'n-esimo bit è settato.
-
-const unsigned int LSB_I = 0; //la posizione del bit meno significativo
-const unsigned int MSB_I = 1; //posizione bit più significativo
-const unsigned int look_up_table[] = {0b00,0b01,0b10,0b00};
+#include "f3bool.h"
+#include "f3Utils.h"
 
 unsigned int f3_to_int_bool(f3_element f3){
     return look_up_table[f3.bits[MSB_I]*2+f3.bits[LSB_I]];
