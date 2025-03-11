@@ -1,7 +1,7 @@
 #include "f3Utils.h"
 #include "utils.h"
 #include "f9Utils.h"
-#include "benchmark.h"
+#include "f9Benchmark.h"
 
 int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
     if (argc < 4) {

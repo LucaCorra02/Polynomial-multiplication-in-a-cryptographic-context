@@ -1,4 +1,4 @@
-#include "benchmark.h"
+#include "f9Benchmark.h"
 #include "f9Utils.h"
 #include "getTime.h"
 
@@ -15,7 +15,7 @@ results benchmark_f9(f9_element f9_operation(f9_element a, f9_element b),unsigne
         f9_element b = get_f9_element(operations[i][2],operations[i][3]);
         f9_element ris = f9_operation(a,b);
         total_ris += ris;
-        //print_f9_element(ris);
+        print_f9_element(ris);
     }
     end_time = get_current_time();
     total_time = end_time - start_time;
