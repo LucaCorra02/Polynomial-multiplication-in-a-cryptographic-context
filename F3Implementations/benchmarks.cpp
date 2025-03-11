@@ -17,6 +17,7 @@ static void VBITS_SUM_TEST(benchmark::State& state) {
     for (auto _ : state){
         benchmark::DoNotOptimize(f3_sum(int_to_F3(a),int_to_F3(b)));
     }
+
 }
 
 BENCHMARK(VBITS_SUM_TEST)->DenseRange(0, 8, 1);
