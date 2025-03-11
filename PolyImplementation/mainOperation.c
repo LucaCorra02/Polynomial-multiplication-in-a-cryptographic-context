@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
 
     for (unsigned int i = 0; i < 3; i++) {
         results ris = benchmark_f9(f9_prod,file_rows, operations);
-        printf("Esecuzione: %d %d Mean Time %.14Lf -> Total time spent: %Lf\n", i ,ris.result, ris.mean_time , ris.total_time);
+        //printf("Esecuzione: %d %d Mean Time %.14Lf -> Total time spent: %Lf\n", i ,ris.result, ris.mean_time , ris.total_time);
     }
 
 

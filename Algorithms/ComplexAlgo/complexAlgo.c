@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -182,9 +183,9 @@ double complex* split_3_c(int m, double complex* p1, double complex* p2, int n, 
 
     for (int i = 0; i < dim_pn; i++) {
       ris[i] += P0[i];
-      //ris[i + n] += Q7[i];
-      //ris [i + 2*n] += Q4[i];
-      //ris [i + 2*n+k] += Q8[i];
+      ris[i + n] += Q7[i];
+      ris [i + 2*n] += Q4[i];
+      ris [i + 2*n+k] += Q8[i];
     }
 
     free(S1);
@@ -265,7 +266,7 @@ int main(){
     int k = m-(n*2);
     printf("n = %d, k =%d  \n",n,k);
     double complex* ris = split_3_c(m, p1, p2, n, k);
-    print_poly((2*m)-1, ris);
+    //print_poly((2*m)-1, ris);
     free(ris);
 
 }
