@@ -8,7 +8,7 @@ output=""
 file_rows=1000000
 num_operands=2
 
-(./../F3Implementation/basicOperation.out "$input_file" "1000000" "2")
+(./../F3Implementations/basicOperation.out "$input_file" "1000000" "2")
 
 # Scrivo su file contenuto di output
 echo -e "$output" > "$output_file"
