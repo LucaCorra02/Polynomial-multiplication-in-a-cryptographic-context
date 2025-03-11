@@ -1,5 +1,5 @@
 #include "benchmark.h"
-#include "f3Utils.h"
+#include "f3bits.h"
 #include "../getTime.h"
 #include <stdio.h>
 #include <stdlib.h>

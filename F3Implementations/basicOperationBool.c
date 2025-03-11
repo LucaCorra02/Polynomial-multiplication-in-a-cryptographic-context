@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <time.h>
-#include "../getTime.h"
-#include "../utils.h"
 
 typedef struct {
     long double total_time;
@@ -67,61 +64,4 @@ f3_element f3_prod_bool(f3_element a, f3_element b){
     unsigned int prod_up = (a.bits[MSB_I] & b.bits[LSB_I]) ^ (a.bits[LSB_I] & b.bits[MSB_I]) ^ (and12);
     ris.bits[MSB_I] = prod_up, ris.bits[LSB_I] = prod_lo;
     return ris; //Mod 3
-}
-
-
-results benchmark_f3_bool(f3_element f3_operation(f3_element a, f3_element b),unsigned int num_operations, unsigned int** operations){
-    long double mean_time = 0.0;
-    long double total_time = 0.0;
-    long double start_time = 0.0;
-    long double end_time = 0.0;
-
-    start_time = get_current_time();
-    unsigned int total_ris = 0;
-    for(unsigned int i = 0; i < num_operations; i++){
-        //printf("%d %d\n",operations[i][0],operations[i][1]);
-        f3_element ris = f3_operation(int_to_f3_bool(operations[i][0]), int_to_f3_bool(operations[i][1]));
-        //printf("%d\n",f3_to_int_bool(ris));
-        total_ris += f3_to_int_bool(ris);
-    }
-    end_time = get_current_time();
-    total_time = end_time - start_time;
-    mean_time = total_time / (long double) num_operations;
-    results results = {total_time, mean_time, total_ris};
-    return results;
-}
-
-void testFile(f3_element  f3_operation(f3_element a, f3_element  b),unsigned int file_rows, unsigned int** operations){
-    results ris = benchmark_f3_bool(f3_operation, file_rows, operations);
-}
-
-void bench(f3_element  f3_operation(f3_element  a, f3_element  b),unsigned int file_rows, unsigned int** operations){
-    int rip = 200;
-    for (int i = 1; i <= rip; i++) {
-        results ris = benchmark_f3_bool(f3_operation, file_rows, operations);
-        printf("Esecuzione: %d %d Mean Time %.14Lf -> Total time spent: %Lf\n", i ,ris.result, ris.mean_time , ris.total_time);
-    }
-}
-
-
-int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
-    if (argc < 4) {
-        fprintf(stderr, "No args\n");
-        return 1;
-    }
-    unsigned int file_rows = atoi(argv[2]), num_operands = atoi(argv[3]);
-    unsigned int** operations = create_vector(file_rows, num_operands);
-    if (load_vector(argv[1], file_rows, operations) !=0 ){ return 1; }
-    printf("op: %d\n",operations[0][0]);
-
-    //testFile(f3_sum, file_rows, operations);
-    //printf("ciao");
-    //testFile(f3_prod_bool, file_rows, operations);
-
-    //bench(f3_sum_bool, file_rows, operations);
-    bench(f3_prod_bool, file_rows, operations);
-
-
-    free_vector(operations, file_rows);
-    return 0;
 }

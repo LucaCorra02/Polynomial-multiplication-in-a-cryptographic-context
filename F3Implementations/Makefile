@@ -8,13 +8,13 @@ all: clean $(TARGET)
 $(TARGET): $(OBJ)
 	gcc $(CFLAGS) $(OBJ) -o $(TARGET)
 
-basicOperation.o: basicOperation.c f3Utils.h # Compila f3Implementation.c in f3Implementation.o
+basicOperation.o: basicOperation.c f3bits.h # Compila f3Implementation.c in f3Implementation.o
 	gcc $(CFLAGS) -c basicOperation.c
 
 benchmarkImplementation.o: benchmarkImplementation.c benchmark.h
 	gcc $(CFLAGS) -c benchmarkImplementation.c
 
-mainTest.o: mainTest.c benchmark.h benchmark.h f3Utils.h
+mainTest.o: mainTest.c benchmark.h benchmark.h f3bits.h
 	gcc $(CFLAGS) -c mainTest.c
 
 clean:

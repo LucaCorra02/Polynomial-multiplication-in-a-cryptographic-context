@@ -1,7 +1,7 @@
 #ifndef F3UTILS_H
 #define F3UTILS_H
 
-unsigned int int_to_F3(unsigned int n);
+unsigned int int_to_F3(int n);
 
 unsigned int kth_bit(unsigned int n, unsigned int k);
 
