@@ -1,4 +1,4 @@
-TARGET = schoolbookF3.out
+TARGET = f3schoolbook.out
 SRC = f3schoolbook.c f3Implementation.c
 OBJ = f3schoolbook.o f3Implementation.o
 
