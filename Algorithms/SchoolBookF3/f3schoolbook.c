@@ -40,23 +40,23 @@ int* split_operands(char* p, int num_operands){
 
 void print_vector(int* v, int num_elements){
     for (int i = 0; i < num_elements-1; i++){
-        printf("%d, ",v[i]);
+        printf("%d,",v[i]);
     }
     printf("%d\n",v[num_elements-1]);
 }
 
-#define BUFFERSIZE 1000
-#define NUM_OPERANDS 10
+#define BUFFERSIZE 10000
+#define NUM_OPERANDS 1024
 
 int main(int argc, char *argv[]){
     char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
-        printf("Read: %s", buffer);
+        //printf("Read: %s", buffer);
         char* left = strtok(buffer, ";");
         char* right = strtok(NULL, ";");
         int* p1 = split_operands(left,NUM_OPERANDS);
         int* p2 = split_operands(right,NUM_OPERANDS);
-        int* ris = schoolbook_r(10,p1,p2);
+        int* ris = schoolbook_r(NUM_OPERANDS,p1,p2);
         print_vector(ris,(2*NUM_OPERANDS)-1);
         free(p1);
         free(p2);
