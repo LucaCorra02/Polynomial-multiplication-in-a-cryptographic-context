@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "f3Utils.h"
 
 int* schoolbook_r(int n, int* p1, int* p2) {
@@ -26,16 +27,40 @@ int* schoolbook_r(int n, int* p1, int* p2) {
     return ris;
 }
 
+int* split_operands(char* p, int num_operands){
+    int i = 0;
+    int* ris = calloc(num_operands,sizeof(int));
+    char* token = strtok(p, ",");
+    while(token != NULL && i < num_operands) {
+        ris[i++] = atoi(token);
+        token = strtok(NULL, ",");
+    }
+    return ris;
+}
 
+void print_vector(int* v, int num_elements){
+    for (int i = 0; i < num_elements-1; i++){
+        printf("%d, ",v[i]);
+    }
+    printf("%d\n",v[num_elements-1]);
+}
+
+#define BUFFERSIZE 1000
+#define NUM_OPERANDS 10
 
 int main(int argc, char *argv[]){
-    int p1[] = {11, 298, 323, 442, 97, 920, 79, 122};
-    int p2[] = {490, 323, 210, 1000, 210, 5, 33, 210};
-    int n = 8;
-    int* ris = schoolbook_r(n,p1,p2);
-    for (int i = 0; i < (2*n)-1; i++){
-        printf("%d, ",ris[i]);
+    char buffer[BUFFERSIZE];
+    while (fgets(buffer, BUFFERSIZE , stdin)){
+        printf("Read: %s", buffer);
+        char* left = strtok(buffer, ";");
+        char* right = strtok(NULL, ";");
+        int* p1 = split_operands(left,NUM_OPERANDS);
+        int* p2 = split_operands(right,NUM_OPERANDS);
+        int* ris = schoolbook_r(10,p1,p2);
+        print_vector(ris,(2*NUM_OPERANDS)-1);
+        free(p1);
+        free(p2);
+        free(ris);
     }
-    printf("\n");
-    free(ris);
+    return 0;
 }
