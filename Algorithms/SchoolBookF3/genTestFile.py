@@ -42,11 +42,11 @@ def formatted_print(p1,p2):
 
 def main():
     num_rows = 100
-    num_terms = 100
+    num_terms = 1024
     min_range = 0
     max_range = 1000
     #gen_input_random(num_rows, num_terms, min_range, max_range)
-    file_name = "input1.txt"
+    file_name = "TestFile/input1.txt"
     gen_correct_output_prod(file_name)
 
 main()
