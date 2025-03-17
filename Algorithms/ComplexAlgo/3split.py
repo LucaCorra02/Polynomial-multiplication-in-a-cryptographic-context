@@ -43,8 +43,77 @@ def neg_poly(p1):
 def poly_mul(p1,p2):
     return mod3(np.polymul(mod3(p1),mod3(p2)))
 
+def debug_print(p1,p2):
+    print("ris intermedio\n")
+    print("p1: ",p1)
+    print("p2:", p2)
+    print("p1*p2",poly_mul(p1,p2))
+
+def split3_recursive(p1,p2, n, k,result):
+    tot_dim = 2 * n + k
+    ris_degree = 2*tot_dim-1
+    if (2*n)+k < 6:
+        debug_print(p1,p2)
+        return poly_mul(p1,p2)
+
+    A0 = reverse_poly(p1,0,n)
+    A1 = reverse_poly(p1,n,2*n)
+    A2 = reverse_poly(p1,2*n,tot_dim)
+
+    B0 = reverse_poly(p2,0,n)
+    B1 = reverse_poly(p2,n,2*n)
+    B2 = reverse_poly(p2,2*n,tot_dim)
+
+    n_2,k_2 = params(len(A0),3)
+    P0 = split3_recursive(A0,B0,n_2,k_2,result)
+    P1 = split3_recursive(poly_sum(poly_sum(A0,A1),A2), poly_sum(poly_sum(B0,B1),B2),n_2,k_2,result)
+    P2 = split3_recursive(poly_sum(poly_sum(A0, neg_poly(A1)),A2), poly_sum(poly_sum(B0, neg_poly(B1)),B2),n_2,k_2,result)
+    P3 = split3_recursive(poly_sum(poly_sum(A0,mul_img(A1)),neg_poly(A2)), poly_sum(poly_sum(B0,mul_img(B1)), neg_poly(B2)),n_2,k_2,result)
+    n_2,k_2 = params(len(A2),3)
+    P4 = split3_recursive(A2,B2,n_2,k_2,result)
+
+    Q1 = poly_sum(P1, neg_poly(P2))
+    Q2 = poly_sum(P1, P2)
+    Q3 = poly_sum(P0, P4)
+    R2 = poly_sum(neg_poly(Q2), neg_poly(Q3))
+    Q5 = poly_sum(Q2, neg_poly(Q3))
+    Q6 = poly_sum(Q5, neg_poly(P3))
+    R1 = poly_sum(Q1, neg_poly(mul_img(Q6)))
+    R3 = poly_sum(Q1, mul_img(Q6))
+
+
+    P0,R1,R2,R3,P4 = P0.c, R1.c, R2.c, R3.c, P4.c
+    print(P0)
+    print(R1)
+    print(R2)
+    print(R3)
+    print(P4)
+
+
+    for i in range(len(P0)): # P0 * X^0
+        result[i] += P0[-i-1]
+
+    print("P0:",result)
+
+    for i in range(len(R1)): # R1 * X^n
+        result[i + n] += R1[-i-1]
+    print("P1:",result)
+
+
+    for i in range(len(R2)): # R2 * X^(2n)
+        result[i + 2 * n] += R2[-i-1]
+    print("P2:",result)
+
+    for i in range(len(R3)): # R3 * X^(3n)
+        result[i + 3 * n] += R3[-i-1]
+    print("P3:",result)
+    for i in range(len(P4)): # P4 * X^(4n)
+        result[i + 4 * n] += P4[-i-1]
+    print("P4:",result)
+    return mod3(np.poly1d(result))
 
 def split3(p1,p2, n, k):
+    print("Algo1")
     tot_dim = 2 * n + k
 
     A0 = reverse_poly(p1,0,n)
@@ -56,10 +125,15 @@ def split3(p1,p2, n, k):
     B2 = reverse_poly(p2,2*n,tot_dim)
 
     P0 = poly_mul(A0,B0)
+    debug_print(A0,B0)
     P1 = poly_mul(poly_sum(poly_sum(A0,A1),A2), poly_sum(poly_sum(B0,B1),B2))
+    debug_print(poly_sum(poly_sum(A0,A1),A2),poly_sum(poly_sum(B0,B1),B2))
     P2 = poly_mul(poly_sum(poly_sum(A0, neg_poly(A1)),A2), poly_sum(poly_sum(B0, neg_poly(B1)),B2))
+    debug_print(poly_sum(poly_sum(A0, neg_poly(A1)),A2),poly_sum(poly_sum(B0, neg_poly(B1)),B2))
     P3 = poly_mul(poly_sum(poly_sum(A0,mul_img(A1)),neg_poly(A2)), poly_sum(poly_sum(B0,mul_img(B1)), neg_poly(B2)))
+    debug_print(poly_sum(poly_sum(A0,mul_img(A1)),neg_poly(A2)), poly_sum(poly_sum(B0,mul_img(B1)), neg_poly(B2)))
     P4 = poly_mul(A2,B2)
+    debug_print(A2,B2)
 
     Q1 = poly_sum(P1, neg_poly(P2))
     Q2 = poly_sum(P1, P2)
@@ -75,6 +149,11 @@ def split3(p1,p2, n, k):
     result = [0] * ris_degree
 
     P0,R1,R2,R3,P4 = P0.c, R1.c, R2.c, R3.c, P4.c
+    print(P0)
+    print(R1)
+    print(R2)
+    print(R3)
+    print(P4)
 
     for i in range(len(P0)): # P0 * X^0
         result[i] += P0[-i-1]
@@ -120,25 +199,26 @@ def main():
     c2 = np.random.randint(0, 5, terms) + 1j * np.random.randint(1, 5, terms)
     c1 = list(c1)
     c2 = list(c2)
-    print(c1,)
+    print(c1)
     print(c2)
 
     n,k = params(terms,i)
     print(n, k)
 
-    c1.reverse()
-    c2.reverse()
+    #c1.reverse()
+    #c2.reverse()
     p1 = np.poly1d(c1)
     p2 = np.poly1d(c2)
     print(len(p1))
     print(len(p2))
+    print("P1: \n",p1)
+    print("P2: \n",p2)
     ris_expected = mod3(np.polymul(p1,p2))
 
-    print("P1: \n",np.poly1d(p1))
-    print("P2: \n",np.poly1d(p2))
-
-
-    ris_actual = split3_recursive(p1,p2,n,k)
+    result = [0]* (2*terms-1)
+    print(result)
+    #ris_actual = split3(p1,p2,n,k)
+    ris_actual = split3_recursive(p1,p2,n,k,result)
     print("Excpeted:", len(ris_expected))
     poly_cof_print(ris_expected)
     print("Actual:", len(ris_actual))
