@@ -195,8 +195,8 @@ def main():
 
     terms = 18
     i = 3
-    c1 = np.random.randint(0, 5, terms) + 1j * np.random.randint(1, 5, terms)
-    c2 = np.random.randint(0, 5, terms) + 1j * np.random.randint(1, 5, terms)
+    c1 = np.random.randint(0, 100, terms) + 1j * np.random.randint(1, 100, terms)
+    c2 = np.random.randint(0, 100, terms) + 1j * np.random.randint(1, 100, terms)
     c1 = list(c1)
     c2 = list(c2)
     print(c1)
