@@ -98,6 +98,15 @@ def split3(a0,a1,a2,b0,b1,b2, n, k):
     return mod3(np.poly1d(result))
 
 
+def poly_equals(p1,p2):
+    if len(p1) != len(p2): return False
+    p1_cof = p1.c
+    p2_cof = p2.c
+    for i in range(0,len(p1_cof)):
+        if p1_cof[i] != p2_cof[i]: return False
+    return True
+
+
 def main():
     p1 = [2+1j, 1+3j, 0+2j, 3+0j, 2+2j, 1+0j]
     p2 = [3+2j, 1+1j, 0+3j, 2+0j, 3+1j, 1+2j]
@@ -113,5 +122,6 @@ def main():
     ris_actual = split3(p1[0:n],p1[n:2*n],p1[2*n:m], p2[0:n], p2[n:2*n], p2[2*n:m], n,k)
     print("Actual:")
     poly_cof_print(ris_actual)
+    print("Equals: ",poly_equals(ris_expected,ris_actual))
 
 main()
