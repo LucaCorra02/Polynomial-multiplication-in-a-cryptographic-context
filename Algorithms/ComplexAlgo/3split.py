@@ -49,11 +49,15 @@ def debug_print(p1,p2):
     print("p2:", p2)
     print("p1*p2",poly_mul(p1,p2))
 
-def split3_recursive(p1,p2, n, k):
+def split3_recursive(p1,p2, n, k): #TODO fix grado 55
     tot_dim = (2 * n + k)
-    if n < 6 or k < 6 or (2*n)+k < 6 :
-        debug_print(p1,p2)
+    print("algo: ","n:",n,"k: ",k, "deg tot",tot_dim)
+
+    if tot_dim < 6 or n < 6 or k < 6 : # per grado 55
+        #debug_print(p1,p2)
+        print("entro nel caso base con:: ","n:",n,"k: ",k, "deg tot",tot_dim)
         return poly_mul(p1,p2)
+
     ris_degree = 2*tot_dim-1
     result = [0] * ris_degree
 
@@ -66,12 +70,12 @@ def split3_recursive(p1,p2, n, k):
     B1 = reverse_poly(p2,n,2*n)
     B2 = reverse_poly(p2,2*n,tot_dim)
 
-    n_2,k_2 = params(len(A0),3)
+    n_2,k_2 = params(len(A0.c),3)
     P0 = split3_recursive(A0,B0,n_2,k_2)
     P1 = split3_recursive(poly_sum(poly_sum(A0,A1),A2), poly_sum(poly_sum(B0,B1),B2),n_2,k_2)
     P2 = split3_recursive(poly_sum(poly_sum(A0, neg_poly(A1)),A2), poly_sum(poly_sum(B0, neg_poly(B1)),B2),n_2,k_2)
     P3 = split3_recursive(poly_sum(poly_sum(A0,mul_img(A1)),neg_poly(A2)), poly_sum(poly_sum(B0,mul_img(B1)), neg_poly(B2)),n_2,k_2)
-    n_2,k_2 = params(len(A2),3)
+    n_2,k_2 = params(len(A2.c),3)
     P4 = split3_recursive(A2,B2,n_2,k_2)
 
     Q1 = poly_sum(P1, neg_poly(P2))
@@ -85,31 +89,31 @@ def split3_recursive(p1,p2, n, k):
 
 
     P0,R1,R2,R3,P4 = P0.c, R1.c, R2.c, R3.c, P4.c
-    print(P0)
-    print(R1)
-    print(R2)
-    print(R3)
-    print(P4)
+    #print(P0)
+    #print(R1)
+    #print(R2)
+    #print(R3)
+    #print(P4)
 
     for i in range(len(P0)): # P0 * X^0
         result[i] += P0[-i-1]
 
-    print("P0:",result)
+    #print("P0:",result)
 
     for i in range(len(R1)): # R1 * X^n
         result[i + n] += R1[-i-1]
-    print("P1:",result)
+    #print("P1:",result)
 
     for i in range(len(R2)): # R2 * X^(2n)
         result[i + 2 * n] += R2[-i-1]
-    print("P2:",result)
+    #print("P2:",result)
 
     for i in range(len(R3)): # R3 * X^(3n)
         result[i + 3 * n] += R3[-i-1]
-    print("P3:",result)
+    #print("P3:",result)
     for i in range(len(P4)): # P4 * X^(4n)
         result[i + 4 * n] += P4[-i-1]
-    print("P4:",result)
+    #print("P4:",result)
     return mod3(np.poly1d(result))
 
 def split3(p1,p2, n, k):
@@ -192,8 +196,10 @@ def main():
     #c1 = [1j, (4+4j), (2+1j), (4+2j), (3+1j), (3+1j), 1j, (1+3j), (1+4j), (4+2j), (4+0j), (4+4j), (1+4j), (1+1j), (3+2j), 1j, (3+3j), 0j]
     #c2 = [(1+2j), (4+2j), (3+4j), (4+0j), (2+1j), (3+2j), (4+1j), (1+4j), (4+1j), (2+4j), 2j, 1j, 4j, 1j, (4+3j), (4+2j), (2+2j), (4+0j)]
 
+    #c1 = [(2+4j), (1+3j), (3+1j), (1+2j), (4+4j), (4+3j), (2+1j), (2+1j), (2+4j), (1+2j), (4+1j), (4+2j), (1+4j), (2+1j), (4+2j), (4+1j), (1+3j), (4+3j), (1+4j), (2+3j), (3+3j), (3+3j), (1+2j), (2+3j), (1+2j), (2+1j), (4+2j), (1+2j), (4+3j), (4+1j), (4+4j), (4+1j), (2+2j), (1+2j), (4+2j), (1+3j), (1+2j), (1+3j), (2+2j), (1+1j), (2+2j), (2+1j), (2+4j), (3+3j), (2+1j), (2+4j), (4+4j), (2+3j), (1+3j), (1+1j), (4+1j), (4+3j), (3+2j), (4+2j), (2+1j)]
+    #c2 = [(1+3j), (2+4j), (3+1j), (4+3j), (2+4j), (1+4j), (4+3j), (1+1j), (3+3j), (1+3j), (2+3j), (1+1j), (1+3j), (4+2j), (2+3j), (3+4j), (1+3j), (4+1j), (1+4j), (3+3j), (1+1j), (3+2j), (2+1j), (4+4j), (1+2j), (2+3j), (3+4j), (1+4j), (1+2j), (1+2j), (4+2j), (3+3j), (2+1j), (2+1j), (3+4j), (4+3j), (4+3j), (2+2j), (3+1j), (3+4j), (2+4j), (3+2j), (2+3j), (1+2j), (1+3j), (1+1j), (1+3j), (1+2j), (3+1j), (1+4j), (4+1j), (1+3j), (1+2j), (3+1j), (3+4j)]
 
-    terms = 54
+    terms = 55
     i = 3
     c1 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
     c2 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
