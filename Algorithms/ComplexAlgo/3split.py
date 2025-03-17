@@ -15,6 +15,11 @@ def get_3split_params(m, i):
     n_max = math.floor((2*m) / ((2*i)-1))
     return [n_min, n_max]
 
+def params(m,i):
+    n = get_3split_params(m,i)[0] #prendo prima sempre minimo
+    k = m - (2*n)
+    return n,k
+
 def mod3(poly):
     ris_mod3 = []
     for coff in poly.coef:
@@ -99,8 +104,7 @@ def main():
     m = 6
     i = 3
 
-    n = get_3split_params(m,i)[0] #prendo prima sempre minimo
-    k = m - (2*n)
+    n,k = params(m,i)
     print(n, k)
 
     ris_expected = mod3(np.polymul(np.poly1d(p1),np.poly1d(p2)))
