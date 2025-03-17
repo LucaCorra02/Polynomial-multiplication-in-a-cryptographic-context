@@ -33,7 +33,7 @@ unsigned int f3_sum(unsigned int a, unsigned int b){
 
     unsigned int sum_lo = ((xor00) ^ (and01)) ^ ((xor01) & (and00));
     unsigned int sum_up = ((xor01) ^ (and00)) ^ ((xor00) & (and01));
-    return look_up_table[sum_up*2+sum_lo]; //Mod 3
+    return look_up_table[sum_up^sum_lo]; //Mod 3
 }
 
 unsigned int f3_prod(unsigned int a, unsigned int b){
