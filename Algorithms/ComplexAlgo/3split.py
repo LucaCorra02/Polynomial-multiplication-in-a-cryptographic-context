@@ -2,8 +2,13 @@ import numpy as np
 import math
 
 def poly_cof_print(p):
-    st1 = ",".join([str(elem) for elem in p])
+    st1 = ",".join([str(elem) for elem in p.c])
     print(st1)
+
+def reverse_poly(p, start, end):
+    cof = p.c
+    cof = cof[start:end][::-1]
+    return  np.poly1d(cof)
 
 """
     m = termini polinomio
@@ -40,22 +45,15 @@ def poly_mul(p1,p2):
 
 
 def split3(p1,p2, n, k):
-
-    p1_reversed = p1[::-1]
-    p2_reversed = p2[::-1]
-
     tot_dim = 2 * n + k
 
-    # Divisione corretta dei coefficienti invertiti
-    A0 = np.poly1d(p1_reversed[0:n][::-1])
-    A1 = np.poly1d(p1_reversed[n:2*n][::-1])
-    A2 = np.poly1d(p1_reversed[2*n:tot_dim][::-1])
+    A0 = reverse_poly(p1,0,n)
+    A1 = reverse_poly(p1,n,2*n)
+    A2 = reverse_poly(p1,2*n,tot_dim)
 
-    B0 = np.poly1d(p2_reversed[0:n][::-1])
-    B1 = np.poly1d(p2_reversed[n:2*n][::-1])
-    B2 = np.poly1d(p2_reversed[2*n:tot_dim][::-1])
-
-    print("\n",A0)
+    B0 = reverse_poly(p2,0,n)
+    B1 = reverse_poly(p2,n,2*n)
+    B2 = reverse_poly(p2,2*n,tot_dim)
 
     P0 = poly_mul(A0,B0)
     P1 = poly_mul(poly_sum(poly_sum(A0,A1),A2), poly_sum(poly_sum(B0,B1),B2))
@@ -73,35 +71,27 @@ def split3(p1,p2, n, k):
     R3 = poly_sum(Q1, mul_img(Q6))
 
 
-    ris_degree = 2*tot_dim-1  # Grado massimo corretto
+    ris_degree = 2*tot_dim-1
     result = [0] * ris_degree
 
     P0,R1,R2,R3,P4 = P0.c, R1.c, R2.c, R3.c, P4.c
 
-    for i in range(len(P0)):  # P0 * X^0 (nessuno shift)
+    for i in range(len(P0)): # P0 * X^0
         result[i] += P0[-i-1]
-    print(P0)
-    print("Ris P0",result)
 
-    for i in range(len(R1)):  # R1 * X^n (shift a destra)
+    for i in range(len(R1)): # R1 * X^n
         result[i + n] += R1[-i-1]
-    print("Ris R1",result)
 
-    for i in range(len(R2)):  # R2 * X^(2n) (shift a destra)
+    for i in range(len(R2)): # R2 * X^(2n)
         result[i + 2 * n] += R2[-i-1]
-    print("Ris R2",result)
 
-    for i in range(len(R3)):  # R3 * X^(3n) (shift a destra)
+    for i in range(len(R3)): # R3 * X^(3n)
         result[i + 3 * n] += R3[-i-1]
-    print("Ris R3",result)
 
-    for i in range(len(P4)):  # P4 * X^(4n) (shift a destra)
-        result[i + 4 * n] += P4[-i-1]  # Correggi anche qui: 4n, non 3n + k
-    print("Ris R4",result)
+    for i in range(len(P4)): # P4 * X^(4n)
+        result[i + 4 * n] += P4[-i-1]
 
-    #print(result)
     return mod3(np.poly1d(result))
-
 
 def poly_equals(p1,p2):
     if len(p1) != len(p2): return False
@@ -113,28 +103,45 @@ def poly_equals(p1,p2):
 
 
 def main():
-    #p1 = [2+1j, 1+3j, 0+2j, 3+0j, 2+2j, 1+0j]
-    #p2 = [3+2j, 1+1j, 0+3j, 2+0j, 3+1j, 1+2j]
 
-    p1 = [2+1j, 1+3j, 0+2j, 3+0j, 2+2j, 1+0j, 112+76j, 0+98j]
-    p2 = [3+2j, 1+1j, 0+3j, 2+0j, 3+1j, 1+2j,8+322j, 4+567j]
-    m = 8
+    #c1 = [2+1j, 1+3j, 0+2j, 3+0j, 2+2j, 1+0j]
+    #c2 = [3+2j, 1+1j, 0+3j, 2+0j, 3+1j, 1+2j]
+
+    #c1 = [2+1j, 1+3j, 0+2j, 3+0j, 2+2j, 1+0j, 112+76j, 0+98j]
+    #c2 = [3+2j, 1+1j, 0+3j, 2+0j, 3+1j, 1+2j,8+322j, 4+567j]
+
+    #c1 = [1j, (4+4j), (2+1j), (4+2j), (3+1j), (3+1j), 1j, (1+3j), (1+4j), (4+2j), (4+0j), (4+4j), (1+4j), (1+1j), (3+2j), 1j, (3+3j), 0j]
+    #c2 = [(1+2j), (4+2j), (3+4j), (4+0j), (2+1j), (3+2j), (4+1j), (1+4j), (4+1j), (2+4j), 2j, 1j, 4j, 1j, (4+3j), (4+2j), (2+2j), (4+0j)]
+
+
+    terms = 18
     i = 3
+    c1 = np.random.randint(0, 5, terms) + 1j * np.random.randint(1, 5, terms)
+    c2 = np.random.randint(0, 5, terms) + 1j * np.random.randint(1, 5, terms)
+    c1 = list(c1)
+    c2 = list(c2)
+    print(c1,)
+    print(c2)
 
-    n,k = params(m,i)
+    n,k = params(terms,i)
     print(n, k)
 
-    ris_expected = mod3(np.polymul(np.poly1d(p1),np.poly1d(p2)))
+    c1.reverse()
+    c2.reverse()
+    p1 = np.poly1d(c1)
+    p2 = np.poly1d(c2)
+    print(len(p1))
+    print(len(p2))
+    ris_expected = mod3(np.polymul(p1,p2))
 
     print("P1: \n",np.poly1d(p1))
     print("P2: \n",np.poly1d(p2))
 
 
-    ris_actual = split3(p1,p2,n,k)
-    ris_actual = np.poly1d(ris_actual.c[::-1])
-    print("Excpeted:")
+    ris_actual = split3_recursive(p1,p2,n,k)
+    print("Excpeted:", len(ris_expected))
     poly_cof_print(ris_expected)
-    print("Actual:")
+    print("Actual:", len(ris_actual))
     poly_cof_print(ris_actual)
     print("Equals: ",poly_equals(ris_expected,ris_actual))
 
