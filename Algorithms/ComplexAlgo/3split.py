@@ -1,4 +1,19 @@
 import numpy as np
+import math
+
+def poly_cof_print(p):
+    st1 = ",".join([str(elem) for elem in p])
+    print(st1)
+
+"""
+    m = termini polinomio
+    i = grado split
+    restiuisce le varie possibili taglie di n per i termini di grado minore.
+"""
+def get_3split_params(m, i):
+    n_min = math.ceil(m / i)
+    n_max = math.floor((2*m) / ((2*i)-1))
+    return [n_min, n_max]
 
 def mod3(poly):
     ris_mod3 = []
@@ -19,25 +34,19 @@ def poly_mul(p1,p2):
     return mod3(np.polymul(mod3(p1),mod3(p2)))
 
 
-def main():
-    p1 = [2+1j, 1+3j, 0+2j, 3+0j, 2+2j, 1+0j]
-    p2 = [3+2j, 1+1j, 0+3j, 2+0j, 3+1j, 1+2j]
-
-    print(mod3(np.polymul(np.poly1d(p1),np.poly1d(p2))))
-
-
-    A0 = np.poly1d([2+2j, 1+0j])
-    A1 = np.poly1d([0+2j, 3+0j])
-    A2 = np.poly1d([2+1j, 1+3j])
+def split3(a0,a1,a2,b0,b1,b2, n, k):
+    A0 = np.poly1d(a0)
+    A1 = np.poly1d(a1)
+    A2 = np.poly1d(a2)
     #S1 = poly_sum(A0, A2)
     #S2 = poly_sum(S1, A1)
     #S3 = poly_sum(S1, neg_poly(A1))
     #S4 = poly_sum(A0, neg_poly(A2))
     #S5 = poly_sum(S4, mul_img(A1))
 
-    B0 = np.poly1d([3+1j, 1+2j])
-    B1 = np.poly1d([0+3j, 2+0j])
-    B2 = np.poly1d([3+2j, 1+1j])
+    B0 = np.poly1d(b0)
+    B1 = np.poly1d(b1)
+    B2 = np.poly1d(b2)
     #S1_B = poly_sum(B0, B2)
     #S2_B = poly_sum(S1_B, B1)
     #S3_B = poly_sum(S1_B, neg_poly(B1))
@@ -59,16 +68,35 @@ def main():
     R1 = poly_sum(Q1, neg_poly(mul_img(Q6)))
     R3 = poly_sum(Q1, mul_img(Q6))
 
-    
+
+    terms = [P0, R1, R2, R3, P4]
+    res = np.poly1d([0])
+
+    for i in range(5):
+        term = terms[i]
+        shift = i * n
+        x_shift_coeffs = [1] + [0] * shift #x^(shift)
+        x_shift = np.poly1d(x_shift_coeffs)
+        shifted_term = term * x_shift
+        res += shifted_term
+
+    result_coeffs = mod3(res)
+    return result_coeffs
 
 
+def main():
+    p1 = [2+1j, 1+3j, 0+2j, 3+0j, 2+2j, 1+0j]
+    p2 = [3+2j, 1+1j, 0+3j, 2+0j, 3+1j, 1+2j]
+    m = 6
+    i = 3
 
-    print(P0)
-    print(R1)
-    print(R2)
-    print(R3)
-    print(P4)
+    n = get_3split_params(m,i)
+    k = m - (2*n[0])
+    print(n, k)
 
-
+    ris_expected = mod3(np.polymul(np.poly1d(p1),np.poly1d(p2)))
+    poly_cof_print(ris_expected)
+    ris_actual = split3(p1[0:n],p1[n:2*n],p1[2*n:m],[2+1j, 1+3j], [3+1j, 1+2j], [0+3j, 2+0j], [3+2j, 1+1j], n[0],k)
+    poly_cof_print(ris_actual)
 
 main()
