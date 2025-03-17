@@ -69,19 +69,28 @@ def split3(a0,a1,a2,b0,b1,b2, n, k):
     R3 = poly_sum(Q1, mul_img(Q6))
 
 
-    terms = [P0, R1, R2, R3, P4]
-    res = np.poly1d([0])
+    ris_degree = 2*((2*n)+k) -1  # Grado massimo del polinomio finale
+    result = [0] * ris_degree
 
-    for i in range(5):
-        term = terms[i]
-        shift = i * n
-        x_shift_coeffs = [1] + [0] * shift #x^(shift)
-        x_shift = np.poly1d(x_shift_coeffs)
-        shifted_term = term * x_shift
-        res += shifted_term
+    P0,R1,R2,R3,P4 = P0.c, R1.c, R2.c, R3.c, P4.c
 
-    result_coeffs = mod3(res)
-    return result_coeffs
+    for i in range(len(P0)): #P0 * X^0
+        result[i] += P0[i]
+
+    for i in range(len(R1)): #R1 * X^n
+        result[i + n] += R1[i]
+
+    for i in range(len(R2)): #R2 * X^(2n)
+        result[i + 2 * n] += R2[i]
+
+    for i in range(len(R3)): #R3 * X^(3n)
+        result[i + 3 * n] += R3[i]
+
+    for i in range(len(P4)): #P4 * X^(4n)
+        result[i + (3*n)+k] += P4[i]
+
+    #print(result)
+    return mod3(np.poly1d(result))
 
 
 def main():
@@ -90,13 +99,15 @@ def main():
     m = 6
     i = 3
 
-    n = get_3split_params(m,i)
-    k = m - (2*n[0])
+    n = get_3split_params(m,i)[0] #prendo prima sempre minimo
+    k = m - (2*n)
     print(n, k)
 
     ris_expected = mod3(np.polymul(np.poly1d(p1),np.poly1d(p2)))
+    print("Excpeted:")
     poly_cof_print(ris_expected)
-    ris_actual = split3(p1[0:n],p1[n:2*n],p1[2*n:m],[2+1j, 1+3j], [3+1j, 1+2j], [0+3j, 2+0j], [3+2j, 1+1j], n[0],k)
+    ris_actual = split3(p1[0:n],p1[n:2*n],p1[2*n:m], p2[0:n], p2[n:2*n], p2[2*n:m], n,k)
+    print("Actual:")
     poly_cof_print(ris_actual)
 
 main()
