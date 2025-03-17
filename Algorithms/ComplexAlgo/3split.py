@@ -78,7 +78,6 @@ def split3_recursive(p1,p2, n, k):
     Q3 = poly_sum(P0, P4)
     R2 = poly_sum(neg_poly(Q2), neg_poly(Q3))
     Q5 = poly_sum(Q2, neg_poly(Q3))
-
     Q6 = poly_sum(Q5, neg_poly(P3))
     R1 = poly_sum(Q1, neg_poly(mul_img(Q6)))
     R3 = poly_sum(Q1, mul_img(Q6))
