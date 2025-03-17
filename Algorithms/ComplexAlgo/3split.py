@@ -50,12 +50,13 @@ def debug_print(p1,p2):
     print("p1*p2",poly_mul(p1,p2))
 
 def split3_recursive(p1,p2, n, k):
-    tot_dim = 2 * n + k
-    ris_degree = 2*tot_dim-1
-    result = [0] * ris_degree
-    if (2*n)+k < 6:
+    tot_dim = (2 * n + k)
+    if n < 6 or k < 6 or (2*n)+k < 6 :
         debug_print(p1,p2)
         return poly_mul(p1,p2)
+    ris_degree = 2*tot_dim-1
+    result = [0] * ris_degree
+
 
     A0 = reverse_poly(p1,0,n)
     A1 = reverse_poly(p1,n,2*n)
@@ -99,7 +100,6 @@ def split3_recursive(p1,p2, n, k):
         result[i + n] += R1[-i-1]
     print("P1:",result)
 
-
     for i in range(len(R2)): # R2 * X^(2n)
         result[i + 2 * n] += R2[-i-1]
     print("P2:",result)
@@ -114,7 +114,7 @@ def split3_recursive(p1,p2, n, k):
 
 def split3(p1,p2, n, k):
     print("Algo1")
-    tot_dim = 2 * n + k
+    tot_dim = (2 * n + k)
 
     A0 = reverse_poly(p1,0,n)
     A1 = reverse_poly(p1,n,2*n)
@@ -193,14 +193,17 @@ def main():
     #c2 = [(1+2j), (4+2j), (3+4j), (4+0j), (2+1j), (3+2j), (4+1j), (1+4j), (4+1j), (2+4j), 2j, 1j, 4j, 1j, (4+3j), (4+2j), (2+2j), (4+0j)]
 
 
-    terms = 18
+    terms = 54
     i = 3
-    c1 = np.random.randint(0, 100, terms) + 1j * np.random.randint(1, 100, terms)
-    c2 = np.random.randint(0, 100, terms) + 1j * np.random.randint(1, 100, terms)
+    c1 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
+    c2 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
     c1 = list(c1)
     c2 = list(c2)
     print(c1)
     print(c2)
+
+    param = get_3split_params(terms, i)
+    print(param)
 
     n,k = params(terms,i)
     print(n, k)
