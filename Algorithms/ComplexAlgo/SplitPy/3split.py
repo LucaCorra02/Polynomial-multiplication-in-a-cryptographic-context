@@ -21,9 +21,13 @@ def get_3split_params(m, i):
     return [n_min, n_max]
 
 def params(m,i):
-    n = get_3split_params(m,i)[0] #prendo prima sempre minimo
-    k = m - (2*n)
-    return n,k
+
+    n = m // 3
+    k = m - 2 * n
+    if k < 0:
+        n -= 1
+        k = m - 2 * n
+    return n, k
 
 def mod3(poly):
     ris_mod3 = []
@@ -49,11 +53,11 @@ def debug_print(p1,p2):
     print("p2:", p2)
     print("p1*p2",poly_mul(p1,p2))
 
-def split3_recursive(p1,p2, n, k): #TODO fix grado 55
+def split3_recursive(p1,p2, n, k): #TODO fix grado 55 problema nella costruszione dei risultati ricorsivi
     tot_dim = (2 * n + k)
     print("algo: ","n:",n,"k: ",k, "deg tot",tot_dim)
 
-    if tot_dim < 6 or n < 6 or k < 6 : # per grado 55
+    if tot_dim < 6 or n < 1 or k < 1 : # per grado 55
         #debug_print(p1,p2)
         print("entro nel caso base con:: ","n:",n,"k: ",k, "deg tot",tot_dim)
         return poly_mul(p1,p2)
@@ -69,9 +73,9 @@ def split3_recursive(p1,p2, n, k): #TODO fix grado 55
     B0 = reverse_poly(p2,0,n)
     B1 = reverse_poly(p2,n,2*n)
     B2 = reverse_poly(p2,2*n,tot_dim)
-
     n_2,k_2 = params(len(A0.c),3)
     P0 = split3_recursive(A0,B0,n_2,k_2)
+    n_2,k_2 = params(max(len(A0.c),len(A2.c)),3)
     P1 = split3_recursive(poly_sum(poly_sum(A0,A1),A2), poly_sum(poly_sum(B0,B1),B2),n_2,k_2)
     P2 = split3_recursive(poly_sum(poly_sum(A0, neg_poly(A1)),A2), poly_sum(poly_sum(B0, neg_poly(B1)),B2),n_2,k_2)
     P3 = split3_recursive(poly_sum(poly_sum(A0,mul_img(A1)),neg_poly(A2)), poly_sum(poly_sum(B0,mul_img(B1)), neg_poly(B2)),n_2,k_2)
@@ -199,7 +203,7 @@ def main():
     #c1 = [(2+4j), (1+3j), (3+1j), (1+2j), (4+4j), (4+3j), (2+1j), (2+1j), (2+4j), (1+2j), (4+1j), (4+2j), (1+4j), (2+1j), (4+2j), (4+1j), (1+3j), (4+3j), (1+4j), (2+3j), (3+3j), (3+3j), (1+2j), (2+3j), (1+2j), (2+1j), (4+2j), (1+2j), (4+3j), (4+1j), (4+4j), (4+1j), (2+2j), (1+2j), (4+2j), (1+3j), (1+2j), (1+3j), (2+2j), (1+1j), (2+2j), (2+1j), (2+4j), (3+3j), (2+1j), (2+4j), (4+4j), (2+3j), (1+3j), (1+1j), (4+1j), (4+3j), (3+2j), (4+2j), (2+1j)]
     #c2 = [(1+3j), (2+4j), (3+1j), (4+3j), (2+4j), (1+4j), (4+3j), (1+1j), (3+3j), (1+3j), (2+3j), (1+1j), (1+3j), (4+2j), (2+3j), (3+4j), (1+3j), (4+1j), (1+4j), (3+3j), (1+1j), (3+2j), (2+1j), (4+4j), (1+2j), (2+3j), (3+4j), (1+4j), (1+2j), (1+2j), (4+2j), (3+3j), (2+1j), (2+1j), (3+4j), (4+3j), (4+3j), (2+2j), (3+1j), (3+4j), (2+4j), (3+2j), (2+3j), (1+2j), (1+3j), (1+1j), (1+3j), (1+2j), (3+1j), (1+4j), (4+1j), (1+3j), (1+2j), (3+1j), (3+4j)]
 
-    terms = 55
+    terms = 20
     i = 3
     c1 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
     c2 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
