@@ -11,9 +11,12 @@ class F9Poly:
         ris = self.p * complex(0,1)
         return F9Poly(ris.coef)
 
+    def poly_mul(self, p2):
+        ris = self.p * p2.p
+        return F9Poly(ris.coef)
+
     def poly_cof(self):
         return self.p.coef
 
     def print_poly(self):
         print(self.p)
-
