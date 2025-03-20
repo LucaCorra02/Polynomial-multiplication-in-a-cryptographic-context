@@ -2,7 +2,7 @@ import unittest
 from SplitClass import F9Poly
 from parameterized import parameterized
 import random
-
+import numpy as np
 
 def generate_random_complex_list():
     length = 5 # Lunghezza casuale tra 1 e 5
@@ -24,7 +24,9 @@ class TestF9Poly(unittest.TestCase):
         ],
     ])
     def test_constructor(self,name,cof,expected):
-        print(name,cof,expected)
+        print("Test: ",name)
+        poly = F9Poly(cof)
+        np.testing.assert_array_equal(poly.poly_cof(), expected)
 
 if __name__ == '__main__':
     #print(generate_random_complex_list())

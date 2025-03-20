@@ -12,7 +12,7 @@ class F9Poly:
         return F9Poly(ris.coef)
 
     def poly_cof(self):
-        return self.p.coef()
+        return self.p.coef
 
     def print_poly(self):
         print(self.p)
