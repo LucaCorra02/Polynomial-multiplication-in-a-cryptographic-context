@@ -32,6 +32,13 @@ class F9Poly:
 
     def print_poly(self):
         print(self.p)
+
+    def redux(self):
+        p_cof = self.p.coef
+        while p_cof[-1] == complex(0,0):
+            p_cof = p_cof[:-1]
+        return  F9Poly(p_cof)
+
 def get_3split_params(m, i):
     n_min = math.ceil(m / i)
     n_max = math.floor((2*m) / ((2*i)-1))
@@ -43,7 +50,7 @@ def params(m,i):
     return n,k
 
 def split3_recursive(p1, p2, m):
-    #assert p1.poly_num_terms() == p2.poly_num_terms() == m, (p1.poly_cof(),p2.poly_cof(),m)
+    ##assert p1.poly_num_terms() == p2.poly_num_terms() == m, (p1.poly_cof(),p2.poly_cof(),m)
     n, k = params(p1.poly_num_terms(),3)
     tot_dim = (2 * n) + k
 
@@ -86,27 +93,40 @@ def split3_recursive(p1, p2, m):
 
     P0_c,R1_c,R2_c,R3_c,P4_c = P0.poly_cof(), R1.poly_cof(), R2.poly_cof(), R3.poly_cof(), P4.poly_cof()
     ris_degree = (2*tot_dim)-1
-    result = [complex(0,0)] * ris_degree
+    #result = [complex(0,0)] * ris_degree
+    result = [complex(0,0)] * ris_degree*2
 
 
     for i in range(P0.poly_num_terms()): # P0 * X^0
         result[i] += P0_c[i]
-    print(result)
+    #print(result)
 
     for i in range(R1.poly_num_terms()): # R1 * X^n
+        #assert i+n < ris_degree, (i+n,R1.poly_cof())
         result[i + n] += R1_c[i]
-    print(result)
+    #print(result)
 
     for i in range(R2.poly_num_terms()): # R2 * X^(2n)
+        if R2_c[i] == complex(0,0):
+            continue
+        #assert i+2*n < ris_degree, (i+2*n,R2.poly_cof())
         result[i + 2 * n] += R2_c[i]
-    print(result)
+    #print(result)
+
     for i in range(R3.poly_num_terms()): # R3 * X^(3n)
+        if R3_c[i] == complex(0,0):
+            continue
+        #assert i+3*n < ris_degree, (i+3*n,R3.poly_cof())
         result[i + 3 * n] += R3_c[i]
-    print(result)
+    #print(result)
+
     for i in range(P4.poly_num_terms()): # P4 * X^(4n)
+        if P4_c[i] == complex(0,0):
+            continue
+        #assert i+4*n < ris_degree, (i+4*n,P4.poly_cof(),ris_degree)
         result[i + 4 * n] += P4_c[i]
 
-    print(result)
+    #print("last",result)
     return F9Poly(result)
 
 def poly_equals(p1,p2):
@@ -115,10 +135,12 @@ def poly_equals(p1,p2):
         if p1[i] != p2[i]: return False
     return True
 
-
 def main():
 
-    terms = 6
+    #c1 = [(0.+2.j), (1.+1.j), (1.+2.j), (1.+2.j), (1.+2.j), (2.+2.j), (1.+1.j), (2.+2.j), (1.+0.j), (1.+0.j), (1.+0.j), (2.+2.j), (2.+0.j), (1.+1.j), (1.+2.j), (2.+1.j), (1.+2.j), (0.+1.j), (1.+2.j), (1.+1.j)]
+    #c2 = [(1.+1.j),(1.+2.j),(2.+0.j),(0.+2.j),(1.+2.j),(2.+2.j),(0.+2.j),(0.+0.j),(0.+1.j),(1.+2.j),(1.+2.j),(0.+1.j),(0.+2.j),(0.+0.j),(2.+1.j),(2.+1.j),(2.+0.j),(1.+0.j),(1.+1.j),(1.+1.j)]
+
+    terms = 1024
     i = 3
     c1 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
     c2 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
@@ -142,12 +164,13 @@ def main():
     ris_expected = p1.poly_mul(p2)
 
     #ris_actual = split3(p1,p2,n,k)
-    ris_actual = split3_recursive(p1,p2,terms )
+    ris_actual = split3_recursive(p1,p2,terms)
+    ris_reduxed = ris_actual.redux()
 
     print("Excpeted:", ris_expected.poly_num_terms())
     print(ris_expected.poly_cof())
-    print("Actual:", ris_actual.poly_num_terms())
-    print(ris_actual.poly_cof())
-    print("Equals: ",poly_equals(ris_expected.poly_cof(),ris_actual.poly_cof()))
+    print("Actual:", ris_reduxed.poly_cof())
+    print(ris_reduxed.poly_cof())
+    print("Equals: ",poly_equals(ris_expected.poly_cof(),ris_reduxed.poly_cof()))
 
 main()
