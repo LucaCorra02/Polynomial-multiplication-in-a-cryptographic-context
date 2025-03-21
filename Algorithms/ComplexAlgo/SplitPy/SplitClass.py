@@ -14,6 +14,9 @@ class F9Poly:
     def poly_mul(self, p2):
         ris = self.p * p2.p
         return F9Poly(ris.coef)
+    def poly_neg(self):
+        ris = self.p * -1
+        return F9Poly(ris.coef)
 
     def poly_sum(self, p2):
         ris = self.p + p2.p

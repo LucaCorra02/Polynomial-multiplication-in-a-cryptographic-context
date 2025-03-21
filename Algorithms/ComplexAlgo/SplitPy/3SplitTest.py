@@ -73,6 +73,17 @@ class TestF9Poly(unittest.TestCase):
         ris = s1.poly_sum(s2)
         np.testing.assert_array_equal(ris.poly_cof(), expected)
 
+    @parameterized.expand([
+        ["case1",
+         [(2 + 2j),(0 + 2j),(2 + 0j),(1 + 2j),(0 + 1j)],
+         [(1 + 1j),(0 + 1j),(1 + 0j),(2 + 1j),(0 + 2j)]
+         ]
+    ])
+    def test_polyneg(self,name,p1,expected):
+        s1 = F9Poly(p1)
+        ris = s1.poly_neg()
+        np.testing.assert_array_equal(ris.poly_cof(), expected)
+
 if __name__ == '__main__':
     #print(generate_random_complex_list())
     unittest.main()
