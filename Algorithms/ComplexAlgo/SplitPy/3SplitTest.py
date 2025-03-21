@@ -29,8 +29,9 @@ class TestF9Poly(unittest.TestCase):
         np.testing.assert_array_equal(poly.poly_cof(), expected)
 
 
-    #Su F9 (p*w)= Qui(2+2j), (1+0j), (2+0j), (0+1j), (1+2j)
-    #Su Reali (p * i)mod 3= (1+2i),2,1,i,(2+2i)
+    #p = (2+2j), 1j, (0+2j), (1+0j), (2+1j)
+    #Su F9 (p*j) = (2+2j), (1+0j), (2+0j), (0+1j), (1+2j)
+    #Su Reali (p * j) mod 3= (1+2i),2,1,i,(2+2i)
     @parameterized.expand([
         ["case1",
          [(-1-4j), 4j, (-6-4j), (-2-3j), (-1-8j)],
@@ -47,6 +48,14 @@ class TestF9Poly(unittest.TestCase):
         p_mul = p.mul_img()
         np.testing.assert_array_equal(p_mul.poly_cof(), expected)
 
+    def test_sos(self):
+        p1 = F9Poly([(2 + 2j),(0 + 2j),(2 + 0j),(2 + 2j),(0 + 1j),(0 + 0j),(2 + 1j),(1 + 1j),(2 + 1j), (2 + 1j)])
+        p2 = F9Poly([(0 + 1j),(0 + 2j),(1 + 1j),(1 + 1j),(0 + 2j),(0 + 1j),(0 + 2j),(2 + 2j),(2 + 0j), (2 + 2j)])
+        p1.print_poly()
+        p2.print_poly()
+        ris = p1.poly_mul(p2)
+        print("ris:")
+        ris.print_poly()
 
 
 if __name__ == '__main__':
