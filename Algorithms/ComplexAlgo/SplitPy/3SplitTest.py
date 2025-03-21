@@ -53,13 +53,25 @@ class TestF9Poly(unittest.TestCase):
          [(1 + 2j),(0 + 1j),(2 + 0j),(2 + 0j),(0 + 0j),(0 + 2j),(1 + 0j),(0 + 2j),(0 + 0j),(0 + 1j),(1 + 1j),(2 + 2j),(2 + 1j),(1 + 1j),(1 + 0j),(1 + 0j),(0 + 0j),(0 + 2j),(2 + 0j)]
         ]
     ])
-
     def test_mul(self,name,p1,p2,expected):
         p1 = F9Poly(p1)
         p2 = F9Poly(p2)
         ris = p1.poly_mul(p2)
         np.testing.assert_array_equal(ris.poly_cof(), expected)
 
+
+    @parameterized.expand([
+        ["case1",
+         [(2 + 2j),(0 + 2j),(2 + 0j),(2 + 2j),(0 + 1j),(0 + 0j),(2 + 1j),(1 + 1j),(2 + 1j), (2 + 1j)],
+         [(0 + 1j),(0 + 2j),(1 + 1j),(1 + 1j),(0 + 2j),(0 + 1j),(0 + 2j),(2 + 2j),(2 + 0j), (2 + 2j)],
+         [(2 + 0j),(0 + 1j),(0 + 1j),(0 + 0j),(0 + 0j),(0 + 1j),(2 + 0j),(0 + 0j),(1 + 1j), (1 + 0j)]
+         ]
+    ])
+    def test_sum(self,name,p1,p2,expected):
+        s1 = F9Poly(p1)
+        s2 = F9Poly(p2)
+        ris = s1.poly_sum(s2)
+        np.testing.assert_array_equal(ris.poly_cof(), expected)
 
 if __name__ == '__main__':
     #print(generate_random_complex_list())

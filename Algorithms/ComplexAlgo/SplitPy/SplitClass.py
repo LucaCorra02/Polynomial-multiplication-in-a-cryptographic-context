@@ -15,6 +15,10 @@ class F9Poly:
         ris = self.p * p2.p
         return F9Poly(ris.coef)
 
+    def poly_sum(self, p2):
+        ris = self.p + p2.p
+        return F9Poly(ris.coef)
+
     def poly_cof(self):
         return self.p.coef
 
