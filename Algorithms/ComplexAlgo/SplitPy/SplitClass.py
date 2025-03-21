@@ -5,6 +5,9 @@ import math
 class F9Poly:
     def __init__(self, coef):
         cof = np.array(coef, dtype=complex)
+        if len(cof) == 0:
+            self.p = Polynomial([complex(0,0)])
+            return
         cof_mod = np.vectorize(lambda z: complex(int(z.real) % 3, int(z.imag) % 3))(cof)
         self.p = Polynomial(cof_mod)
 
@@ -55,7 +58,8 @@ def split3_recursive(p1, p2, m):
     tot_dim = (2 * n) + k
 
     if tot_dim < 6 :
-        return p1.poly_mul(p2) #caso base
+        ris = p1.poly_mul(p2)
+        return ris
 
     A0 = F9Poly(p1.poly_cof()[0:n])
     A1 = F9Poly(p1.poly_cof()[n:2*n])
@@ -140,7 +144,7 @@ def main():
     #c1 = [(0.+2.j), (1.+1.j), (1.+2.j), (1.+2.j), (1.+2.j), (2.+2.j), (1.+1.j), (2.+2.j), (1.+0.j), (1.+0.j), (1.+0.j), (2.+2.j), (2.+0.j), (1.+1.j), (1.+2.j), (2.+1.j), (1.+2.j), (0.+1.j), (1.+2.j), (1.+1.j)]
     #c2 = [(1.+1.j),(1.+2.j),(2.+0.j),(0.+2.j),(1.+2.j),(2.+2.j),(0.+2.j),(0.+0.j),(0.+1.j),(1.+2.j),(1.+2.j),(0.+1.j),(0.+2.j),(0.+0.j),(2.+1.j),(2.+1.j),(2.+0.j),(1.+0.j),(1.+1.j),(1.+1.j)]
 
-    terms = 1024
+    terms = 777
     i = 3
     c1 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
     c2 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
