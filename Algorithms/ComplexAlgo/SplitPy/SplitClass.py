@@ -144,10 +144,10 @@ def main():
     #c1 = [(0.+2.j), (1.+1.j), (1.+2.j), (1.+2.j), (1.+2.j), (2.+2.j), (1.+1.j), (2.+2.j), (1.+0.j), (1.+0.j), (1.+0.j), (2.+2.j), (2.+0.j), (1.+1.j), (1.+2.j), (2.+1.j), (1.+2.j), (0.+1.j), (1.+2.j), (1.+1.j)]
     #c2 = [(1.+1.j),(1.+2.j),(2.+0.j),(0.+2.j),(1.+2.j),(2.+2.j),(0.+2.j),(0.+0.j),(0.+1.j),(1.+2.j),(1.+2.j),(0.+1.j),(0.+2.j),(0.+0.j),(2.+1.j),(2.+1.j),(2.+0.j),(1.+0.j),(1.+1.j),(1.+1.j)]
 
-    terms = 777
+    terms = 1024
     i = 3
-    c1 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
-    c2 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
+    c1 = np.random.randint(1, 100, terms) + 1j * np.random.randint(1, 100, terms)
+    c2 = np.random.randint(1, 100, terms) + 1j * np.random.randint(1, 100, terms)
     c1 = np.array(c1, dtype=complex)
     c2 = np.array(c2, dtype=complex)
     print(c1)
@@ -165,9 +165,8 @@ def main():
     p2 = F9Poly(c2)
     print("P1: \n",p1.poly_cof())
     print("P2: \n",p2.poly_cof())
-    ris_expected = p1.poly_mul(p2)
 
-    #ris_actual = split3(p1,p2,n,k)
+    ris_expected = p1.poly_mul(p2)
     ris_actual = split3_recursive(p1,p2,terms)
     ris_reduxed = ris_actual.redux()
 
