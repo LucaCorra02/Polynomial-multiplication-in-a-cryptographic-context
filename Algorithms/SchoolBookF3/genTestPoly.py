@@ -38,7 +38,7 @@ def gen_correct_output_prod(file_name):
             print_cof_formatted(ris)
 
 def main():
-    num_rows = 1
+    num_rows = 500
     num_terms = 1024
     min_range = 0
     max_range = 1000
