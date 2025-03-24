@@ -52,10 +52,27 @@ static MunitResult test_int_to_f3(const MunitParameter params[], void* user_data
     return MUNIT_OK;
 }
 
+static MunitResult test_f3_sum(const MunitParameter params[], void* user_data) {
+    (void) params;
+    (void) user_data;
+
+    int a[] = {0, 1, 2, 3, 1000, -1, -2, -3, -1000};
+    int b[] = {0, 1, 2, 3, 1000, -1, -2, -3, -1000};
+    int expected[] = {0, 2, 1, 0, 2, 1, 2, 0, 1};
+    int dim = 9;
+
+    for (int i = 0; i < dim; ++i){
+        unsigned int ris = f3_sum(int_to_f3(a[i]),int_to_f3(b[i]));
+        munit_assert_int(ris, ==, expected[i]);
+    }
+    return MUNIT_OK;
+}
+
 static MunitTest tests[] = {
     { "/test_kthbit", test_kthbit, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_swapbits", test_swapbits, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_int_to_f3", test_int_to_f3, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
+    { "/test_int_f3_sum", test_f3_sum, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
 };
 
