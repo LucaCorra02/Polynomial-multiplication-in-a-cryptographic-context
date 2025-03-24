@@ -2,7 +2,7 @@ TARGET = mainTest.out
 SRC = f3Implementation.c f9Implementation.c mainTest.c
 OBJ = f3Implementation.o f9Implementation.o mainTest.o
 
-CFLAGS = -O3
+CFLAGS = -O3 -Wall
 CC = gcc
 
 all: $(TARGET)
