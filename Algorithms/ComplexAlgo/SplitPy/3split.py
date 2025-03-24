@@ -1,5 +1,8 @@
+import sys
 import numpy as np
 import math
+
+#sys.setrecursionlimit(10**6)
 
 def poly_cof_print(p):
     st1 = ",".join([str(elem) for elem in p.c])
@@ -21,7 +24,6 @@ def get_3split_params(m, i):
     return [n_min, n_max]
 
 def params(m,i):
-
     n = m // 3
     k = m - 2 * n
     if k < 0:
@@ -203,12 +205,12 @@ def main():
     #c1 = [(2+4j), (1+3j), (3+1j), (1+2j), (4+4j), (4+3j), (2+1j), (2+1j), (2+4j), (1+2j), (4+1j), (4+2j), (1+4j), (2+1j), (4+2j), (4+1j), (1+3j), (4+3j), (1+4j), (2+3j), (3+3j), (3+3j), (1+2j), (2+3j), (1+2j), (2+1j), (4+2j), (1+2j), (4+3j), (4+1j), (4+4j), (4+1j), (2+2j), (1+2j), (4+2j), (1+3j), (1+2j), (1+3j), (2+2j), (1+1j), (2+2j), (2+1j), (2+4j), (3+3j), (2+1j), (2+4j), (4+4j), (2+3j), (1+3j), (1+1j), (4+1j), (4+3j), (3+2j), (4+2j), (2+1j)]
     #c2 = [(1+3j), (2+4j), (3+1j), (4+3j), (2+4j), (1+4j), (4+3j), (1+1j), (3+3j), (1+3j), (2+3j), (1+1j), (1+3j), (4+2j), (2+3j), (3+4j), (1+3j), (4+1j), (1+4j), (3+3j), (1+1j), (3+2j), (2+1j), (4+4j), (1+2j), (2+3j), (3+4j), (1+4j), (1+2j), (1+2j), (4+2j), (3+3j), (2+1j), (2+1j), (3+4j), (4+3j), (4+3j), (2+2j), (3+1j), (3+4j), (2+4j), (3+2j), (2+3j), (1+2j), (1+3j), (1+1j), (1+3j), (1+2j), (3+1j), (1+4j), (4+1j), (1+3j), (1+2j), (3+1j), (3+4j)]
 
-    terms = 20
+    terms = 55
     i = 3
-    c1 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
-    c2 = np.random.randint(1, 5, terms) + 1j * np.random.randint(1, 5, terms)
-    c1 = list(c1)
-    c2 = list(c2)
+    c1 = np.random.randint(2, 5, terms) + 1j * np.random.randint(2, 5, terms)
+    c2 = np.random.randint(2, 5, terms) + 1j * np.random.randint(2, 5, terms)
+    c1 = np.array(c1, dtype=complex)
+    c2 = np.array(c2, dtype=complex)
     print(c1)
     print(c2)
 
