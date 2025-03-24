@@ -1,10 +1,10 @@
 import random
 import numpy as np
+from numpy.polynomial import Polynomial
 
 def gen_input_f3_algo(num_terms, min_range, max_range):
     p1 = []
     for _ in range(num_terms):
-
         num = random.randint(min_range, max_range)
         p1.append(num)
     return p1
