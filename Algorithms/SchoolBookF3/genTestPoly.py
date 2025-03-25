@@ -23,6 +23,12 @@ def polymod3(ris):
         ris_mod3.append(int(cof)%3)
     return ris_mod3
 
+def polymod3_f9(ris):
+    ris_mod3 = []
+    for cof in ris.coef:
+        ris_mod3.append(complex(cof.real%3,cof.imag%3))
+    return ris_mod3
+
 def print_cof_formatted(p):
     st1 = ",".join([str(elem) for elem in p])
     print(st1)
@@ -43,7 +49,19 @@ def main():
     min_range = 0
     max_range = 1000
     #gen_input_random(num_rows, num_terms, min_range, max_range)
-    file_name = "TestFile/F3/input1.txt"
-    gen_correct_output_prod(file_name)
+    #file_name = "TestFile/F3/input1.txt"
+    #gen_correct_output_prod(file_name)
+
+    cof_a = [complex(10,20), complex(1,2), complex(1,3), complex(13,2)]
+    cof_b = [complex(1,2), complex(1,2), complex(1,3), complex(9,8)]
+    #1j + 2j·x + (2+2j)·x² + (2+1j)·x³ + (1+0j)·x⁴
+
+    a,b = Polynomial(cof_a), Polynomial(cof_b)
+    print(a)
+    ris = a*b
+    print(ris)
+    print(Polynomial(polymod3_f9(ris)))
+
+
 
 main()
