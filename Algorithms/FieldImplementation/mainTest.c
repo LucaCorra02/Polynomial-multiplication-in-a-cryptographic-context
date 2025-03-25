@@ -3,9 +3,8 @@
 #include "f9Utils.h"
 
 /*
- * Le funzioni di test ritornano MUNIT_OK se il test passa,
- * altrimenti generano un'asserzione fallita.
- */
+ * Le funzioni di test ritornano MUNIT_OK se il test passa, altrimenti generano un'asserzione fallita.
+*/
 
 static MunitResult test_kthbit(const MunitParameter params[], void* user_data) {
     (void) params;
@@ -84,12 +83,29 @@ static MunitResult test_f3_prod(const MunitParameter params[], void* user_data) 
     return MUNIT_OK;
 }
 
+static MunitResult test_get_f9_element(const MunitParameter params[], void* user_data) {
+    (void) params;
+    (void) user_data;
+
+    int img[] = {0, 2, 3, 10, -4, 5, 8};
+    int real[] = {0, 1, 2, 3, -1, -1, -2};
+    int expected[] = {0b0000, 0b1001, 0b0010, 0b0100, 0b1010, 0b1010, 0b1001};
+    int dim = 7;
+
+    for (int i = 0; i < dim; ++i){
+        f9_element ris = get_f9_element(img[i], real[i]) ;
+        munit_assert_int(ris, ==, expected[i]);
+    }
+    return MUNIT_OK;
+}
+
 static MunitTest tests[] = {
     { "/test_kthbit", test_kthbit, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_swapbits", test_swapbits, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_int_to_f3", test_int_to_f3, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_int_f3_sum", test_f3_sum, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_f3_prod", test_f3_prod, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
+    { "/test_get_f9_element", test_get_f9_element, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
 };
 
