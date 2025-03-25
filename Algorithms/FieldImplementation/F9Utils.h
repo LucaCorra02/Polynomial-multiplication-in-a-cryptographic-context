@@ -9,6 +9,8 @@ unsigned int get_imaginary_part(f9_element element);
 
 void print_f9_element(f9_element n);
 
+f9_element int_to_f9_element(int n);
+
 f9_element get_f9_element(int imaginary, int real);
 
 f9_element f9_sum(f9_element a, f9_element b);

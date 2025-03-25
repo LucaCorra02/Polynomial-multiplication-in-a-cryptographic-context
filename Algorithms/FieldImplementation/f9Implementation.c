@@ -15,6 +15,12 @@ void print_f9_element(f9_element n) {
     printf("%dw + %d\n",get_imaginary_part(n),get_real_part(n));
 }
 
+f9_element int_to_f9_element(int n){
+    unsigned int real_part = n & 0b11;
+    unsigned int img_part = (n >> 2) & 0b11;
+    return get_f9_element(img_part,real_part);
+}
+
 f9_element get_f9_element(int imaginary, int real) {
     imaginary = int_to_f3(imaginary);
     real = int_to_f3(real);
