@@ -43,7 +43,7 @@ def main():
     min_range = 0
     max_range = 1000
     #gen_input_random(num_rows, num_terms, min_range, max_range)
-    file_name = "TestFile/input1.txt"
+    file_name = "TestFile/F3/input1.txt"
     gen_correct_output_prod(file_name)
 
 main()

@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "f3Utils.h"
+#include "../FieldImplementation/f3Utils.h"
+#include "../FieldImplementation/F9Utils.h"
 
 int* schoolbook_r(int n, int* p1, int* p2) {
     int dim_ris = (2 * n) - 1;
@@ -62,5 +63,7 @@ int main(int argc, char *argv[]){
         free(p2);
         free(ris);
     }
+    //f9_element a = get_f9_element(1,2);
+    //print_f9_element(a);
     return 0;
 }
