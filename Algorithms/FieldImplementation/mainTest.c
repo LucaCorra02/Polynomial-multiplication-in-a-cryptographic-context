@@ -133,6 +133,22 @@ static MunitResult test_f9_sum(const MunitParameter params[], void* user_data) {
     return MUNIT_OK;
 }
 
+static MunitResult test_f9_prod(const MunitParameter params[], void* user_data) {
+    (void) params;
+    (void) user_data;
+
+    f9_element a[] = {get_f9_element(0,0), get_f9_element(1,-1), get_f9_element(1,-1), get_f9_element(-134,23)};
+    f9_element b[] = {get_f9_element(0,0), get_f9_element(-3,-1), get_f9_element(1,-2), get_f9_element(8, 11)};
+    f9_element expected[] = {get_f9_element(0,0), get_f9_element(2,1), get_f9_element(0,1), get_f9_element(0,2)};
+    int dim = 4;
+    for (int i = 0; i < dim; ++i){
+        f9_element ris = f9_prod(a[i],b[i]);
+        //print_f9_element(ris);
+        munit_assert_int(ris, ==, expected[i]);
+    }
+    return MUNIT_OK;
+}
+
 static MunitTest tests[] = {
     { "/test_kthbit", test_kthbit, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_swapbits", test_swapbits, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
@@ -142,6 +158,7 @@ static MunitTest tests[] = {
     { "/test_get_f9_element", test_get_f9_element, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_getter_f9", test_getter_f9, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_f9_sum", test_f9_sum, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
+    { "/test_f9_prod", test_f9_prod, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
 };
 
