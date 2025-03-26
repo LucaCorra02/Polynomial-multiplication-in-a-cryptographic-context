@@ -45,6 +45,19 @@ int* schoolbook_f3(int n, int* p1, int* p2) {
     return ris;
 }
 
+f9_element* split_operands_f9(char* p, int num_operands){
+    f9_element* ris = calloc(num_operands,sizeof(f9_element));
+    int i = 0;
+    char* token = strtok(p, ",");
+    while (token != NULL && i < num_operands) {
+        int real, imag = 0;
+        sscanf(token, "%d:%d", &imag, &real);
+        ris[i++] = get_f9_element(imag,real);
+        token = strtok(NULL, ",");
+    }
+    return ris;
+}
+
 void print_vector_f9(f9_element* v, int num_elements){
     for (int i = 0; i < num_elements-1; i++){
         f9_element img = get_imaginary_part(v[i]);
@@ -63,11 +76,6 @@ f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2) { //coefficenti
         ris[0] = f9_prod(int_to_f9_element(p1[0]),int_to_f9_element(p2[0]));
         return ris;
     }
-    //print_vector_f9(p1,n);
-    //print_vector_f9(p2,n);
-
-
-
     int max_deg = n - 1;
     unsigned int mst_p1 = p1[max_deg];
     unsigned int mst_p2 = p2[max_deg];
@@ -92,7 +100,7 @@ f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2) { //coefficenti
 
 
 #define BUFFERSIZE 10000
-#define NUM_OPERANDS 1024
+#define NUM_OPERANDS 10
 
 int main(int argc, char *argv[])
 {
@@ -109,13 +117,20 @@ int main(int argc, char *argv[])
         free(p2);
         free(ris);
     }*/
-    //REAL IMAG
-    f9_element cof_a[] = {get_f9_element(20,10), get_f9_element(2,1), get_f9_element(0,1), get_f9_element(2,13)};
-    f9_element cof_b[] = {get_f9_element(2,1), get_f9_element(2,1), get_f9_element(0,1), get_f9_element(8,9)};
-    f9_element* ris = schoolbook_f9(4,cof_a,cof_b);
-    print_vector_f9(ris,7);
 
-    f9_element ris_c = f9_prod(get_f9_element(2,1) , get_f9_element(2,1));
-    print_f9_element(ris_c);
+    char buffer[BUFFERSIZE];
+    while (fgets(buffer, BUFFERSIZE , stdin)){
+        //printf("Read: %s", buffer);
+        char* left = strtok(buffer, ";");
+        char* right = strtok(NULL, ";");
+        f9_element* p1 = split_operands_f9(left,NUM_OPERANDS);
+        f9_element* p2 = split_operands_f9(right,NUM_OPERANDS);
+        f9_element* ris = schoolbook_f9(NUM_OPERANDS,p1,p2);
+        print_vector_f9(ris,(2*NUM_OPERANDS)-1);
+        free(p1);
+        free(p2);
+        free(ris);
+    }
+
     return 0;
 }
