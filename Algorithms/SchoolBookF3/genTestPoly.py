@@ -21,7 +21,6 @@ def formatted_print_f9(p1, p2):
     st2 = ",".join(str(int(elem.imag))+":"+str(int(elem.real)) for elem in p2)
     print(st1,st2,sep=";")
 
-
 def gen_input_random_f3(num_rows, num_terms, min_range, max_range):
     for i in range(0, num_rows):
         p1 = gen_input_f3_algo(num_terms,min_range,max_range)
@@ -50,7 +49,7 @@ def print_cof_formatted(p):
     st1 = ",".join([str(elem) for elem in p])
     print(st1)
 
-def gen_correct_output_prod(file_name):
+def gen_correct_output_prod_f3(file_name):
     with open(file_name, "r") as file:
         for line in file:
             tmp = line.strip().split(';')
@@ -59,6 +58,13 @@ def gen_correct_output_prod(file_name):
             p1, p2 = Polynomial(a), Polynomial(b)
             ris = polymod3(p1 * p2)
             print_cof_formatted(ris)
+
+def gen_correct_output_prod_f9(file_name): #Z = (Y.real, Y.imag)
+    with open(file_name, "r") as file:
+        for line in file:
+            tmp = line.strip().split(';')
+            tmp_p1 = [complex(int(elem.split(':')[1]),int(elem.split(':')[0])) for elem in tmp[0].split(',')]
+            print(tmp_p1)
 
 def main():
     num_rows = 500
@@ -69,6 +75,8 @@ def main():
     #file_name = "TestFile/F3/input1.txt"
     #gen_correct_output_prod(file_name)
 
-    gen_input_random_f9(1, 10, 0, 10)
+    #gen_input_random_f9(3, 10, 0, 4)
+    file_name = "TestFile/F9/input.txt"
+    gen_correct_output_prod_f9(file_name)
 
 main()
