@@ -63,8 +63,12 @@ def gen_correct_output_prod_f9(file_name): #Z = (Y.real, Y.imag)
     with open(file_name, "r") as file:
         for line in file:
             tmp = line.strip().split(';')
-            tmp_p1 = [complex(int(elem.split(':')[1]),int(elem.split(':')[0])) for elem in tmp[0].split(',')]
-            print(tmp_p1)
+            a = [complex(int(elem.split(':')[1]),int(elem.split(':')[0])) for elem in tmp[0].split(',')]
+            b = [complex(int(elem.split(':')[1]),int(elem.split(':')[0])) for elem in tmp[1].split(',')]
+            p1, p2 = Polynomial(a), Polynomial(b)
+            ris = p1 * p2
+            print_cof_formatted(polymod3_f9(ris))
+
 
 def main():
     num_rows = 500
@@ -75,7 +79,7 @@ def main():
     #file_name = "TestFile/F3/input1.txt"
     #gen_correct_output_prod(file_name)
 
-    #gen_input_random_f9(3, 10, 0, 4)
+    #gen_input_random_f9(2, 10, 0, 10)
     file_name = "TestFile/F9/input.txt"
     gen_correct_output_prod_f9(file_name)
 
