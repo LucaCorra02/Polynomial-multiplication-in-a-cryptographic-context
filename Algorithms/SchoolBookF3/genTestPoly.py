@@ -11,11 +11,28 @@ def formatted_print(p1,p2):
     st2 = ",".join([str(elem) for elem in p2])
     print(st1,st2,sep=";")
 
-def gen_input_random(num_rows, num_terms, min_range, max_range):
+def gen_intput_f9_algo(num_terms, min_range, max_range):
+    c1 = np.random.randint(min_range, max_range, num_terms) + 1j * np.random.randint(min_range, max_range, num_terms)
+    return np.array(c1, dtype=complex)
+
+#Stampa nel formato parte_immaginaria:parte_reale
+def formatted_print_f9(p1, p2):
+    st1 = ",".join(str(int(elem.imag))+":"+str(int(elem.real)) for elem in p1)
+    st2 = ",".join(str(int(elem.imag))+":"+str(int(elem.real)) for elem in p2)
+    print(st1,st2,sep=";")
+
+
+def gen_input_random_f3(num_rows, num_terms, min_range, max_range):
     for i in range(0, num_rows):
         p1 = gen_input_f3_algo(num_terms,min_range,max_range)
         p2 = gen_input_f3_algo(num_terms,min_range, max_range)
         formatted_print(p1,p2)
+
+def gen_input_random_f9(num_rows, num_terms, min_range, max_range):
+    for i in range(0, num_rows):
+        p1 = gen_intput_f9_algo(num_terms,min_range,max_range)
+        p2 = gen_intput_f9_algo(num_terms,min_range, max_range)
+        formatted_print_f9(p1,p2)
 
 def polymod3(ris):
     ris_mod3 = []
@@ -52,16 +69,6 @@ def main():
     #file_name = "TestFile/F3/input1.txt"
     #gen_correct_output_prod(file_name)
 
-    cof_a = [complex(10,20), complex(1,2), complex(1,3), complex(13,2)]
-    cof_b = [complex(1,2), complex(1,2), complex(1,3), complex(9,8)]
-    #1j + 2j·x + (2+2j)·x² + (2+1j)·x³ + (1+0j)·x⁴
-
-    a,b = Polynomial(cof_a), Polynomial(cof_b)
-    print(a)
-    ris = a*b
-    print(ris)
-    print(Polynomial(polymod3_f9(ris)))
-
-
+    gen_input_random_f9(1, 10, 0, 10)
 
 main()
