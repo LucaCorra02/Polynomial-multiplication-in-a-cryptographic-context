@@ -19,6 +19,10 @@ f9Implementation.o: $(F9_SRC_DIR)/f9Implementation.c $(F9_SRC_DIR)/F9Utils.h
 f3schoolbook.o: f3schoolbook.c
 	gcc $(CFLAGS) -c f3schoolbook.c
 
+benchmarks: $(F9_SRC_DIR)/f3Implementation.o $(F9_SRC_DIR)/f9Implementation.o benchmarks.cpp #Make benchmarks compila solo i benchmarks
+	g++ -c benchmarks.cpp -o benchmarks.o -I../../benchmark/include
+	g++ benchmarks.o $(F9_SRC_DIR)/f3Implementation.o $(F9_SRC_DIR)/f9Implementation.o -std=c++11 -I. -isystem -I../../benchmark/include -L../../benchmark/build/src -lbenchmark -lpthread -o benchmarks.out
+
 clean:
 	rm -f $(OBJ) $(TARGET)
 
