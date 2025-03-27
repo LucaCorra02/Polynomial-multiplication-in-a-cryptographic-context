@@ -49,6 +49,10 @@ def print_cof_formatted(p):
     st1 = ",".join([str(elem) for elem in p])
     print(st1)
 
+def print_cof_formatted_f9(p):
+    str = ",".join(["({}+{}j)".format(int(elem.real), int(elem.imag)) for elem in p])
+    print(str)
+
 def gen_correct_output_prod_f3(file_name):
     with open(file_name, "r") as file:
         for line in file:
@@ -67,7 +71,7 @@ def gen_correct_output_prod_f9(file_name): #Z = (Y.real, Y.imag)
             b = [complex(int(elem.split(':')[1]),int(elem.split(':')[0])) for elem in tmp[1].split(',')]
             p1, p2 = Polynomial(a), Polynomial(b)
             ris = p1 * p2
-            print_cof_formatted(polymod3_f9(ris))
+            print_cof_formatted_f9(polymod3_f9(ris))
 
 
 def main():
