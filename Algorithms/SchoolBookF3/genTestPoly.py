@@ -75,7 +75,7 @@ def gen_correct_output_prod_f9(file_name): #Z = (Y.real, Y.imag)
 
 
 def main():
-    num_rows = 500
+    num_rows = 100
     num_terms = 1024
     min_range = 0
     max_range = 1000
@@ -83,7 +83,7 @@ def main():
     #file_name = "TestFile/F3/input1.txt"
     #gen_correct_output_prod(file_name)
 
-    #gen_input_random_f9(2, 10, 0, 10)
+    #gen_input_random_f9(num_rows, num_terms, min_range, max_range)
     file_name = "TestFile/F9/input.txt"
     gen_correct_output_prod_f9(file_name)
 

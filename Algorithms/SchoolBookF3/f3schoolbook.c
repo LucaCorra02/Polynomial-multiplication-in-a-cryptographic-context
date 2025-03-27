@@ -97,8 +97,8 @@ f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2) { //coefficenti
 }
 
 
-#define BUFFERSIZE 10000
-#define NUM_OPERANDS 10
+#define BUFFERSIZE 100000
+#define NUM_OPERANDS 1024
 
 int main(int argc, char *argv[])
 {
