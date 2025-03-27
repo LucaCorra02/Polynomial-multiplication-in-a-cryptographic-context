@@ -50,7 +50,7 @@ def print_cof_formatted(p):
     print(st1)
 
 def print_cof_formatted_f9(p):
-    str = ",".join(["({}+{}j)".format(int(elem.real), int(elem.imag)) for elem in p])
+    str = ",".join(["({}i + {})".format(int(elem.imag), int(elem.real)) for elem in p])
     print(str)
 
 def gen_correct_output_prod_f3(file_name):

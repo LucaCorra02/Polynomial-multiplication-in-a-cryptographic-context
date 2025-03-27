@@ -62,7 +62,7 @@ void print_vector_f9(f9_element* v, int num_elements){
     for (int i = 0; i < num_elements-1; i++){
         f9_element img = get_imaginary_part(v[i]);
         f9_element real = get_real_part(v[i]);
-        printf("(%di + %d), ",img,real);
+        printf("(%di + %d),",img,real);
     }
     f9_element img = get_imaginary_part(v[num_elements-1]);
     f9_element real = get_real_part(v[num_elements-1]);
@@ -80,8 +80,6 @@ f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2) { //coefficenti
     unsigned int mst_p1 = p1[max_deg];
     unsigned int mst_p2 = p2[max_deg];
     ris[max_deg * 2] = f9_sum(ris[max_deg * 2], f9_prod(mst_p1,mst_p2));
-    printf("ciao");
-    print_f9_element(ris[max_deg * 2]);
 
     for (int i = 0; i < max_deg; i++) {
         ris[max_deg + i] = f9_sum(int_to_f9_element(ris[max_deg + i]), f9_prod(mst_p1, int_to_f9_element(p2[i])));
