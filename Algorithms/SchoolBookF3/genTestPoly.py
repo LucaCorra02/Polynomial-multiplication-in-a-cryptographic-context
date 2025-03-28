@@ -81,12 +81,23 @@ def main():
     num_terms = 1024
     min_range = 99
     max_range = 1000
+
+    c1 = gen_input_f3_algo(33,1,10)
+    c2 = gen_input_f3_algo(33,1,10)
+    print(len(c1))
+    formatted_print(c1,c2)
+    ris = Polynomial(c1) * Polynomial(c2)
+    print(ris.coef)
+
+
+
+
     #gen_input_random(num_rows, num_terms, min_range, max_range)
     #file_name = "TestFile/F3/input1.txt"
     #gen_correct_output_prod(file_name)
 
     #gen_input_random_f9(num_rows, num_terms, min_range, max_range)
-    file_name = "TestFile/F9/input.txt"
-    gen_correct_output_prod_f9(file_name)
+    #file_name = "TestFile/F9/input.txt"
+    #gen_correct_output_prod_f9(file_name)
 
 main()

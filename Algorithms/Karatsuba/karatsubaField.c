@@ -149,7 +149,7 @@ void print_vector(int* v, int num_elements){
 }
 
 #define BUFFERSIZE 3000;
-#define NUM_OPERANDS 16;
+#define NUM_OPERANDS 33;
 
 int main(int argc, char *argv[]){
 
@@ -162,14 +162,12 @@ int main(int argc, char *argv[]){
         char* right = strtok(NULL, ";");
         int* p1 = split_operands(left, num_operands);
         int* p2 = split_operands(right, num_operands);
-
-        printf("%d",(2*num_operands)-1);
-
-        int* ris = karatsuba(num_operands, p1, p2);
+        int* ris = unbalanced_karatsuba(num_operands, p1, p2);
         print_vector(ris, (2*num_operands)-1);
         free(p1);
         free(p2);
-        //free(ris);
+        free(ris);
     }
+
     return 0;
 }
