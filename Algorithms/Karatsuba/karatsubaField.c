@@ -56,8 +56,8 @@ int* karatsuba(int n, int* p1, int* p2) {
     int* a0a1 = calloc(k, sizeof(int)); // Alloco spazio per la somma
     int* b0b1 = calloc(k, sizeof(int));
     for (int i = 0; i < k; i++) {
-        a0a1[i] = a0[i] + a1[i];
-        b0b1[i] = b0[i] + b1[i];
+        a0a1[i] = a0[i] + ((i < n - k) ? a1[i] : 0);
+        b0b1[i] = b0[i] + ((i < n - k) ? b1[i] : 0);
     }
 
     int* P0 = karatsuba(k, a0, b0); // Parte sinistra
@@ -162,11 +162,14 @@ int main(int argc, char *argv[]){
         char* right = strtok(NULL, ";");
         int* p1 = split_operands(left, num_operands);
         int* p2 = split_operands(right, num_operands);
-        int* ris = karatsuba((2*num_operands)-1, p1, p2);
+
+        printf("%d",(2*num_operands)-1);
+
+        int* ris = karatsuba(num_operands, p1, p2);
         print_vector(ris, (2*num_operands)-1);
         free(p1);
         free(p2);
-        free(ris);
+        //free(ris);
     }
     return 0;
 }
