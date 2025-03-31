@@ -88,21 +88,23 @@ def gen_correct_output_prod_f9(file_name): #Z = (Y.real, Y.imag)
 
 def main():
     num_rows = 100
-    num_terms = 1024
+    num_terms = 133
     min_range = 1
     max_range = 100
 
+    ##R MAIN
     #gen_input_random_f3(num_rows, num_terms, min_range, max_range)
-    file_name = "../Karatsuba/TestFile/R/input.txt"
-    gen_correct_output_prod_r(file_name)
+    #file_name = "../Karatsuba/TestFile/R/input.txt"
+    #gen_correct_output_prod_r(file_name)
 
+    ##F3 MAIN
+    #gen_input_random_f3(num_rows, num_terms, min_range, max_range)
+    #file_name = "../Karatsuba/TestFile/F3/input.txt"
+    #gen_correct_output_prod_f3(file_name)
 
-    #gen_input_random(num_rows, num_terms, min_range, max_range)
-    #file_name = "TestFile/F3/input1.txt"
-    #gen_correct_output_prod(file_name)
-
+    ##F9 MAIN
     #gen_input_random_f9(num_rows, num_terms, min_range, max_range)
-    #file_name = "TestFile/F9/input.txt"
-    #gen_correct_output_prod_f9(file_name)
+    file_name = "../Karatsuba/TestFile/F9/input.txt"
+    gen_correct_output_prod_f9(file_name)
 
 main()
