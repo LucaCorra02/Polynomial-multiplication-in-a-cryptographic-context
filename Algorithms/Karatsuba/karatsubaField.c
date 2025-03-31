@@ -161,16 +161,16 @@ f9_element* unbalanced_karatsuba_f9(int n, f9_element* p1, f9_element* p2) {
     f9_element* P2 = unbalanced_karatsuba_f9(size_a1, a1, b1); // P2 = A1 * B1
     f9_element* P1 = unbalanced_karatsuba_f9(mid, a0a1, b0b1); // P1 = (A0 + A1) * (B0 + B1)
 
-    for (int i = 0; i < (2 * mid ) - 1; i++){ P1[i] = f9_sum(int_to_f9_element(P1[i]), swap_bits(int_to_f3(P0[i]))); } // P1 = P1 - P0
-    for (int i = 0; i < (2 * size_a1) - 1; i++) { P1[i] = f3_sum(int_to_f3(P1[i]), swap_bits(int_to_f3(P2[i])));  } // P1 = (P1 - P0) - P0
+    for (int i = 0; i < (2 * mid ) - 1; i++){ P1[i] = f9_sum(int_to_f9_element(P1[i]), f9_neg(int_to_f9_element(P0[i]))); } // P1 = P1 - P0
+    for (int i = 0; i < (2 * size_a1) - 1; i++) { P1[i] = f9_sum(int_to_f9_element(P1[i]), f9_neg(int_to_f9_element(P2[i]))); } // P1 = (P1 - P0) - P0
 
     //Combini i risultati
     for (int i = 0; i < (2 * mid ) - 1; i++) {
-        result[i] = f3_sum(int_to_f3(result[i]), int_to_f3(P0[i])); // Termini da 0 a mid-1
-        result[i + mid] = f3_sum(int_to_f3(result[i + mid]), int_to_f3(P1[i])); // Terimini da mid a (2*mid)-1
+        result[i] = f9_sum(int_to_f9_element(result[i]), int_to_f9_element(P0[i])); // Termini da 0 a mid-1
+        result[i + mid] = f9_sum(int_to_f9_element(result[i + mid]), int_to_f9_element(P1[i])); // Terimini da mid a (2*mid)-1
     }
     for (int i = 0; i < (2 * size_a1) - 1; i++) {
-        result[i + (2 * mid)] = f3_sum(int_to_f3(result[i + (2 * mid)]), int_to_f3(P2[i])); // Termini da (2*mid) a n-1
+        result[i + (2 * mid)] = f9_sum(int_to_f9_element(result[i + (2 * mid)]), int_to_f9_element(P2[i])); // Termini da (2*mid) a n-1
     }
 
     free(a0a1);
