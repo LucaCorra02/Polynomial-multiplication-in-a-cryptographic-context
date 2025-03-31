@@ -1,6 +1,6 @@
 TARGET = mainTest.out
-SRC = mainTest.c karatsubaField.c f3Implementation.c
-OBJ = mainTest.o karatsubaField.o f3Implementation.o
+SRC = mainTest.c karatsubaField.c f9Implementation.c f3Implementation.c
+OBJ = mainTest.o karatsubaField.o f9Implementation.o f3Implementation.o
 
 CFLAGS = -O3 -Wall
 F9_SRC_DIR = ../FieldImplementation
