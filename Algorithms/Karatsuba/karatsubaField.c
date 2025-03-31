@@ -44,46 +44,6 @@ int* karatsuba_f3(int n, int* p1, int* p2) {
     return ris;
 }
 
-int* karatsuba(int n, int* p1, int* p2) {
-    int* ris = calloc((2 * n) - 1, sizeof(int)); // Alloco spazio per il risultato
-    if (n == 1) { ris[0] = p1[0] * p2[0]; return ris; } // Caso Base
-    int k = n / 2; // Suddivisione a metà
-    int* a0 = p1;
-    int* a1 = p1 + k;
-    int* b0 = p2;
-    int* b1 = p2 + k;
-
-    int* a0a1 = calloc(k, sizeof(int)); // Alloco spazio per la somma
-    int* b0b1 = calloc(k, sizeof(int));
-    for (int i = 0; i < k; i++) {
-        a0a1[i] = a0[i] + ((i < n - k) ? a1[i] : 0);
-        b0b1[i] = b0[i] + ((i < n - k) ? b1[i] : 0);
-    }
-
-    int* P0 = karatsuba(k, a0, b0); // Parte sinistra
-    int* P2 = karatsuba(k, a1, b1); // Parte destra
-    int* P1 = karatsuba(k, a0a1, b0b1); //Parte centrale
-
-    int dim = (2 * k) - 1;
-    for (int j = 0; j < dim; j++) {
-        P1[j] -= (P0[j] + P2[j]);
-    }
-
-    for (int i = 0; i < dim; i++) {
-        ris[i] += P0[i];
-        ris[i + k] += P1[i]; // Shift di k
-        ris[i + (2 * k)] += P2[i]; // Shift di 2*k
-    }
-
-    // Libero la memoria allocata
-    free(a0a1);
-    free(b0b1);
-    free(P0);
-    free(P2);
-    free(P1);
-    return ris;
-}
-
 void polynomial_sum(int* p1, int len_p1, int* p2, int len_p2, int* ris) { // Somma per polinomi sbilanciati
     for (int i = 0; i < len_p1; i++) ris[i] = p1[i];
     for (int i = 0; i < len_p2; i++) ris[i] += p2[i];
