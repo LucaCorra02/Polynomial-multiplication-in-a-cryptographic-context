@@ -22,9 +22,9 @@ karatsubaField.o: karatsubaField.c karatsubaField.h
 mainTest.o: mainTest.c
 	gcc $(CFLAGS) -c mainTest.c
 
-benchmarks: f3schoolbook.o $(F9_SRC_DIR)/f3Implementation.o $(F9_SRC_DIR)/f9Implementation.o benchmarks.cpp #Make benchmarks compila solo i benchmarks
+benchmarks: karatsubaField.o $(F9_SRC_DIR)/f3Implementation.o $(F9_SRC_DIR)/f9Implementation.o benchmarks.cpp #Make benchmarks compila solo i benchmarks
 	g++ -c benchmarks.cpp -o benchmarks.o -I../../benchmark/include
-	g++ benchmarks.o  f3schoolbook.o $(F9_SRC_DIR)/f3Implementation.o $(F9_SRC_DIR)/f9Implementation.o -std=c++11 -I. -isystem -I../../benchmark/include -L../../benchmark/build/src -lbenchmark -lpthread -o benchmarks.out
+	g++ benchmarks.o  karatsubaField.o $(F9_SRC_DIR)/f3Implementation.o $(F9_SRC_DIR)/f9Implementation.o -std=c++11 -I. -isystem -I../../benchmark/include -L../../benchmark/build/src -lbenchmark -lpthread -o benchmarks.out
 
 clean:
 	rm -f $(OBJ) $(TARGET)
