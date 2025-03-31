@@ -3,7 +3,6 @@
 #include <string.h>
 #include "../FieldImplementation/f3Utils.h"
 
-
 int* karatsuba_f3(int n, int* p1, int* p2) {
     int* ris = calloc((2 * n) - 1, sizeof(int)); // Alloco spazio per il risultato
     if (n == 1) { ris[0] = f3_prod(int_to_f3(p1[0]) , int_to_f3(p2[0])); return ris; } // Caso Base
@@ -90,6 +89,52 @@ int* unbalanced_karatsuba(int n, int* p1, int* p2) {
     return result;
 }
 
+void polynomial_sum_f3(int* p1, int len_p1, int* p2, int len_p2, int* ris) { // Somma per polinomi sbilanciati
+    for (int i = 0; i < len_p1; i++) ris[i] = f3_sum(int_to_f3(ris[i]), int_to_f3(p1[i]));
+    for (int i = 0; i < len_p2; i++) ris[i] = f3_sum(int_to_f3(ris[i]), int_to_f3(p2[i]));
+}
+
+int* unbalanced_karatsuba_f3(int n, int* p1, int* p2) {
+    int* result = calloc((2 * n) - 1, sizeof(int));
+    if (n == 1) { result[0] = f3_prod(int_to_f3(p1[0]), int_to_f3(p2[0])); return result; }
+
+    int k = n / 2;
+    int mid = n - k; // Resto divisione
+    int* a0 = p1;
+    int* a1 = p1 + mid; // a1 ha meno terimi rispetto ad a0
+    int* b0 = p2;
+    int* b1 = p2 + mid;
+    int size_a1 = n - mid, size_b1 = n - mid;
+
+    int* a0a1 = calloc(mid, sizeof(int));
+    int* b0b1 = calloc(mid, sizeof(int));
+    polynomial_sum_f3(a0, mid, a1, size_a1, a0a1);
+    polynomial_sum_f3(b0, mid, b1, size_b1, b0b1);
+
+    int* P0 = unbalanced_karatsuba_f3(mid, a0, b0); // P0 = A0 * B0
+    int* P2 = unbalanced_karatsuba_f3(size_a1, a1, b1); // P2 = A1 * B1
+    int* P1 = unbalanced_karatsuba_f3(mid, a0a1, b0b1); // P1 = (A0 + A1) * (B0 + B1)
+
+    for (int i = 0; i < (2 * mid ) - 1; i++){ P1[i] = f3_sum(int_to_f3(P1[i]), swap_bits(int_to_f3(P0[i]))); } // P1 = P1 - P0
+    for (int i = 0; i < (2 * size_a1) - 1; i++) { P1[i] = f3_sum(int_to_f3(P1[i]), swap_bits(int_to_f3(P2[i])));  } // P1 = (P1 - P0) - P0
+
+    //Combini i risultati
+    for (int i = 0; i < (2 * mid ) - 1; i++) {
+        result[i] = f3_sum(int_to_f3(result[i]), int_to_f3(P0[i])); // Termini da 0 a mid-1
+        result[i + mid] = f3_sum(int_to_f3(result[i + mid]), int_to_f3(P1[i])); // Terimini da mid a (2*mid)-1
+    }
+    for (int i = 0; i < (2 * size_a1) - 1; i++) {
+        result[i + (2 * mid)] = f3_sum(int_to_f3(result[i + (2 * mid)]), int_to_f3(P2[i])); // Termini da (2*mid) a n-1
+    }
+
+    free(a0a1);
+    free(b0b1);
+    free(P0);
+    free(P1);
+    free(P2);
+    return result;
+}
+
 int* split_operands(char* p, int num_operands){
     int i = 0;
     int* ris = calloc(num_operands,sizeof(int));
@@ -109,7 +154,7 @@ void print_vector(int* v, int num_elements){
 }
 
 #define BUFFERSIZE 100000
-#define NUM_OPERANDS 1024
+#define NUM_OPERANDS 10
 
 int main(int argc, char *argv[]){
 
@@ -122,7 +167,7 @@ int main(int argc, char *argv[]){
         char* right = strtok(NULL, ";");
         int* p1 = split_operands(left, num_operands);
         int* p2 = split_operands(right, num_operands);
-        int* ris = unbalanced_karatsuba(num_operands, p1, p2);
+        int* ris = unbalanced_karatsuba_f3(num_operands, p1, p2);
         print_vector(ris, (2*num_operands)-1);
         free(p1);
         free(p2);
