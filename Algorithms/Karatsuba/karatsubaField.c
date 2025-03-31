@@ -148,8 +148,8 @@ void print_vector(int* v, int num_elements){
     printf("%d\n",v[num_elements-1]);
 }
 
-#define BUFFERSIZE 3000;
-#define NUM_OPERANDS 33;
+#define BUFFERSIZE 100000
+#define NUM_OPERANDS 1024
 
 int main(int argc, char *argv[]){
 
