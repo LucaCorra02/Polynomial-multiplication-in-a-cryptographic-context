@@ -36,3 +36,7 @@ f9_element f9_prod(f9_element a, f9_element b) {
     unsigned int b1 = get_imaginary_part(b), b0 = get_real_part(b);
     return (f3_sum(f3_prod(a0,b1),f3_prod(a1,b0)) << 2 ) | f3_sum(f3_prod(a0,b0), swap_bits(f3_prod(a1,b1)));
 }
+
+f9_element f9_neg(f9_element a){
+    return get_f9_element(swap_bits(get_imaginary_part(a)), swap_bits(get_real_part(a)));
+}
