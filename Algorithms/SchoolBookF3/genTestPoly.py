@@ -48,12 +48,22 @@ def polymod3_f9(ris):
     return ris_mod3
 
 def print_cof_formatted(p):
-    st1 = ",".join([str(elem) for elem in p])
+    st1 = ",".join([str(int(elem)) for elem in p])
     print(st1)
 
 def print_cof_formatted_f9(p):
     str = ",".join(["({}i + {})".format(int(elem.imag), int(elem.real)) for elem in p])
     print(str)
+
+def gen_correct_output_prod_r(file_name):
+    with open(file_name, "r") as file:
+        for line in file:
+            tmp = line.strip().split(';')
+            a = list(map(int,tmp[0].strip().split(',')))
+            b = list(map(int,tmp[1].strip().split(',')))
+            p1, p2 = Polynomial(a), Polynomial(b)
+            ris = p1 * p2
+            print_cof_formatted(ris)
 
 def gen_correct_output_prod_f3(file_name):
     with open(file_name, "r") as file:
@@ -79,17 +89,12 @@ def gen_correct_output_prod_f9(file_name): #Z = (Y.real, Y.imag)
 def main():
     num_rows = 100
     num_terms = 1024
-    min_range = 99
-    max_range = 1000
+    min_range = 1
+    max_range = 100
 
-    c1 = gen_input_f3_algo(33,1,10)
-    c2 = gen_input_f3_algo(33,1,10)
-    print(len(c1))
-    formatted_print(c1,c2)
-    ris = Polynomial(c1) * Polynomial(c2)
-    print(ris.coef)
-
-
+    #gen_input_random_f3(num_rows, num_terms, min_range, max_range)
+    file_name = "../Karatsuba/TestFile/R/input.txt"
+    gen_correct_output_prod_r(file_name)
 
 
     #gen_input_random(num_rows, num_terms, min_range, max_range)
