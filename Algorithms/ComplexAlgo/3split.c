@@ -93,14 +93,19 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     f9_element* op_pointer = allocate_mem(6, n);
 
     f9_element* S1 = op_pointer;
-    sum_poly(n,k,A0,A2,S1);
+    sum_poly(n,k,A0,A2,S1); // A0 + A2
     f9_element* S2 = op_pointer + n;
-    sum_poly(n,n,S1,A1,S2);
+    sum_poly(n,n,S1,A1,S2); // S1 + A1
+    f9_element* S3 = op_pointer + 2*n;
+    diff_poly(n,n,S1,A1,S3);// S2 - A1
+    f9_element* S4 = op_pointer + 3*n;
+    diff_poly(n,k,A0,A2,S4); // A0 - A2
 
 
     print_vector_f9(op_pointer, 6*n);
     print_vector_f9(S1, n);
     print_vector_f9(S2, n);
+    print_vector_f9(S3, n);
 
     /*
         print_vector_f9(A0, n);

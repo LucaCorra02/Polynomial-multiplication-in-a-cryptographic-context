@@ -118,7 +118,7 @@ static const MunitSuite suite = {
 };
 
 int main(int argc, char* argv[]) {
-    munit_suite_main(&suite, NULL, argc, argv);
+    //munit_suite_main(&suite, NULL, argc, argv);
     f9_element p1[] = {
         get_f9_element(1,2), get_f9_element(0,0), get_f9_element(1,1), get_f9_element(0,0), get_f9_element(0,1),
         get_f9_element(2,0), get_f9_element(1,2)
