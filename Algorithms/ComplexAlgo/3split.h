@@ -26,6 +26,8 @@
 
     void sum_poly(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris);
 
+    void diff_poly(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris); //P1 - P2
+
     f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2);
 
     f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2);

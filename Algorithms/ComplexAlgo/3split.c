@@ -65,6 +65,11 @@ void sum_poly(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_ele
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(int_to_f9_element(ris[i]), int_to_f9_element(p2[i])); }
 }
 
+void diff_poly(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris){
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], f9_neg(p2[i])); }
+}
+
 f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     if (m < 6){
         printf("Caso Base");
