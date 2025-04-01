@@ -20,6 +20,10 @@
      */
     int get_split_k_param(int m, int n);
 
+    void print_vector_f9(f9_element* v, int num_elements);
+
+    f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2);
+
     f9_element* split_3_c(int n, f9_element* p1, f9_element* p2);
 
 #endif //INC_3SPLIT_H
