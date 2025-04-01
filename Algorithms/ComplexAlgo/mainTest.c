@@ -25,8 +25,40 @@ static MunitResult test_split_params(const MunitParameter params[], void* user_d
     return MUNIT_OK;
 }
 
+static MunitResult test_schoolbook_f9(const MunitParameter params[], void* user_data) {
+    (void) params;
+    (void) user_data;
+
+    f9_element p1[] = {
+        get_f9_element(1,2), get_f9_element(0,0), get_f9_element(1,1), get_f9_element(0,0), get_f9_element(0,1),
+        get_f9_element(2,0), get_f9_element(1,2), get_f9_element(2,2), get_f9_element(1,2), get_f9_element(0,2)
+    };
+    f9_element p2[] = {
+        get_f9_element(2,2), get_f9_element(1,2), get_f9_element(0,1), get_f9_element(2,0), get_f9_element(1,0),
+        get_f9_element(2,0), get_f9_element(0,2), get_f9_element(1,0), get_f9_element(2,2), get_f9_element(1,0)
+    };
+    f9_element expected[] = {
+        get_f9_element(0,2), get_f9_element(1,0), get_f9_element(2,2), get_f9_element(1,2), get_f9_element(2,2),
+        get_f9_element(2,0), get_f9_element(1,1), get_f9_element(2,0), get_f9_element(1,0), get_f9_element(1,0),
+        get_f9_element(1,2), get_f9_element(1,1), get_f9_element(2,2), get_f9_element(2,0), get_f9_element(2,2),
+        get_f9_element(0,2), get_f9_element(1,0), get_f9_element(0,0), get_f9_element(2,0)
+    };
+    int dim = 10;
+    int dim_ris = 2*dim -1;
+    int i = 3;
+
+    f9_element* ris = schoolbook_f9(dim, p1, p2);
+
+    for (int j = 0; j < dim_ris; ++j) {
+        print_f9_element(ris[j]);
+        munit_assert_int(ris[j], ==, expected[j]);
+    }
+    return MUNIT_OK;
+}
+
 static MunitTest tests[] = {
     { "/test_split_params", test_split_params, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
+    { "/test_schoolbook_f9", test_schoolbook_f9, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
 };
 
