@@ -56,4 +56,38 @@ f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2) { //coefficenti
     return ris;
 }
 
-f9_element* split_3_c(int n, f9_element* p1, f9_element* p2){return NULL; }
+f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
+    if (m < 6){
+        printf("Caso Base");
+        return schoolbook_f9(m, p1, p2);
+    }
+    int n = get_split_n_param(m, 3);
+    int k = get_split_k_param(m, n);
+    printf("Params: %d, %d\n", n, k);
+
+    f9_element* A0 = p1;
+    f9_element* A1 = p1 + n;
+    f9_element* A2 = p1 + 2*n;
+
+    f9_element* B0 = p2;
+    f9_element* B1 = p2 + n;
+    f9_element* B2 = p2 + 2*n;
+
+    /*
+        print_vector_f9(A0, n);
+
+        print_vector_f9(A1, n);
+        print_vector_f9(A2, k);
+
+        print_vector_f9(B0, n);
+        print_vector_f9(B1, n);
+        print_vector_f9(B2, k);
+    */
+
+
+
+
+
+
+    return NULL;
+}

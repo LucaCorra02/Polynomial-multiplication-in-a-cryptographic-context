@@ -24,6 +24,6 @@
 
     f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2);
 
-    f9_element* split_3_c(int n, f9_element* p1, f9_element* p2);
+    f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2);
 
 #endif //INC_3SPLIT_H
