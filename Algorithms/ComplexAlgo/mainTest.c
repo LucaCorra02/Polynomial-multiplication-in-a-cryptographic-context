@@ -131,5 +131,6 @@ int main(int argc, char* argv[]) {
     if (ris != NULL){
         print_vector_f9(ris, 7*2-1);
     }
+
 }
 
