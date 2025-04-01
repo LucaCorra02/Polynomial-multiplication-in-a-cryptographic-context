@@ -3,9 +3,23 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
+    #include <math.h>
     #include "../FieldImplementation/f3Utils.h"
     #include "../FieldImplementation/F9Utils.h"
 
-    void prova(f9_element a);
+    /*
+        m = num termini polinomio
+        i = grado split
+        torna n in -> 2*n + k
+    */
+    int get_split_n_param(int m, int i );
+    /*
+        m = num termini polinomio
+        n = parti uguali del polinomio
+        torna k in -> 2*n + k = m -> k = m - (2*n)
+     */
+    int get_split_k_param(int m, int n);
+
+    f9_element* split_3_c(int n, f9_element* p1, f9_element* p2);
 
 #endif //INC_3SPLIT_H

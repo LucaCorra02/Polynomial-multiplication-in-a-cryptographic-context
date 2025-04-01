@@ -4,6 +4,14 @@
 #define NUM_OPERANDS 1024
 
 int main(int argc, char *argv[]){
-    prova(get_f9_element(2,2));
+
+    int i = 3;
+
+    for (int m = 6; m < 3000; m++){
+        int n = get_split_n_param(m, i);
+        int k = get_split_k_param(m, n);
+        printf("Grado partenza: %d, n = %d, k = %d, ris = %d\n", m, n, k, 2*n+k);
+    }
+
 }
 
