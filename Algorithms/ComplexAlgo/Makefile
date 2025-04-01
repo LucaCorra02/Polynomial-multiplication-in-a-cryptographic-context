@@ -1,6 +1,6 @@
 TARGET = mainTest.out
-SRC = mainTest.c 3split.c f9Implementation.c f3Implementation.c
-OBJ = mainTest.o 3split.o  f9Implementation.o f3Implementation.o
+SRC = mainTest.c 3split.c f9Implementation.c f3Implementation.c ../../munit/munit.c
+OBJ = mainTest.o 3split.o  f9Implementation.o f3Implementation.o munit.o
 
 CFLAGS = -O3 -Wall
 F9_SRC_DIR = ../FieldImplementation
@@ -19,7 +19,10 @@ f9Implementation.o: $(F9_SRC_DIR)/f9Implementation.c $(F9_SRC_DIR)/F9Utils.h
 3split.o: 3split.c 3split.h
 	gcc $(CFLAGS) -c 3split.c
 
-mainTest.o: mainTest.c 3split.h
+munit.o: ../../munit/munit.c ../../munit/munit.h
+	$(CC) $(CFLAGS) -c ../../munit/munit.c -o munit.o
+
+mainTest.o: mainTest.c 3split.h ../../munit/munit.h
 	gcc $(CFLAGS) -c mainTest.c
 
 benchmarks: f3schoolbook.o $(F9_SRC_DIR)/f3Implementation.o $(F9_SRC_DIR)/f9Implementation.o benchmarks.cpp #Make benchmarks compila solo i benchmarks
