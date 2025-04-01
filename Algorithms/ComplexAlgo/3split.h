@@ -22,6 +22,8 @@
 
     void print_vector_f9(f9_element* v, int num_elements);
 
+    f9_element* allocate_mem(int num_array, int dim_array);
+
     f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2);
 
     f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2);

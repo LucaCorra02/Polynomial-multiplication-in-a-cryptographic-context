@@ -56,6 +56,10 @@ f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2) { //coefficenti
     return ris;
 }
 
+f9_element* allocate_mem(int num_array, int dim_array){
+  return calloc(num_array * dim_array, sizeof(f9_element));
+}
+
 f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     if (m < 6){
         printf("Caso Base");
@@ -65,13 +69,18 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     int k = get_split_k_param(m, n);
     printf("Params: %d, %d\n", n, k);
 
-    f9_element* A0 = p1;
+    /*f9_element* A0 = p1;
     f9_element* A1 = p1 + n;
     f9_element* A2 = p1 + 2*n;
 
-    f9_element* B0 = p2;
-    f9_element* B1 = p2 + n;
-    f9_element* B2 = p2 + 2*n;
+    /*
+        f9_element* B0 = p2;
+        f9_element* B1 = p2 + n;
+        f9_element* B2 = p2 + 2*n;
+     */
+    f9_element* op_pointer = allocate_mem(6, n);
+    print_vector_f9(op_pointer, 6*n);
+
 
     /*
         print_vector_f9(A0, n);
