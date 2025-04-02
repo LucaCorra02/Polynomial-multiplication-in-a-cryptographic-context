@@ -19,4 +19,6 @@ f9_element f9_prod(f9_element a, f9_element b);
 
 f9_element f9_neg(f9_element a);
 
+f9_element f9_prod_img(f9_element a);
+
 #endif //F9UTILS_H

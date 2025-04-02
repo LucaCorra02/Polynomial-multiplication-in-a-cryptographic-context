@@ -40,3 +40,7 @@ f9_element f9_prod(f9_element a, f9_element b) {
 f9_element f9_neg(f9_element a){
     return get_f9_element(swap_bits(get_imaginary_part(a)), swap_bits(get_real_part(a)));
 }
+
+f9_element f9_prod_img(f9_element a){
+    return get_f9_element(0,0);
+}
