@@ -56,8 +56,10 @@ f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2) { //coefficenti
     return ris;
 }
 
-f9_element* allocate_mem(int num_array, int dim_array){
-  return calloc(num_array * dim_array, sizeof(f9_element));
+f9_element* allocate_mem(int num_array, int dim_array, int num_array_comp, int dim_array_comp){
+  int dim_first_part = num_array * dim_array;
+  int dim_second_part = num_array_comp * dim_array_comp;
+  return calloc(dim_first_part + dim_second_part, sizeof(f9_element));
 }
 
 void sum_poly(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris){ // P1 + P2
@@ -92,8 +94,9 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     f9_element* B1 = p2 + n;
     f9_element* B2 = p2 + 2*n;
 
-    int sub_operation = (5*2);
-    f9_element* op_pointer = allocate_mem(sub_operation, n);
+    int op_part1 = (10);
+    int op_part2 = (8);
+    f9_element* op_pointer = allocate_mem(op_part1, n, op_part2, (2*n-1));
 
     f9_element* S1 = op_pointer;
     sum_poly(n, k, A0, A2, S1);    // A0 + A2. Dim n,k = n
@@ -117,7 +120,6 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     f9_element* S5_b = S1_b + 4*n;
     sum_poly_img(n, n, S4_b, B1, S5_b); // S4_b + B1w Dim n,n = n
 
-    print_vector_f9(op_pointer, sub_operation*n);
     printf("S1: ");
     print_vector_f9(S1, n);
     printf("S2: ");
@@ -156,8 +158,21 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     printf("P4: ");
     print_vector_f9(P4, 2*k-1);
 
+    int dim_subproduct = (2*n-1);
+    f9_element* Q1 = S5_b + n;
+    diff_poly(dim_subproduct, dim_subproduct, P1, P2, Q1); //P1 - P2
+    f9_element* Q2 = Q1 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, P1, P2, Q2);  //P1 + P2
 
 
+
+    printf("sos:%d\n",(op_part1*n)+(op_part2*(2*n-1)));
+    print_vector_f9(op_pointer, (op_part1*n)+(op_part2*(2*n-1)));
+
+    printf("\nQ1: ");
+    print_vector_f9(Q1, dim_subproduct);
+    printf("Q2: ");
+    print_vector_f9(Q2, dim_subproduct);
 
 
     /*

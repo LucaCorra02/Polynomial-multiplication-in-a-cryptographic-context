@@ -22,7 +22,7 @@
 
     void print_vector_f9(f9_element* v, int num_elements);
 
-    f9_element* allocate_mem(int num_array, int dim_array);
+    f9_element* allocate_mem(int num_array, int dim_array, int num_array_comp, int dim_array_comp);
 
     void sum_poly(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris); //P1 + P2
 
