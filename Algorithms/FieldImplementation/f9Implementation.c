@@ -42,5 +42,5 @@ f9_element f9_neg(f9_element a){
 }
 
 f9_element f9_prod_img(f9_element a){
-    return get_f9_element(0,0);
+    return get_f9_element(get_real_part(a), swap_bits(get_imaginary_part(a)));
 }
