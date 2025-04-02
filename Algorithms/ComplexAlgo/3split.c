@@ -164,11 +164,19 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     print_vector_f9(P4, 2*k-1);
 
     int dim_subproduct = (2*n-1);
+    int dim_subproduct_rem = (2*k-1);
     f9_element* Q1 = S5_b + n;
     diff_poly(dim_subproduct, dim_subproduct, P1, P2, Q1); //P1 - P2
     f9_element* Q2 = Q1 + dim_subproduct;
     sum_poly(dim_subproduct, dim_subproduct, P1, P2, Q2);  //P1 + P2
-
+    f9_element* Q3 = Q1 + 2*dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct_rem, P0, P4, Q3); // P0 + P4
+    f9_element* Q4 = Q1 + 3*dim_subproduct;
+    diff_poly_double(dim_subproduct, dim_subproduct, Q2, Q3, Q4); // -Q2 - Q3
+    f9_element* Q5 = Q1 + 4*dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, Q2, Q3, Q5); // Q2 - Q3
+    f9_element* Q6 = Q1 + 5*dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, Q5, P3, Q6); // Q5 - P3
 
 
     printf("sos:%d\n",(op_part1*n)+(op_part2*(2*n-1)));
@@ -178,6 +186,15 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     print_vector_f9(Q1, dim_subproduct);
     printf("Q2: ");
     print_vector_f9(Q2, dim_subproduct);
+    printf("Q3: ");
+    print_vector_f9(Q3, dim_subproduct);
+    printf("Q4: ");
+    print_vector_f9(Q4, dim_subproduct);
+    printf("Q5: ");
+    print_vector_f9(Q5, dim_subproduct);
+    printf("Q6: ");
+    print_vector_f9(Q6, dim_subproduct);
+
 
 
     /*
