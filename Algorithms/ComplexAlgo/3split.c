@@ -82,6 +82,11 @@ void sum_poly_img(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], f9_prod_img(p2[i])); }
 }
 
+void sum_poly_img_neg(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris){ //P1 - wP2
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], f9_prod_img_neg(p2[i])); }
+}
+
 f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     if (m < 6){
         printf("Caso Base");
