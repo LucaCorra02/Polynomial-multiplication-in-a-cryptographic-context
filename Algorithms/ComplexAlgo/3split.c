@@ -60,14 +60,19 @@ f9_element* allocate_mem(int num_array, int dim_array){
   return calloc(num_array * dim_array, sizeof(f9_element));
 }
 
-void sum_poly(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris){
+void sum_poly(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris){ // P1 + P2
     for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(int_to_f9_element(ris[i]), int_to_f9_element(p1[i])); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(int_to_f9_element(ris[i]), int_to_f9_element(p2[i])); }
 }
 
-void diff_poly(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris){
+void diff_poly(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris){ // P1 - P2
     for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(ris[i], p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], f9_neg(p2[i])); }
+}
+
+void sum_poly_img(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris){ //P1 + wP2
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], f9_prod_img(p2[i])); }
 }
 
 f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
@@ -93,13 +98,16 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     f9_element* op_pointer = allocate_mem(6, n);
 
     f9_element* S1 = op_pointer;
-    sum_poly(n,k,A0,A2,S1); // A0 + A2
+    sum_poly(n, k, A0, A2, S1); // A0 + A2. Dim n,k = n
     f9_element* S2 = op_pointer + n;
-    sum_poly(n,n,S1,A1,S2); // S1 + A1
+    sum_poly(n,n,S1,A1,S2); // S1 + A1. Dim n,n = n
     f9_element* S3 = op_pointer + 2*n;
-    diff_poly(n,n,S1,A1,S3);// S2 - A1
+    diff_poly(n,n,S1,A1,S3);// S2 - A1 Dim n,n = n
     f9_element* S4 = op_pointer + 3*n;
-    diff_poly(n,k,A0,A2,S4); // A0 - A2
+    diff_poly(n,k,A0,A2,S4); // A0 - A2 Dim n,k = n
+    //f9_element* S5 = op_pointer + 4*n;
+    //
+
 
 
     print_vector_f9(op_pointer, 6*n);
