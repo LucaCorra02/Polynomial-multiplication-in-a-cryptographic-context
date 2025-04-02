@@ -182,6 +182,10 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     diff_poly(dim_subproduct, dim_subproduct, Q2, Q3, Q5); // Q2 - Q3
     f9_element* Q6 = Q1 + 5*dim_subproduct;
     diff_poly(dim_subproduct, dim_subproduct, Q5, P3, Q6); // Q5 - P3
+    f9_element* Q7 = Q1 + 6*dim_subproduct;
+    sum_poly_img_neg(dim_subproduct, dim_subproduct, Q1, Q6, Q7); // Q1 - wQ6
+    f9_element* Q8 = Q1 + 7*dim_subproduct;
+    sum_poly_img(dim_subproduct, dim_subproduct, Q1, Q6, Q8); //Q1 + wQ6
 
 
     printf("sos:%d\n",(op_part1*n)+(op_part2*(2*n-1)));
@@ -199,6 +203,10 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     print_vector_f9(Q5, dim_subproduct);
     printf("Q6: ");
     print_vector_f9(Q6, dim_subproduct);
+    printf("Q7: ");
+    print_vector_f9(Q7, dim_subproduct);
+    printf("Q8: ");
+    print_vector_f9(Q8, dim_subproduct);
 
 
 
