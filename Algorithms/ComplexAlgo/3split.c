@@ -87,33 +87,78 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     f9_element* A0 = p1; //dim n
     f9_element* A1 = p1 + n; //dim n
     f9_element* A2 = p1 + 2*n; // dim k, tot m = 2*n+k
-    print_vector_f9(A0, n);
-    print_vector_f9(A1, n);
-    print_vector_f9(A2, k);
-    /*
-        f9_element* B0 = p2;
-        f9_element* B1 = p2 + n;
-        f9_element* B2 = p2 + 2*n;
-     */
-    f9_element* op_pointer = allocate_mem(6, n);
+
+    f9_element* B0 = p2;
+    f9_element* B1 = p2 + n;
+    f9_element* B2 = p2 + 2*n;
+
+    int sub_operation = (5*2);
+    f9_element* op_pointer = allocate_mem(sub_operation, n);
 
     f9_element* S1 = op_pointer;
-    sum_poly(n, k, A0, A2, S1); // A0 + A2. Dim n,k = n
+    sum_poly(n, k, A0, A2, S1);    // A0 + A2. Dim n,k = n
     f9_element* S2 = op_pointer + n;
-    sum_poly(n,n,S1,A1,S2); // S1 + A1. Dim n,n = n
+    sum_poly(n, n, S1, A1, S2);    // S1 + A1. Dim n,n = n
     f9_element* S3 = op_pointer + 2*n;
-    diff_poly(n,n,S1,A1,S3);// S2 - A1 Dim n,n = n
+    diff_poly(n, n, S1, A1, S3);   // S2 - A1 Dim n,n = n
     f9_element* S4 = op_pointer + 3*n;
-    diff_poly(n,k,A0,A2,S4); // A0 - A2 Dim n,k = n
-    //f9_element* S5 = op_pointer + 4*n;
-    //
+    diff_poly(n, k, A0, A2, S4);   // A0 - A2 Dim n,k = n
+    f9_element* S5 = op_pointer + 4*n;
+    sum_poly_img(n , n, S4, A1, S5);// S4 + A1w Dim n,n = n
 
+    f9_element* S1_b = S5 + n ;
+    sum_poly(n, k, B0, B2, S1_b);   // B0 + B2. Dim n,k = n
+    f9_element* S2_b = S1_b + n;
+    sum_poly(n, n, S1_b, B1, S2_b); // S1_b + B1. Dim n,n = n
+    f9_element* S3_b = S1_b + 2*n;
+    diff_poly(n, n, S1_b, B1, S3_b); // S2_b - B1 Dim n,n = n
+    f9_element* S4_b = S1_b + 3*n;
+    diff_poly(n, k, B0, B2, S4_b);  // B0 - B2 Dim n,k = n
+    f9_element* S5_b = S1_b + 4*n;
+    sum_poly_img(n, n, S4_b, B1, S5_b); // S4_b + B1w Dim n,n = n
 
-
-    print_vector_f9(op_pointer, 6*n);
+    print_vector_f9(op_pointer, sub_operation*n);
+    printf("S1: ");
     print_vector_f9(S1, n);
+    printf("S2: ");
     print_vector_f9(S2, n);
+    printf("S3: ");
     print_vector_f9(S3, n);
+    printf("S4: ");
+    print_vector_f9(S4, n);
+    printf("S5: ");
+    print_vector_f9(S5, n);
+    printf("S1_b: ");
+    print_vector_f9(S1_b, n);
+    printf("S2_b: ");
+    print_vector_f9(S2_b, n);
+    printf("S3_b: ");
+    print_vector_f9(S3_b, n);
+    printf("S4_b: ");
+    print_vector_f9(S4_b, n);
+    printf("S5_b: ");
+    print_vector_f9(S5_b, n);
+
+    f9_element* P0 = schoolbook_f9(n, A0, B0);
+    f9_element* P1 = schoolbook_f9(n, S2, S2_b);
+    f9_element* P2 = schoolbook_f9(n, S3, S3_b);
+    f9_element* P3 = schoolbook_f9(n, S5, S5_b);
+    f9_element* P4 = schoolbook_f9(k, A2, B2);
+
+    printf("P0: ");
+    print_vector_f9(P0, 2*n-1);
+    printf("P1: ");
+    print_vector_f9(P1, 2*n-1);
+    printf("P2: ");
+    print_vector_f9(P2, 2*n-1);
+    printf("P3: ");
+    print_vector_f9(P3, 2*n-1);
+    printf("P4: ");
+    print_vector_f9(P4, 2*k-1);
+
+
+
+
 
     /*
         print_vector_f9(A0, n);
