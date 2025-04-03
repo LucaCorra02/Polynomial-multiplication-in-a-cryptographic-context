@@ -104,7 +104,7 @@ def main():
 
     ##F9 MAIN
     #gen_input_random_f9(num_rows, num_terms, min_range, max_range)
-    file_name = "../Karatsuba/TestFile/F9/input.txt"
+    file_name = "Karatsuba/TestFile/F9/input.txt"
     gen_correct_output_prod_f9(file_name)
 
 main()
