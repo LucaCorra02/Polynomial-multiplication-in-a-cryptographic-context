@@ -51,7 +51,11 @@ def print_cof_formatted(p):
     st1 = ",".join([str(int(elem)) for elem in p])
     print(st1)
 
-def print_cof_formatted_f9(p):
+def print_cof_formatted_f9(p, dim_a):
+    if len(p) != 2*dim_a-1:
+        diff = 2*dim_a-1 - len(p)
+        for i in range(0,diff):
+            p.append((0j+0))
     str = ",".join(["({}i + {})".format(int(elem.imag), int(elem.real)) for elem in p])
     print(str)
 
@@ -83,14 +87,14 @@ def gen_correct_output_prod_f9(file_name): #Z = (Y.real, Y.imag)
             b = [complex(int(elem.split(':')[1]),int(elem.split(':')[0])) for elem in tmp[1].split(',')]
             p1, p2 = Polynomial(a), Polynomial(b)
             ris = p1 * p2
-            print_cof_formatted_f9(polymod3_f9(ris))
+            print_cof_formatted_f9(polymod3_f9(ris),len(a))
 
 
 def main():
-    num_rows = 100
-    num_terms = 133
-    min_range = 1
-    max_range = 100
+    num_rows = 2
+    num_terms = 1024
+    min_range = 0
+    max_range = 3
 
     ##R MAIN
     #gen_input_random_f3(num_rows, num_terms, min_range, max_range)
@@ -99,12 +103,12 @@ def main():
 
     ##F3 MAIN
     #gen_input_random_f3(num_rows, num_terms, min_range, max_range)
-    #file_name = "../Karatsuba/TestFile/F3/input.txt"
+    #file_name = "TestFile/F9/input.txt"
     #gen_correct_output_prod_f3(file_name)
 
     ##F9 MAIN
     #gen_input_random_f9(num_rows, num_terms, min_range, max_range)
-    file_name = "Karatsuba/TestFile/F9/input.txt"
+    file_name = "TestFile/F9/input.txt"
     gen_correct_output_prod_f9(file_name)
 
 main()
