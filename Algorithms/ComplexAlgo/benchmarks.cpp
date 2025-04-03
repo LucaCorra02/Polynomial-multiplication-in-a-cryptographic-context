@@ -6,10 +6,6 @@ extern "C" {
 #include <string.h>
 #include "../../benchmark/include/benchmark/benchmark.h"
 
-
-static unsigned int** operands;
-
-
 //./benchmarks.out --benchmark_min_warmup_time=20s
 
 static void Benchmark_3split_f9(benchmark::State& state){ //Testo F9_shoolbook
