@@ -227,22 +227,6 @@ int main(int argc, char* argv[]) {
     }
 
     return 0;
-    /*f9_element p1[] = {
-        get_f9_element(1,2), get_f9_element(0,0), get_f9_element(1,1), get_f9_element(0,0), get_f9_element(0,1),
-        get_f9_element(2,0), get_f9_element(1,2)
-    };
-    f9_element p2[] = {
-        get_f9_element(2,2), get_f9_element(1,2), get_f9_element(0,1), get_f9_element(2,0), get_f9_element(1,0),
-        get_f9_element(2,0), get_f9_element(1,2)
-    };
-    f9_element* ris = split_3_f9(7, p1,p2);
-    if (ris != NULL){
-        print_vector_f9(ris, 7*2-1);
-    }
-    free(ris);
-
-     */
-
 }
 
 
