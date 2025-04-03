@@ -194,20 +194,62 @@ static const MunitSuite suite = {
     "/3split_tests", tests, NULL, 1, MUNIT_SUITE_OPTION_NONE
 };
 
+f9_element* split_operands_f9(char* p, int num_operands){
+    f9_element* ris = calloc(num_operands,sizeof(f9_element));
+    int i = 0;
+    char* token = strtok(p, ",");
+    while (token != NULL && i < num_operands) {
+        int real, imag = 0;
+        sscanf(token, "%d:%d", &imag, &real);
+        ris[i++] = get_f9_element(imag,real);
+        token = strtok(NULL, ",");
+    }
+    return ris;
+}
+
+#define BUFFERSIZE 10000
+#define NUM_OPERANDS 1024
+
 int main(int argc, char* argv[]) {
-    munit_suite_main(&suite, NULL, argc, argv);
-    f9_element p1[] = {
+    //munit_suite_main(&suite, NULL, argc, argv);
+
+    char buffer[BUFFERSIZE];
+    while (fgets(buffer, BUFFERSIZE , stdin)){
+        char* left = strtok(buffer, ";");
+        char* right = strtok(NULL, ";");
+        f9_element* p1 = split_operands_f9(left,NUM_OPERANDS);
+        f9_element* p2 = split_operands_f9(right,NUM_OPERANDS);
+
+        f9_element* ris = split_3_f9(NUM_OPERANDS, p1,p2);
+        print_vector_f9(ris,(2*NUM_OPERANDS)-1);
+        free(p1);
+        free(p2);
+        free(ris);
+
+    }
+
+    return 0;
+    /*f9_element p1[] = {
         get_f9_element(1,2), get_f9_element(0,0), get_f9_element(1,1), get_f9_element(0,0), get_f9_element(0,1),
         get_f9_element(2,0), get_f9_element(1,2)
     };
     f9_element p2[] = {
         get_f9_element(2,2), get_f9_element(1,2), get_f9_element(0,1), get_f9_element(2,0), get_f9_element(1,0),
-        get_f9_element(2,0), get_f9_element(0,2)
+        get_f9_element(2,0), get_f9_element(1,2)
     };
     f9_element* ris = split_3_f9(7, p1,p2);
     if (ris != NULL){
         print_vector_f9(ris, 7*2-1);
     }
+    free(ris);
+
+     */
 
 }
+
+
+
+
+
+
 
