@@ -208,7 +208,7 @@ f9_element* split_operands_f9(char* p, int num_operands){
 }
 
 #define BUFFERSIZE 10000
-#define NUM_OPERANDS 1024
+#define NUM_OPERANDS 1027
 
 int main(int argc, char* argv[]) {
     //munit_suite_main(&suite, NULL, argc, argv);
@@ -219,13 +219,11 @@ int main(int argc, char* argv[]) {
         char* right = strtok(NULL, ";");
         f9_element* p1 = split_operands_f9(left,NUM_OPERANDS);
         f9_element* p2 = split_operands_f9(right,NUM_OPERANDS);
-
         f9_element* ris = split_3_f9(NUM_OPERANDS, p1,p2);
         print_vector_f9(ris,(2*NUM_OPERANDS)-1);
         free(p1);
         free(p2);
         free(ris);
-
     }
 
     return 0;

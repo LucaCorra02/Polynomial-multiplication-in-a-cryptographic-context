@@ -63,8 +63,8 @@ f9_element* allocate_mem(int num_array, int dim_array, int num_array_comp, int d
 }
 
 void sum_poly(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris){ // P1 + P2
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(int_to_f9_element(ris[i]), int_to_f9_element(p1[i])); }
-    for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(int_to_f9_element(ris[i]), int_to_f9_element(p2[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], p2[i]); }
 }
 
 void diff_poly(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris){ // P1 - P2
