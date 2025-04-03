@@ -208,23 +208,44 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     printf("Q8: ");
     print_vector_f9(Q8, dim_subproduct);
 
+    int dim_ris = (2*m-1);
+    f9_element* ris = calloc(dim_ris, sizeof(f9_element));
 
+    for(int i = 0; i < dim_subproduct ; i++){
+    	ris[i] = f9_sum(ris[i], P0[i]);
+    }
+    printf("ris P0: ");
+    print_vector_f9(ris, dim_ris);
 
-    /*
-        print_vector_f9(A0, n);
+    for(int i = 0; i < dim_subproduct ; i++){
+    	ris[i+n] = f9_sum(ris[i+n], Q7[i]);
+    }
+    printf("ris R1: ");
+    print_vector_f9(ris, dim_ris);
 
-        print_vector_f9(A1, n);
-        print_vector_f9(A2, k);
+    for(int i = 0; i < dim_subproduct ; i++){
+    	ris[i+2*n] = f9_sum(ris[i+2*n], Q4[i]);
+    }
+    printf("ris R2: ");
+    print_vector_f9(ris, dim_ris);
 
-        print_vector_f9(B0, n);
-        print_vector_f9(B1, n);
-        print_vector_f9(B2, k);
-    */
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+    	ris[i+3*n] = f9_sum(ris[i+3*n], Q8[i]);
+    }
+    printf("ris R3: ");
+    print_vector_f9(ris, dim_ris);
 
+    for(int i = 0; i < dim_subproduct_rem && i < dim_ris; i++){
+    	ris[i+4*n] = f9_sum(ris[i+4*n], P4[i]);
+    }
+    printf("ris R4: ");
+    print_vector_f9(ris, dim_ris);
 
-
-
-
-
-    return NULL;
+    free(op_pointer);
+    free(P0);
+    free(P1);
+    free(P2);
+    free(P3);
+    free(P4);
+    return ris;
 }
