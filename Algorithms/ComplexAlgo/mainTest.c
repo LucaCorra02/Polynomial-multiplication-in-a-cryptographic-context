@@ -218,13 +218,6 @@ int* split_operands_f3(char* p, int num_operands){
     return ris;
 }
 
-void print_vector(int* v, int num_elements){
-    for (int i = 0; i < num_elements-1; i++){
-        printf("%d,",v[i]);
-    }
-    printf("%d\n",v[num_elements-1]);
-}
-
 #define BUFFERSIZE 10000
 #define NUM_OPERANDS 1024
 
@@ -244,6 +237,7 @@ int main(int argc, char* argv[]) {
         free(ris);
     }*/
 
+    /*
     char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
@@ -255,7 +249,21 @@ int main(int argc, char* argv[]) {
         free(p1);
         free(p2);
         free(ris);
-    }
+    }*/
+
+     int p1[] = {
+         0,1,1,1,0,1,1
+     };
+     int p2[] = {
+         2,1,1,0,2,1,2
+     };
+     int* ris = split_3_f3(7, p1,p2);
+     if (ris != NULL){
+         print_vector(ris, 7*2-1);
+     }
+     free(ris);
+
+
 
     return 0;
 }

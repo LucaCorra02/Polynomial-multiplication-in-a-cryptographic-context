@@ -38,6 +38,10 @@
 
     f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2);
 
+    void print_vector(int* v, int num_elements);
+
+    int* allocate_mem_f3(int num_array, int dim_array, int num_array_comp, int dim_array_comp);
+
     int* schoolbook_f3(int n, int* p1, int* p2);
 
     int* split_3_f3(int m, int* p1, int* p2);

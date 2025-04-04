@@ -196,6 +196,13 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     return ris;
 }
 
+void print_vector(int* v, int num_elements){
+    for (int i = 0; i < num_elements-1; i++){
+        printf("%d,",v[i]);
+    }
+    printf("%d\n",v[num_elements-1]);
+}
+
 int* schoolbook_f3(int n, int* p1, int* p2) {
     int dim_ris = (2 * n) - 1;
     int* ris = calloc(dim_ris, sizeof(int));
@@ -219,11 +226,33 @@ int* schoolbook_f3(int n, int* p1, int* p2) {
     return ris;
 }
 
+int* allocate_mem_f3(int num_array, int dim_array, int num_array_comp, int dim_array_comp){
+  int dim_first_part = num_array * dim_array;
+  int dim_second_part = num_array_comp * dim_array_comp;
+  return calloc(dim_first_part + dim_second_part, sizeof(int));
+}
+
 int* split_3_f3(int m, int* p1, int* p2){
 	if (m < 6){
         return schoolbook_f3(m, p1, p2);
     }
     int n = get_split_n_param(m, 3);
     int k = get_split_k_param(m, n);
+
+   	int* A0 = p1; //dim n
+    int* A1 = p1 + n; //dim n
+    int* A2 = p1 + 2*n; // dim k, tot m = 2*n+k
+
+    int* B0 = p2;
+    int* B1 = p2 + n;
+    int* B2 = p2 + 2*n;
+
+    int op_part1 = (10);
+    int op_part2 = (8);
+    int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
+
+    print_vector(op_pointer, n);
+
+
 	return NULL;
 }
