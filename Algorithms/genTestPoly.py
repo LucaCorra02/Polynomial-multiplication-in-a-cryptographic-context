@@ -47,7 +47,12 @@ def polymod3_f9(ris):
         ris_mod3.append(complex(cof.real%3,cof.imag%3))
     return ris_mod3
 
-def print_cof_formatted(p):
+def print_cof_formatted_f3(p, dim_a):
+    if len(p) != 2*dim_a-1:
+        diff = 2*dim_a-1 - len(p)
+        for i in range(0,diff):
+            p.append(0)
+
     st1 = ",".join([str(int(elem)) for elem in p])
     print(st1)
 
@@ -67,7 +72,7 @@ def gen_correct_output_prod_r(file_name):
             b = list(map(int,tmp[1].strip().split(',')))
             p1, p2 = Polynomial(a), Polynomial(b)
             ris = p1 * p2
-            print_cof_formatted(ris)
+            print_cof_formatted_f3(ris,len(a))
 
 def gen_correct_output_prod_f3(file_name):
     with open(file_name, "r") as file:
@@ -77,7 +82,7 @@ def gen_correct_output_prod_f3(file_name):
             b = list(map(int,tmp[1].strip().split(',')))
             p1, p2 = Polynomial(a), Polynomial(b)
             ris = polymod3(p1 * p2)
-            print_cof_formatted(ris)
+            print_cof_formatted_f3(ris,len(a))
 
 def gen_correct_output_prod_f9(file_name): #Z = (Y.real, Y.imag)
     with open(file_name, "r") as file:
@@ -91,8 +96,8 @@ def gen_correct_output_prod_f9(file_name): #Z = (Y.real, Y.imag)
 
 
 def main():
-    num_rows = 99
-    num_terms = 1027
+    num_rows = 200
+    num_terms = 1024
     min_range = 0
     max_range = 3
 
@@ -103,12 +108,12 @@ def main():
 
     ##F3 MAIN
     #gen_input_random_f3(num_rows, num_terms, min_range, max_range)
-    #file_name = "TestFile/F9/input.txt"
-    #gen_correct_output_prod_f3(file_name)
+    file_name = "TestFile/F3/input.txt"
+    gen_correct_output_prod_f3(file_name)
 
     ##F9 MAIN
     #gen_input_random_f9(num_rows, num_terms, min_range, max_range)
-    file_name = "TestFile/F9/input.txt"
-    gen_correct_output_prod_f9(file_name)
+    #file_name = "TestFile/F9/input.txt"
+    #gen_correct_output_prod_f9(file_name)
 
 main()
