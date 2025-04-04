@@ -195,3 +195,35 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     free(P4);
     return ris;
 }
+
+int* schoolbook_f3(int n, int* p1, int* p2) {
+    int dim_ris = (2 * n) - 1;
+    int* ris = calloc(dim_ris, sizeof(int));
+    if (n == 1) { ris[0] = f3_prod(p1[0], p2[0]); return ris; }
+    int max_deg = n - 1;
+    unsigned int mst_p1 = p1[max_deg];
+    unsigned int mst_p2 = p2[max_deg];
+    ris[max_deg * 2] = f3_sum(ris[max_deg * 2], f3_prod(mst_p1,mst_p2));
+
+    for (int i = 0; i < max_deg; i++) {
+        ris[max_deg + i] = f3_sum(ris[max_deg + i], f3_prod(mst_p1, p2[i]));
+        ris[max_deg + i] = f3_sum(ris[max_deg + i], f3_prod(mst_p2, p1[i]));
+    }
+
+    int* sub_result = schoolbook_f3(n - 1, p1, p2);
+    for (int i = 0; i < (dim_ris - 1); i++) {
+        ris[i] = f3_sum(ris[i],sub_result[i]);
+    }
+
+    free(sub_result);
+    return ris;
+}
+
+int* split_3_f3(int m, int* p1, int* p2){
+	if (m < 6){
+        return schoolbook_f3(m, p1, p2);
+    }
+    int n = get_split_n_param(m, 3);
+    int k = get_split_k_param(m, n);
+	return NULL;
+}
