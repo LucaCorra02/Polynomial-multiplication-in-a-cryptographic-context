@@ -44,7 +44,7 @@ static void Benchmark_3split_f3(benchmark::State& state){ //Testo F3_Split3
     delete[] p2;
 }
 
-BENCHMARK(Benchmark_3split_f9)->DenseRange(10, 2048, 100)->Unit(benchmark::kMillisecond);
-//BENCHMARK(Benchmark_3split_f3)->DenseRange(10, 2048, 100)->Unit(benchmark::kMillisecond);
+BENCHMARK(Benchmark_3split_f9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
+//BENCHMARK(Benchmark_3split_f3)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_MAIN();

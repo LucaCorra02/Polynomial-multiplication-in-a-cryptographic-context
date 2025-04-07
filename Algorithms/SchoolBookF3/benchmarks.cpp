@@ -48,7 +48,7 @@ static void Benchmark_Schoolbook_F3(benchmark::State& state){ //Testo F9_shoolbo
     delete[] p2;
 }
 
-BENCHMARK(Benchmark_Schoolbook_F3)->DenseRange(10, 2048, 100)->Unit(benchmark::kMillisecond);
-//BENCHMARK(Benchmark_Schoolbook_F9)->DenseRange(10, 2048, 100)->Unit(benchmark::kMillisecond);
+//BENCHMARK(Benchmark_Schoolbook_F3)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
+BENCHMARK(Benchmark_Schoolbook_F9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_MAIN();

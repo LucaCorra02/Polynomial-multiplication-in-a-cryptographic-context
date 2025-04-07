@@ -56,7 +56,7 @@ static void Benchmark_Karatsuba_F9(benchmark::State& state){ //Testo F9_shoolboo
     delete[] p2;
 }
 
-//BENCHMARK(Benchmark_Karatsuba_F9)->DenseRange(10, 2048, 100)->Unit(benchmark::kMillisecond);
-BENCHMARK(Benchmark_Karatsuba_F3)->DenseRange(10, 2048, 100)->Unit(benchmark::kMillisecond);
+//BENCHMARK(Benchmark_Karatsuba_F9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
+BENCHMARK(Benchmark_Karatsuba_F3)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_MAIN();
