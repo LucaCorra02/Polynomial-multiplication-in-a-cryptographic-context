@@ -252,6 +252,11 @@ void diff_poly_img_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* 
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_imaginary_part(p2[i]))); }
 }
 
+void sum_poly_imag_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris){
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_imaginary_part(p2[i])); }
+}
+
 int* split_3_f3(int m, int* p1, int* p2){
 	if (m < 6){
         return schoolbook_f3(m, p1, p2);
@@ -341,6 +346,8 @@ int* split_3_f3(int m, int* p1, int* p2){
     diff_poly_f3(dim_subproduct, dim_subproduct, P1, P2, Q1);
     int* Q2 = Q1 + dim_subproduct;
     diff_poly_img_f3(dim_subproduct, dim_subproduct, Q1, P3, Q2);
+    int* Q3 = Q2 + dim_subproduct;
+    sum_poly_imag_f3(dim_subproduct, dim_subproduct, Q1, P3, Q3);
 
     print_vector_f3(op_pointer, (op_part1 * n) + op_part2 * (2*n-1) );
     print_vector_f9(op_pointer_f9, 2 * n);
@@ -348,6 +355,8 @@ int* split_3_f3(int m, int* p1, int* p2){
     print_vector_f3(Q1, dim_subproduct);
     printf("Q2: ");
     print_vector_f3(Q2, dim_subproduct);
+    printf("Q3: ");
+    print_vector_f3(Q3, dim_subproduct);
 
 
 
