@@ -343,7 +343,7 @@ int* split_operands_f3(char* p, int num_operands){
 }
 
 #define BUFFERSIZE 10000
-#define NUM_OPERANDS 2048
+#define NUM_OPERANDS 777
 
 int main(int argc, char* argv[]) {
     //munit_suite_main(&suite, NULL, argc, argv);
@@ -375,25 +375,7 @@ int main(int argc, char* argv[]) {
         free(p2);
         free(ris);
     }
-
-
-     /*
-     int p1[] = {
-         0,1,1,1,0,1,1
-     };
-     int p2[] = {
-         2,1,1,0,2,1,2
-     };
-     //0,2,0,1,2,2,0,1,1,1,0,0,2
-     int* ris = split_3_f3(7, p1,p2);
-     if (ris != NULL){
-         print_vector_f3(ris, 7*2-1);
-     }
-     free(ris);
-     */
-
-
-
+    printf("Num Op:%d\n",NUM_OPERANDS);
     return 0;
 }
 
