@@ -191,7 +191,34 @@ static MunitTest tests[] = {
 };
 
 static const MunitSuite suite = {
-    "/3split_tests", tests, NULL, 1, MUNIT_SUITE_OPTION_NONE
+    "/3split_f9_tests", tests, NULL, 1, MUNIT_SUITE_OPTION_NONE
+};
+
+static MunitResult test_poly_sum_f3(const MunitParameter params[], void* user_data) {
+    (void) params;
+    (void) user_data;
+
+    int p1[] = {0, 1, 2, 0, 1};
+    int p2[] = {2, 2, 2};
+   	int expected[] = {2, 0, 1, 0, 1};
+
+    int ris[5] = {0, 0, 0, 0, 0};
+    int dim_p1 = 5;
+    int dim_p2 = 3;
+    sum_poly_f3(dim_p1, dim_p2, p1, p2, ris);
+    for (int j = 0; j < dim_p1; ++j) {
+        munit_assert_int(ris[j], ==, expected[j]);
+    }
+    return MUNIT_OK;
+}
+
+static MunitTest tests_f3[] = {
+    { "/test_poly_sum_f3", test_poly_sum_f3, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
+    { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
+};
+
+static const MunitSuite suite_f3 = {
+    "/3split_f3_tests", tests_f3, NULL, 1, MUNIT_SUITE_OPTION_NONE
 };
 
 f9_element* split_operands_f9(char* p, int num_operands){
@@ -222,7 +249,8 @@ int* split_operands_f3(char* p, int num_operands){
 #define NUM_OPERANDS 1024
 
 int main(int argc, char* argv[]) {
-    //munit_suite_main(&suite, NULL, argc, argv);
+    munit_suite_main(&suite, NULL, argc, argv);
+	munit_suite_main(&suite_f3, NULL, argc, argv);
 
     /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){

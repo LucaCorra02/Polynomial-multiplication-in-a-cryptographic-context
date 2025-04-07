@@ -232,6 +232,11 @@ int* allocate_mem_f3(int num_array, int dim_array, int num_array_comp, int dim_a
   return calloc(dim_first_part + dim_second_part, sizeof(int));
 }
 
+void sum_poly_f3(int terms_p1, int terms_p2, int* p1, int* p2, int* ris){ // P1 + P2
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], p2[i]); }
+}
+
 int* split_3_f3(int m, int* p1, int* p2){
 	if (m < 6){
         return schoolbook_f3(m, p1, p2);
@@ -252,7 +257,8 @@ int* split_3_f3(int m, int* p1, int* p2){
     int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
 
     print_vector(op_pointer, n);
-
+    int* S1 = op_pointer;
+    sum_poly(n, k, A0, A2, S1);
 
 	return NULL;
 }
