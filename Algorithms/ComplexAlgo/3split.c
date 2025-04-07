@@ -247,6 +247,11 @@ void sum_poly_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* r
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], get_f9_element(p2[i], 0)); }
 }
 
+void diff_poly_img_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris){
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_imaginary_part(p2[i]))); }
+}
+
 int* split_3_f3(int m, int* p1, int* p2){
 	if (m < 6){
         return schoolbook_f3(m, p1, p2);
@@ -289,9 +294,6 @@ int* split_3_f3(int m, int* p1, int* p2){
     f9_element* S5_b = S5 + n;
     sum_poly_img_f3(n, n, S4_b, B1, S5_b); // S5_b = S4_b + B1w
 
-
-    print_vector_f3(op_pointer, op_part1 * n);
-    print_vector_f9(op_pointer_f9, 2 * n);
     printf("S1: ");
     print_vector_f3(S1, n);
     printf("S2: ");
@@ -312,6 +314,41 @@ int* split_3_f3(int m, int* p1, int* p2){
     print_vector_f3(S4_b, n);
     printf("S5_b: ");
     print_vector_f9(S5_b, n);
+
+
+    int *P0, *P1, *P2, *P4;
+    f9_element *P3;
+    P0 = schoolbook_f3(n, A0, B0);
+    P1 = schoolbook_f3(n, S2, S2_b);
+    P2 = schoolbook_f3(n, S3, S3_b);
+    P3 = split_3_f9(n, S5, S5_b);
+    P4 = schoolbook_f3(k, A2, B2);
+
+    int dim_subproduct = (2*n-1);
+    int dim_subproduct_rem = (2*k-1);
+    printf("P0: ");
+    print_vector_f3(P0, dim_subproduct);
+    printf("P1: ");
+    print_vector_f3(P1, dim_subproduct);
+    printf("P2: ");
+    print_vector_f3(P2, dim_subproduct);
+    printf("P3: ");
+    print_vector_f9(P3, dim_subproduct);
+    printf("P4: ");
+    print_vector_f3(P4, dim_subproduct_rem);
+
+    int* Q1 = S4_b + n;
+    diff_poly_f3(dim_subproduct, dim_subproduct, P1, P2, Q1);
+    int* Q2 = Q1 + dim_subproduct;
+    diff_poly_img_f3(dim_subproduct, dim_subproduct, Q1, P3, Q2);
+
+    print_vector_f3(op_pointer, (op_part1 * n) + op_part2 * (2*n-1) );
+    print_vector_f9(op_pointer_f9, 2 * n);
+    printf("Q1: ");
+    print_vector_f3(Q1, dim_subproduct);
+    printf("Q2: ");
+    print_vector_f3(Q2, dim_subproduct);
+
 
 
 	return NULL;
