@@ -209,12 +209,30 @@ static MunitResult test_poly_sum_f3(const MunitParameter params[], void* user_da
     for (int j = 0; j < dim_p1; ++j) {
         munit_assert_int(ris[j], ==, expected[j]);
     }
-    print_vector_f3(ris,5);
+    return MUNIT_OK;
+}
+
+static MunitResult test_poly_diff_f3(const MunitParameter params[], void* user_data) {
+    (void) params;
+    (void) user_data;
+
+    int p1[] = {0, 1, 2, 0, 1};
+    int p2[] = {2, 2, 2, 0, 2, 1, 2, 0};
+   	int expected[] = {1, 2, 0, 0, 2, 2, 1, 0};
+
+    int ris[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    int dim_p1 = 5;
+    int dim_p2 = 8;
+    diff_poly_f3(dim_p1, dim_p2, p1, p2, ris);
+    for (int j = 0; j < dim_p1; ++j) {
+        munit_assert_int(ris[j], ==, expected[j]);
+    }
     return MUNIT_OK;
 }
 
 static MunitTest tests_f3[] = {
     { "/test_poly_sum_f3", test_poly_sum_f3, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
+    { "/test_poly_diff_f3", test_poly_diff_f3, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
 };
 

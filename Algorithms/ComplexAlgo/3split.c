@@ -237,6 +237,11 @@ void sum_poly_f3(int terms_p1, int terms_p2, int* p1, int* p2, int* ris){ // P1 
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], p2[i]); }
 }
 
+void diff_poly_f3(int terms_p1, int terms_p2, int* p1, int* p2, int* ris){ // P1 - P2
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(p2[i])); }
+}
+
 int* split_3_f3(int m, int* p1, int* p2){
 	if (m < 6){
         return schoolbook_f3(m, p1, p2);
@@ -256,9 +261,19 @@ int* split_3_f3(int m, int* p1, int* p2){
     int op_part2 = (8);
     int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
 
-    print_vector_f3(op_pointer, n);
+
     int* S1 = op_pointer;
-    //sum_poly(n, k, A0, A2, S1);
+    sum_poly_f3(n, k, A0, A2, S1); // S1 = A0 + A2
+    int* S2 = S1 + n;
+    sum_poly_f3(n, n, S1, A1, S2); // S2 = S1 + A1
+
+
+
+    print_vector_f3(op_pointer, op_part1 * n);
+    printf("S1: ");
+    print_vector_f3(S1, n);
+    printf("S2: ");
+    print_vector_f3(S2, n);
 
 	return NULL;
 }
