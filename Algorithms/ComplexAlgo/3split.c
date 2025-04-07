@@ -330,11 +330,11 @@ int* split_3_f3(int m, int* p1, int* p2){
 
     int *P0, *P1, *P2, *P4;
     f9_element *P3;
-    P0 = schoolbook_f3(n, A0, B0);
-    P1 = schoolbook_f3(n, S2, S2_b);
-    P2 = schoolbook_f3(n, S3, S3_b);
+    P0 = split_3_f3(n, A0, B0);
+    P1 = split_3_f3(n, S2, S2_b);
+    P2 = split_3_f3(n, S3, S3_b);
     P3 = split_3_f9(n, S5, S5_b);
-    P4 = schoolbook_f3(k, A2, B2);
+    P4 = split_3_f3(k, A2, B2);
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);

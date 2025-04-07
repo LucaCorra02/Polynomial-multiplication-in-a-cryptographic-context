@@ -363,7 +363,7 @@ int main(int argc, char* argv[]) {
     }*/
 
 
-    char buffer[BUFFERSIZE];
+    /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
         char* right = strtok(NULL, ";");
@@ -377,19 +377,22 @@ int main(int argc, char* argv[]) {
     }
     printf("ciaoo\n");
 
-     /*
+     */
+
+
      int p1[] = {
          0,1,1,1,0,1,1
      };
      int p2[] = {
          2,1,1,0,2,1,2
      };
+     //0,2,0,1,2,2,0,1,1,1,0,0,2
      int* ris = split_3_f3(7, p1,p2);
      if (ris != NULL){
          print_vector_f3(ris, 7*2-1);
      }
      free(ris);
-      */
+
 
 
 
