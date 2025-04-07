@@ -278,7 +278,7 @@ int* split_3_f3(int m, int* p1, int* p2){
     int* B2 = p2 + 2*n;
 
     int op_part1 = (8);
-    int op_part2 = (8);
+    int op_part2 = (5);
     int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
     f9_element* op_pointer_f9 = calloc((n)*2, sizeof(f9_element));
 
@@ -348,13 +348,15 @@ int* split_3_f3(int m, int* p1, int* p2){
     print_vector_f3(P4, dim_subproduct_rem);
 
     int* Q1 = S4_b + n;
-    diff_poly_f3(dim_subproduct, dim_subproduct, P1, P2, Q1);
+    diff_poly_f3(dim_subproduct, dim_subproduct, P1, P2, Q1); // Q1 = P1 - P2
     int* Q2 = Q1 + dim_subproduct;
-    diff_poly_img_f3(dim_subproduct, dim_subproduct, Q1, P3, Q2);
+    diff_poly_img_f3(dim_subproduct, dim_subproduct, Q1, P3, Q2); // Q2 = Q1 - P3,1
     int* Q3 = Q2 + dim_subproduct;
-    sum_poly_imag_f3(dim_subproduct, dim_subproduct, Q1, P3, Q3);
+    sum_poly_imag_f3(dim_subproduct, dim_subproduct, Q1, P3, Q3); // Q3 = Q1 + P3,1
     int* Q4 = Q3 + dim_subproduct;
-    diff_poly_real_f3(dim_subproduct, dim_subproduct, P0, P3, Q4);
+    diff_poly_real_f3(dim_subproduct, dim_subproduct, P0, P3, Q4); // Q4 = P0 - P3,0
+    int* Q5 = Q4 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct_rem, Q4, P4, Q5); // Q5 = Q4 + P4
 
     print_vector_f3(op_pointer, (op_part1 * n) + op_part2 * (2*n-1) );
     print_vector_f9(op_pointer_f9, 2 * n);
@@ -366,6 +368,38 @@ int* split_3_f3(int m, int* p1, int* p2){
     print_vector_f3(Q3, dim_subproduct);
     printf("Q4: ");
     print_vector_f3(Q4, dim_subproduct);
+    printf("Q5: ");
+    print_vector_f3(Q5, dim_subproduct);
+
+    int dim_ris = (2*m-1);
+    int* ris = calloc(dim_ris, sizeof(int));
+
+    for(int i = 0; i < dim_subproduct ; i++){
+    	ris[i] = f3_sum(ris[i], P0[i]);
+    }
+    for(int i = 0; i < dim_subproduct ; i++){
+    	ris[i+n] = f3_sum(ris[i+n], Q2[i]);
+    }
+    for(int i = 0; i < dim_subproduct ; i++){
+    	ris[i+2*n] = f3_sum(ris[i+2*n], Q5[i]);
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+    	ris[i+3*n] = f3_sum(ris[i+3*n], Q3[i]);
+    }
+    for(int i = 0; i < dim_subproduct_rem && i < dim_ris; i++){
+    	ris[i+4*n] = f3_sum(ris[i+4*n], P4[i]);
+    }
+
+    free(op_pointer);
+    free(op_pointer_f9);
+    free(P0);
+    free(P1);
+    free(P2);
+    free(P3);
+    free(P4);
+    return ris;
+
+
 
 
 
