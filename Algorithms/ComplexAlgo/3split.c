@@ -196,7 +196,7 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
     return ris;
 }
 
-void print_vector(int* v, int num_elements){
+void print_vector_f3(int* v, int num_elements){
     for (int i = 0; i < num_elements-1; i++){
         printf("%d,",v[i]);
     }
@@ -256,9 +256,9 @@ int* split_3_f3(int m, int* p1, int* p2){
     int op_part2 = (8);
     int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
 
-    print_vector(op_pointer, n);
+    print_vector_f3(op_pointer, n);
     int* S1 = op_pointer;
-    sum_poly(n, k, A0, A2, S1);
+    //sum_poly(n, k, A0, A2, S1);
 
 	return NULL;
 }

@@ -209,6 +209,7 @@ static MunitResult test_poly_sum_f3(const MunitParameter params[], void* user_da
     for (int j = 0; j < dim_p1; ++j) {
         munit_assert_int(ris[j], ==, expected[j]);
     }
+    print_vector_f3(ris,5);
     return MUNIT_OK;
 }
 
@@ -287,7 +288,7 @@ int main(int argc, char* argv[]) {
      };
      int* ris = split_3_f3(7, p1,p2);
      if (ris != NULL){
-         print_vector(ris, 7*2-1);
+         print_vector_f3(ris, 7*2-1);
      }
      free(ris);
 
