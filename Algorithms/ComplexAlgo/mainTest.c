@@ -346,8 +346,8 @@ int* split_operands_f3(char* p, int num_operands){
 #define NUM_OPERANDS 1024
 
 int main(int argc, char* argv[]) {
-    munit_suite_main(&suite, NULL, argc, argv);
-	munit_suite_main(&suite_f3, NULL, argc, argv);
+    //munit_suite_main(&suite, NULL, argc, argv);
+	//munit_suite_main(&suite_f3, NULL, argc, argv);
 
     /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
@@ -362,20 +362,22 @@ int main(int argc, char* argv[]) {
         free(ris);
     }*/
 
-    /*
+
     char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
         char* right = strtok(NULL, ";");
         int* p1 = split_operands_f3(left,NUM_OPERANDS);
         int* p2 = split_operands_f3(right,NUM_OPERANDS);
-        int* ris = schoolbook_f3(NUM_OPERANDS, p1,p2);
-        print_vector(ris,(2*NUM_OPERANDS)-1);
+        int* ris = split_3_f3(NUM_OPERANDS, p1,p2);
+        print_vector_f3(ris,(2*NUM_OPERANDS)-1);
         free(p1);
         free(p2);
         free(ris);
-    }*/
+    }
+    printf("ciaoo\n");
 
+     /*
      int p1[] = {
          0,1,1,1,0,1,1
      };
@@ -387,6 +389,7 @@ int main(int argc, char* argv[]) {
          print_vector_f3(ris, 7*2-1);
      }
      free(ris);
+      */
 
 
 
