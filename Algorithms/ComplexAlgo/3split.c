@@ -262,10 +262,10 @@ int* split_3_f3(int m, int* p1, int* p2){
     int* B1 = p2 + n;
     int* B2 = p2 + 2*n;
 
-    int op_part1 = (10);
+    int op_part1 = (8);
     int op_part2 = (8);
     int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
-
+    f9_element* op_pointer_f9 = calloc((n)*2, sizeof(f9_element));
 
     int* S1 = op_pointer;
     sum_poly_f3(n, k, A0, A2, S1); // S1 = A0 + A2
@@ -275,11 +275,23 @@ int* split_3_f3(int m, int* p1, int* p2){
     diff_poly_f3(n, n, S1, A1, S3); // S3 = S1 - A1
     int* S4 = S3 + n;
     diff_poly_f3(n, k, A0, A2, S4); // S4 = A0 - A2
+    f9_element* S5 = op_pointer_f9;
+    sum_poly_img_f3(n, n, S4, A1, S5); // S5 = S4 + A1w
 
-
+    int* S1_b = S4 + n ;
+    sum_poly_f3(n, k, B0, B2, S1_b); // S1_b = B0 + B2
+    int* S2_b = S1_b + n;
+    sum_poly_f3(n, n, S1_b, B1, S2_b); // S2_b = S1_b + B1
+    int* S3_b = S2_b + n;
+    diff_poly_f3(n, n, S1_b, B1, S3_b); // S3_b = S1_b - B1
+    int* S4_b = S3_b + n;
+    diff_poly_f3(n, k, B0, B2, S4_b); // S4_b = B0 - B2
+    f9_element* S5_b = S5 + n;
+    sum_poly_img_f3(n, n, S4_b, B1, S5_b); // S5_b = S4_b + B1w
 
 
     print_vector_f3(op_pointer, op_part1 * n);
+    print_vector_f9(op_pointer_f9, 2 * n);
     printf("S1: ");
     print_vector_f3(S1, n);
     printf("S2: ");
@@ -288,6 +300,19 @@ int* split_3_f3(int m, int* p1, int* p2){
     print_vector_f3(S3, n);
     printf("S4: ");
     print_vector_f3(S4, n);
+    printf("S5: ");
+    print_vector_f9(S5, n);
+    printf("S1_b: ");
+    print_vector_f3(S1_b, n);
+    printf("S2_b: ");
+    print_vector_f3(S2_b, n);
+    printf("S3_b: ");
+    print_vector_f3(S3_b, n);
+    printf("S4_b: ");
+    print_vector_f3(S4_b, n);
+    printf("S5_b: ");
+    print_vector_f9(S5_b, n);
+
 
 	return NULL;
 }
