@@ -30,6 +30,25 @@ static void Benchmark_Schoolbook_F9(benchmark::State& state){ //Testo F9_shoolbo
     delete[] p2;
 }
 
-BENCHMARK(Benchmark_Schoolbook_F9)->DenseRange(10, 2048, 100)->Unit(benchmark::kMillisecond);
+static void Benchmark_Schoolbook_F3(benchmark::State& state){ //Testo F9_shoolbook
+    int size = static_cast<int>(state.range(0));
+
+    int* p1 = new int[size];
+    int* p2 = new int[size];
+
+    for (int i = 0; i < size; ++i){
+        p1[i] = (i * 2) % 3;
+        p2[i] = (i * 3) % 3;
+    }
+
+    for (auto _ : state) {
+        benchmark::DoNotOptimize(schoolbook_f3(size, p1, p2));
+    }
+    delete[] p1;
+    delete[] p2;
+}
+
+BENCHMARK(Benchmark_Schoolbook_F3)->DenseRange(10, 2048, 100)->Unit(benchmark::kMillisecond);
+//BENCHMARK(Benchmark_Schoolbook_F9)->DenseRange(10, 2048, 100)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_MAIN();
