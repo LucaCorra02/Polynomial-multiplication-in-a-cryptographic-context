@@ -73,8 +73,8 @@ f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2) { //coefficenti
         return ris;
     }
     int max_deg = n - 1;
-    unsigned int mst_p1 = p1[max_deg];
-    unsigned int mst_p2 = p2[max_deg];
+    f9_element mst_p1 = p1[max_deg];
+    f9_element mst_p2 = p2[max_deg];
     ris[max_deg * 2] = f9_sum(ris[max_deg * 2], f9_prod(mst_p1,mst_p2));
 
     for (int i = 0; i < max_deg; i++) {
