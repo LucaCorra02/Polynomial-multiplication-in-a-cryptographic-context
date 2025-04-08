@@ -25,9 +25,9 @@ munit.o: ../../munit/munit.c ../../munit/munit.h
 mainTest.o: mainTest.c 3split.h ../../munit/munit.h
 	gcc $(CFLAGS) -c mainTest.c
 
-benchmarks: 3split.o $(F9_SRC_DIR)/f3Implementation.o $(F9_SRC_DIR)/f9Implementation.o benchmarks.cpp #Make benchmarks compila solo i benchmarks
+benchmarks: 3splitv2.o $(F9_SRC_DIR)/f3Implementation.o $(F9_SRC_DIR)/f9Implementation.o benchmarks.cpp #Make benchmarks compila solo i benchmarks
 	g++ $(CFLAGS) -c benchmarks.cpp -o benchmarks.o -I../../benchmark/include
-	g++ $(CFLAGS) benchmarks.o  3split.o $(F9_SRC_DIR)/f3Implementation.o $(F9_SRC_DIR)/f9Implementation.o -std=c++14 -I. -isystem -I../../benchmark/include -L../../benchmark/build/src -lbenchmark -lpthread -o benchmarks.out
+	g++ $(CFLAGS) benchmarks.o  3splitv2.o  $(F9_SRC_DIR)/f3Implementation.o $(F9_SRC_DIR)/f9Implementation.o -std=c++14 -I. -isystem -I../../benchmark/include -L../../benchmark/build/src -lbenchmark -lpthread -o benchmarks.out
 
 clean:
 	rm -f $(OBJ) $(TARGET)
