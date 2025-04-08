@@ -343,6 +343,7 @@ int* split_operands_f3(char* p, int num_operands){
 }
 
 #define BUFFERSIZE 100000
+
 #define NUM_OPERANDS 2710
 
 int main(int argc, char* argv[]) {
