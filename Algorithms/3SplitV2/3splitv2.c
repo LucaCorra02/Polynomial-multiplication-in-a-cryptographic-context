@@ -130,8 +130,6 @@ f9_element* split_3_v2_f9(int m, f9_element* p1, f9_element* p2){
     sum_poly(n, n, S4_b, B1, S5_b); // S5_b = S4_b + B1
 
 
-
-
     print_vector_f9(op_pointer, n * op_part1 + (2*n-1) * op_part2);
     printf("S1: ");
     print_vector_f9(S1, n);
@@ -154,6 +152,25 @@ f9_element* split_3_v2_f9(int m, f9_element* p1, f9_element* p2){
     printf("S5_b: ");
     print_vector_f9(S5_b, n);
 
+    f9_element* P0 = schoolbook_f9(n, A0, B0);
+    f9_element* P1 = schoolbook_f9(n, S5, S5_b);
+    f9_element* P2 = schoolbook_f9(n, S2, S2_b);
+    f9_element* P3 = schoolbook_f9(n, S3, S3_b);
+    f9_element* P4 = schoolbook_f9(k, A2, B2);
+
+    int dim_subproduct = (2*n-1);
+    int dim_subproduct_rem = (2*k-1);
+
+    printf("P0: ");
+    print_vector_f9(P0, dim_subproduct);
+    printf("P1: ");
+    print_vector_f9(P1, dim_subproduct);
+    printf("P2: ");
+    print_vector_f9(P2, dim_subproduct);
+    printf("P3: ");
+    print_vector_f9(P3, dim_subproduct);
+    printf("P4: ");
+    print_vector_f9(P4, dim_subproduct_rem);
 
 
 
