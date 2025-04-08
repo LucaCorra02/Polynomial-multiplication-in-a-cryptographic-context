@@ -347,8 +347,8 @@ int* split_operands_f3(char* p, int num_operands){
 #define NUM_OPERANDS 2710
 
 int main(int argc, char* argv[]) {
-    munit_suite_main(&suite, NULL, argc, argv);
-	munit_suite_main(&suite_f3, NULL, argc, argv);
+    //munit_suite_main(&suite, NULL, argc, argv);
+	//munit_suite_main(&suite_f3, NULL, argc, argv);
 
     /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
@@ -377,6 +377,11 @@ int main(int argc, char* argv[]) {
         free(ris);
     }
      */
+    f9_element p1 [] ={get_f9_element(1,0), get_f9_element(2, 2), get_f9_element(0, 2), get_f9_element(1, 2), get_f9_element(1, 1), get_f9_element(0, 1), get_f9_element(2, 1)};
+    f9_element p2 [] = {get_f9_element(1, 2), get_f9_element(2, 1), get_f9_element(0, 1), get_f9_element(0, 0), get_f9_element(2, 2), get_f9_element(1, 1), get_f9_element(1, 2)};
+    print_vector_f9(p1,7);
+    print_vector_f9(p2,7);
+
     printf("Num Op:%d\n",NUM_OPERANDS);
     return 0;
 }
