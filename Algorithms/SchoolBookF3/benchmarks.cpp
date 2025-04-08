@@ -10,7 +10,7 @@ extern "C" {
 static unsigned int** operands;
 
 
-//./benchmarks.out --benchmark_min_warmup_time=20s
+//./benchmarks.out --benchmark_min_warmup_time=2 --benchmark_out=output.json --benchmark_out_format=json
 
 static void Benchmark_Schoolbook_F9(benchmark::State& state){ //Testo F9_shoolbook
     int size = static_cast<int>(state.range(0));
