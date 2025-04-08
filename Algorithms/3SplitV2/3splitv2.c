@@ -153,11 +153,11 @@ f9_element* split_3_v2_f9(int m, f9_element* p1, f9_element* p2){
     print_vector_f9(S5_b, n);
      */
 
-    f9_element* P0 = schoolbook_f9(n, A0, B0);
-    f9_element* P1 = schoolbook_f9(n, S5, S5_b);
-    f9_element* P2 = schoolbook_f9(n, S2, S2_b);
-    f9_element* P3 = schoolbook_f9(n, S3, S3_b);
-    f9_element* P4 = schoolbook_f9(k, A2, B2);
+    f9_element* P0 = split_3_v2_f9(n, A0, B0);
+    f9_element* P1 = split_3_v2_f9(n, S5, S5_b);
+    f9_element* P2 = split_3_v2_f9(n, S2, S2_b);
+    f9_element* P3 = split_3_v2_f9(n, S3, S3_b);
+    f9_element* P4 = split_3_v2_f9(k, A2, B2);
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
