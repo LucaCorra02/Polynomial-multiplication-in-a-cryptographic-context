@@ -385,7 +385,7 @@ int main(int argc, char* argv[]) {
     f9_element* ris = split_3_v2_f9(7, p1, p2);
     if (ris != NULL) {
         printf("Ris: ");
-        print_vector_f9(p2,2*7-1);
+        print_vector_f9(ris, (2*7)-1);
     }
     free(ris);
     printf("Num Op:%d\n",NUM_OPERANDS);
