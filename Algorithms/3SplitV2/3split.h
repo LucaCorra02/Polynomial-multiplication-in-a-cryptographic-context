@@ -52,7 +52,7 @@
 
     void sum_poly_imag_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris); //P1 + P2_imag_part
 
-    void diff_poly_real_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris); // P1 + P2_real_part
+    void diff_poly_real_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris); // P1 - P2_real_part
 
     int* schoolbook_f3(int n, int* p1, int* p2);
 
