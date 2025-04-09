@@ -56,5 +56,5 @@
 
     int* schoolbook_f3(int n, int* p1, int* p2);
 
-    int* split_3_f3(int m, int* p1, int* p2);
+    int* split_3_v2_f3(int m, int* p1, int* p2);
 #endif //INC_3SPLIT_H

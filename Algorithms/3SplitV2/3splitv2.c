@@ -249,8 +249,8 @@ void diff_poly_real_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int*
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_real_part(p2[i]))); }
 }
 
-int* split_3_f3(int m, int* p1, int* p2){
-	/*if (m < 6){
+int* split_3_v2_f3(int m, int* p1, int* p2){
+	if (m < 6){
         return schoolbook_f3(m, p1, p2);
     }
     int n = get_split_n_param(m, 3);
@@ -269,6 +269,7 @@ int* split_3_f3(int m, int* p1, int* p2){
     int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
     f9_element* op_pointer_f9 = calloc((n)*2, sizeof(f9_element));
 
+    /*
     int* S1 = op_pointer;
     sum_poly_f3(n, k, A0, A2, S1); // S1 = A0 + A2
     int* S2 = S1 + n;
