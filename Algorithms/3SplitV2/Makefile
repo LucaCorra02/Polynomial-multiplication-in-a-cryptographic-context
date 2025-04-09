@@ -5,6 +5,8 @@ OBJ = mainTest.o 3splitv2.o  f9Implementation.o f3Implementation.o munit.o
 CFLAGS = -O3 -Wall -fopenmp
 F9_SRC_DIR = ../FieldImplementation
 
+#./benchmarks.out --benchmark_out=ris.json --benchmark_out_format=json --benchmark_min_warmup_time=2
+
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
