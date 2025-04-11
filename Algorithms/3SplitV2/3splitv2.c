@@ -302,25 +302,6 @@ int* split_3_v2_f3(int m, int* p1, int* p2){
     int* S4_b = S3_b + n;
     sum_poly_f3(n, n, S3_b, B1, S4_b); // S4_b = S3_b + B1
 
-
-    /*printf("S1: ");
-    print_vector_f3(S1, n);
-    printf("S2: ");
-    print_vector_f9(S2, n);
-    printf("S3:");
-    print_vector_f3(S3, n);
-    printf("S4: ");
-    print_vector_f3(S4, n);
-    printf("S1_b: ");
-    print_vector_f3(S1_b, n);
-    printf("S2_b: ");
-    print_vector_f9(S2_b, n);
-    printf("S3_b:");
-    print_vector_f3(S3_b, n);
-    printf("S4_b: ");
-    print_vector_f3(S4_b, n);
-     */
-
 	int *P0, *P1, *P4;
     f9_element *P2;
     P0 = schoolbook_f3(n, A0, B0); // P0 = A0*B0
@@ -330,16 +311,6 @@ int* split_3_v2_f3(int m, int* p1, int* p2){
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
-
-    /*printf("P0: ");
-    print_vector_f3(P0, dim_subproduct);
-    printf("P1: ");
-    print_vector_f3(P1, dim_subproduct);
-    printf("P2:");
-    print_vector_f9(P2, dim_subproduct);
-    printf("P4:");
-    print_vector_f3(P4, dim_subproduct_rem);
-     */
 
     int* Q1 = S4_b + n;
     sum_poly_f3(dim_subproduct, dim_subproduct_rem, P0, P4, Q1); // Q1 = P0 + P4
@@ -353,28 +324,6 @@ int* split_3_v2_f3(int m, int* p1, int* p2){
     diff_double_poly_imag_f3(dim_subproduct, dim_subproduct, Q4, P2, Q5); // Q5 = - Q4 - P2_imag_part
     int* Q6 = Q5 + dim_subproduct;
     diff_single_poly_imag_f3(dim_subproduct, dim_subproduct, Q4, P2, Q6); // Q6 = - Q4 + P2_imag_part
-
-	/*printf("Q1:");
-    print_vector_f3(Q1, dim_subproduct);
-    printf("Q2:");
-    print_vector_f3(Q2, dim_subproduct);
-    printf("Q3:");
-    print_vector_f3(Q3, dim_subproduct);
-    printf("Q4:");
-    print_vector_f3(Q4, dim_subproduct);
-    printf("Q5:");
-    print_vector_f3(Q5, dim_subproduct);
-    printf("Q6:");
-    print_vector_f3(Q6, dim_subproduct);
-
-
-    printf("op_pointer: ");
-    print_vector_f3(op_pointer, n * op_part1 + op_part2 * (2*n-1));
-    printf("op_pointer_f9: ");
-    print_vector_f9(op_pointer_f9, n * 2);
-
-	 */
-
 
     int dim_ris = (2*m-1);
     int* ris = calloc(dim_ris, sizeof(int));
