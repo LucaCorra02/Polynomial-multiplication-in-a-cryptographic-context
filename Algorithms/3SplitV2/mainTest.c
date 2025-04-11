@@ -435,7 +435,6 @@ int main(int argc, char* argv[]) {
         free(p2);
         free(ris);
     }
-
     printf("Nums Op:%d\n",NUM_OPERANDS);
     return 0;
 }
