@@ -244,7 +244,7 @@ void sum_poly_imag_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* 
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_imaginary_part(p2[i])); }
 }
 
-void diff_poly_real_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris){ // P1 - F9(P2_imag_part)
+void diff_poly_real_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris){ // P1 - F9(P2_real_part)
     for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_real_part(p2[i]))); }
 }
@@ -327,6 +327,16 @@ int* split_3_v2_f3(int m, int* p1, int* p2){
     print_vector_f9(P2, dim_subproduct);
     printf("P4:");
     print_vector_f3(P4, dim_subproduct_rem);
+
+    int* Q1 = S4_b + n;
+    sum_poly_f3(dim_subproduct, dim_subproduct_rem, P0, P4, Q1); // Q1 = P0 + P4
+    int* Q2 = Q1 + dim_subproduct;
+    diff_poly_real_f3(dim_subproduct, dim_subproduct, Q1, P2, Q2); // Q2 = Q1 - P2_real_part
+
+	printf("Q1:");
+    print_vector_f3(Q1, dim_subproduct);
+    printf("P4:");
+    print_vector_f3(Q2, dim_subproduct);
 
 
     /*
