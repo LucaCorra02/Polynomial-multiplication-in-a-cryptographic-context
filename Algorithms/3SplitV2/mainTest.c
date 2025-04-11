@@ -303,6 +303,25 @@ static MunitResult test_diff_poly_real_f3(const MunitParameter params[], void* u
     return MUNIT_OK;
 }
 
+static MunitResult test_sum_poly_real_f3(const MunitParameter params[], void* user_data) {
+    (void) params;
+    (void) user_data;
+
+    int p1[] = {2, 1, 0, 1};
+    f9_element p2[] = {get_f9_element(2,1), get_f9_element(2,1), get_f9_element(0,1), get_f9_element(1,2), get_f9_element(2,2), get_f9_element(1,1) };
+    f9_element expected[] = {0, 2, 1, 0, 2, 1};
+
+    int ris [6] = {0, 0, 0, 0, 0, 0};
+    int dim_p1 = 4;
+    int dim_p2 = 6;
+
+    sum_poly_real_f3(dim_p1, dim_p2, p1, p2, ris);
+    for (int j = 0; j < dim_p1; ++j) {
+        munit_assert_int(ris[j], ==, expected[j]);
+    }
+    return MUNIT_OK;
+}
+
 
 static MunitTest tests_f3[] = {
     { "/test_poly_sum_f3", test_poly_sum_f3, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
@@ -311,6 +330,7 @@ static MunitTest tests_f3[] = {
     { "/test_diff_poly_img_f3", test_diff_poly_img_f3, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_sum_poly_imag_f3", test_sum_poly_imag_f3, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_diff_poly_real_f3", test_diff_poly_real_f3, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
+    { "/test_sum_poly_real_f3", test_sum_poly_real_f3, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
 };
 
@@ -346,8 +366,8 @@ int* split_operands_f3(char* p, int num_operands){
 #define NUM_OPERANDS 7
 
 int main(int argc, char* argv[]) {
-    //munit_suite_main(&suite, NULL, argc, argv);
-	//munit_suite_main(&suite_f3, NULL, argc, argv);
+    munit_suite_main(&suite, NULL, argc, argv);
+	munit_suite_main(&suite_f3, NULL, argc, argv);
 
     /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
