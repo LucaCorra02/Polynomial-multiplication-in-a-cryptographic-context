@@ -337,11 +337,20 @@ int* split_3_v2_f3(int m, int* p1, int* p2){
     sum_poly_f3(dim_subproduct, dim_subproduct_rem, P0, P4, Q1); // Q1 = P0 + P4
     int* Q2 = Q1 + dim_subproduct;
     diff_poly_real_f3(dim_subproduct, dim_subproduct, Q1, P2, Q2); // Q2 = Q1 - P2_real_part
+    int* Q3 = Q2 + dim_subproduct;
+    sum_poly_real_f3(dim_subproduct, dim_subproduct, Q1, P2, Q3); //Q3 = Q1 + P2_real_part
+    int* Q4 = Q3 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct, Q3, P1, Q4); // Q4 = Q3 + P1
 
 	printf("Q1:");
     print_vector_f3(Q1, dim_subproduct);
-    printf("P4:");
+    printf("Q2:");
     print_vector_f3(Q2, dim_subproduct);
+    printf("Q3:");
+    print_vector_f3(Q3, dim_subproduct);
+    printf("Q4:");
+    print_vector_f3(Q4, dim_subproduct);
+
 
 
     /*
