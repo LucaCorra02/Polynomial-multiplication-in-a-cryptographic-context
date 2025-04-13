@@ -409,7 +409,7 @@ int main(int argc, char* argv[]) {
     //munit_suite_main(&suite, NULL, argc, argv);
 	//munit_suite_main(&suite_f3, NULL, argc, argv);
 
-    /*char buffer[BUFFERSIZE];
+    char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
         char* right = strtok(NULL, ";");
@@ -420,9 +420,9 @@ int main(int argc, char* argv[]) {
         free(p1);
         free(p2);
         free(ris);
-    }*/
+    }
 
-
+	/*
     char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
@@ -435,6 +435,7 @@ int main(int argc, char* argv[]) {
         free(p2);
         free(ris);
     }
+	 */
     printf("Nums Op:%d\n",NUM_OPERANDS);
     return 0;
 }

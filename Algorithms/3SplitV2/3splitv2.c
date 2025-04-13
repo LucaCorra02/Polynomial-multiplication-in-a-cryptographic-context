@@ -129,11 +129,24 @@ f9_element* split_3_v2_f9(int m, f9_element* p1, f9_element* p2){
     f9_element* S5_b = S4_b + n;
     sum_poly(n, n, S4_b, B1, S5_b); // S5_b = S4_b + B1
 
-    f9_element* P0 = split_3_v2_f9(n, A0, B0);
-    f9_element* P1 = split_3_v2_f9(n, S5, S5_b);
-    f9_element* P2 = split_3_v2_f9(n, S2, S2_b);
-    f9_element* P3 = split_3_v2_f9(n, S3, S3_b);
-    f9_element* P4 = split_3_v2_f9(k, A2, B2);
+    f9_element *P0, *P1, *P2, *P3, *P4;
+    #pragma omp parallel sections
+    {
+        #pragma omp section
+        P0 = split_3_v2_f9(n, A0, B0);
+
+        #pragma omp section
+        P1 = split_3_v2_f9(n, S5, S5_b);
+
+        #pragma omp section
+        P2 = split_3_v2_f9(n, S2, S2_b);
+
+        #pragma omp section
+        P3 = split_3_v2_f9(n, S3, S3_b);
+
+        #pragma omp section
+        P4 = split_3_v2_f9(k, A2, B2);
+    }
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
