@@ -50,7 +50,7 @@ void print_vector_f9(f9_element* v, int num_elements){
 
 int main(int argc, char *argv[]){
 
-    /*int num_operands = NUM_OPERANDS;
+    int num_operands = NUM_OPERANDS;
     int buffer_size = BUFFERSIZE;
 
     char buffer[buffer_size];
@@ -64,7 +64,8 @@ int main(int argc, char *argv[]){
         free(p1);
         free(p2);
         free(ris);
-    }*/
+    }
+    /*
     char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         //printf("Read: %s", buffer);
@@ -78,6 +79,7 @@ int main(int argc, char *argv[]){
         free(p2);
         free(ris);
     }
+     */
 
     return 0;
 }
