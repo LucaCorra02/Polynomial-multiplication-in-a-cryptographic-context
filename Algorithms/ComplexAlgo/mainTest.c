@@ -362,8 +362,6 @@ int main(int argc, char* argv[]) {
         free(p2);
         free(ris);
     }*/
-
-
     char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
