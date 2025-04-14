@@ -88,8 +88,8 @@ void sum_poly_img_neg(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], f9_prod_img_neg(p2[i])); }
 }
 
-f9_element* split_3_v2_f9(int m, f9_element* p1, f9_element* p2){
-    if (m < 6){
+f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2){
+    /*if (m < 6){
         return schoolbook_f9(m, p1, p2);
     }
     int n = get_split_n_param(m, 3);
@@ -193,7 +193,9 @@ f9_element* split_3_v2_f9(int m, f9_element* p1, f9_element* p2){
     free(P2);
     free(P3);
     free(P4);
-    return ris;
+
+     */
+    return NULL;
 }
 
 void print_vector_f3(int* v, int num_elements){
@@ -278,101 +280,5 @@ void sum_poly_real_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* 
 }
 
 int* split_3_v2_f3(int m, int* p1, int* p2){
-	if (m < 6){
-        return schoolbook_f3(m, p1, p2);
-    }
-    int n = get_split_n_param(m, 3);
-    int k = get_split_k_param(m, n, 3);
-
-   	int* A0 = p1; //dim n
-    int* A1 = p1 + n; //dim n
-    int* A2 = p1 + 2*n; // dim k, tot m = 2*n+k
-
-    int* B0 = p2;
-    int* B1 = p2 + n;
-    int* B2 = p2 + 2*n;
-
-    int op_part1 = (6);
-    int op_part2 = (6);
-    int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
-    f9_element* op_pointer_f9 = calloc((n) * 2, sizeof(f9_element));
-
-    int* S1 = op_pointer;
-    diff_poly_f3(n, k, A0, A2, S1); // S1 = A0 - A2
-    f9_element* S2 = op_pointer_f9;
-    sum_poly_img_f3(n, n, S1, A1, S2); // S2 = S1 + wA1
-	int* S3 = S1 + n;
-    sum_poly_f3(n, k, A0, A2, S3); // S3 = A0 + A2
-    int* S4 = S3 + n;
-    sum_poly_f3(n, n, S3, A1, S4); // S4 = S3 + A1
-
-    int* S1_b = S4 + n;
-    diff_poly_f3(n, k, B0, B2, S1_b); // S1_b = B0 - B2
-    f9_element* S2_b = S2 + n;
-    sum_poly_img_f3(n, n, S1_b, B1, S2_b); // S2_b = S1_b + wB1
-    int* S3_b = S1_b + n;
-    sum_poly_f3(n, k, B0, B2, S3_b); // S3_b = B0 + B2
-    int* S4_b = S3_b + n;
-    sum_poly_f3(n, n, S3_b, B1, S4_b); // S4_b = S3_b + B1
-
-	int *P0, *P1, *P4;
-    f9_element *P2;
-
-    #pragma omp parallel sections
-    {
-        #pragma omp section
-        P0 = split_3_v2_f3(n, A0, B0); // P0 = A0*B0
-
-        #pragma omp section
-        P1 = split_3_v2_f3(n, S4, S4_b); // P1 = S4 * S4_b
-
-        #pragma omp section
-        P2 = split_3_v2_f9(n, S2, S2_b); //P2 = S2 * S2_b Su F9
-
-        #pragma omp section
-        P4 = split_3_v2_f3(k, A2, B2); //P4 = A2 * B2
-    }
-
-    int dim_subproduct = (2*n-1);
-    int dim_subproduct_rem = (2*k-1);
-
-    int* Q1 = S4_b + n;
-    sum_poly_f3(dim_subproduct, dim_subproduct_rem, P0, P4, Q1); // Q1 = P0 + P4
-    int* Q2 = Q1 + dim_subproduct;
-    diff_poly_real_f3(dim_subproduct, dim_subproduct, Q1, P2, Q2); // Q2 = Q1 - P2_real_part
-    int* Q3 = Q2 + dim_subproduct;
-    sum_poly_real_f3(dim_subproduct, dim_subproduct, Q1, P2, Q3); //Q3 = Q1 + P2_real_part
-    int* Q4 = Q3 + dim_subproduct;
-    sum_poly_f3(dim_subproduct, dim_subproduct, Q3, P1, Q4); // Q4 = Q3 + P1
-    int* Q5 = Q4 + dim_subproduct;
-    diff_double_poly_imag_f3(dim_subproduct, dim_subproduct, Q4, P2, Q5); // Q5 = - Q4 - P2_imag_part
-    int* Q6 = Q5 + dim_subproduct;
-    diff_single_poly_imag_f3(dim_subproduct, dim_subproduct, Q4, P2, Q6); // Q6 = - Q4 + P2_imag_part
-
-    int dim_ris = (2*m-1);
-    int* ris = calloc(dim_ris, sizeof(int));
-
-    for(int i = 0; i < dim_subproduct ; i++){
-    	ris[i] = f3_sum(ris[i], P0[i]);
-    }
-    for(int i = 0; i < dim_subproduct ; i++){
-    	ris[i+n] = f3_sum(ris[i+n], Q5[i]);
-    }
-    for(int i = 0; i < dim_subproduct ; i++){
-    	ris[i+2*n] = f3_sum(ris[i+2*n], Q2[i]);
-    }
-    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
-    	ris[i+3*n] = f3_sum(ris[i+3*n], Q6[i]);
-    }
-    for(int i = 0; i < dim_subproduct_rem && i < dim_ris; i++){
-    	ris[i+4*n] = f3_sum(ris[i+4*n], P4[i]);
-    }
-
-    free(op_pointer);
-    free(op_pointer_f9);
-    free(P0);
-    free(P1);
-    free(P2);
-    free(P4);
-    return ris;
+    return NULL;
 }
