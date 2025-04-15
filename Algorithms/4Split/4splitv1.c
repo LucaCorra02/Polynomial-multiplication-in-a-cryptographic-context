@@ -89,6 +89,66 @@ void sum_poly_img_neg(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2
 }
 
 f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2){
+    if (m < 6){
+        return schoolbook_f9(m, p1, p2);
+    }
+    int n = get_split_n_param(m, 4);
+    int k = get_split_k_param(m, n, 4);
+
+    f9_element* A0 = p1;
+    f9_element* A1 = p1 + n;
+    f9_element* A2 = p1 + 2 * n;
+    f9_element* A3 = p1 + 3 * n;
+
+    printf("A0: ");
+    print_vector_f9(A0, n);
+    printf("A1: ");
+    print_vector_f9(A1, n);
+    printf("A2: ");
+    print_vector_f9(A2, n);
+    printf("A3: ");
+    print_vector_f9(A3, k);
+
+    int op_part1 = (20);
+    int op_part2 = (17);
+    f9_element* op_pointer = allocate_mem(op_part1, n, op_part2, (2*n-1));
+
+    f9_element* S1 = op_pointer;
+    sum_poly(n, k, A1, A3, S1); // S1 = A1 + A3
+    f9_element* S2 = S1 + n;
+    sum_poly(n, n, A2, S1, S2); // S2 = A2 + S1
+    f9_element* S3 = S2 + n;
+    sum_poly(n, n, A0, S2, S3); // S3 = A0 + S2
+    f9_element* S4 = S3 + n;
+    sum_poly(n, n, A0, S1, S4); // S4 = A0 + S1
+    f9_element* S5 = S4 + n;
+    sum_poly(n, n, A1, S2, S5); //S5 = A1 + S2
+    f9_element* S6 = S5 + n;
+    sum_poly_img_neg(n, n, S4, S5, S6); // S6 = S4 -wS5
+    f9_element* S7 = S6 + n;
+    sum_poly_img(n, n, S4, S5, S7); // S7 = S4 + wS5
+    f9_element* S8 = S7 + n;
+    sum_poly_img(n, n, A2, S6, S8); //S8 = A2 + wS6
+
+
+    printf("S1: ");
+    print_vector_f9(S1, n);
+    printf("S2: ");
+    print_vector_f9(S2, n);
+    printf("S3: ");
+    print_vector_f9(S3, n);
+    printf("S4: ");
+    print_vector_f9(S4, n);
+    printf("S5: ");
+    print_vector_f9(S5, n);
+    printf("S6: ");
+    print_vector_f9(S6, n);
+    printf("S7: ");
+    print_vector_f9(S7, n);
+    printf("S8: ");
+    print_vector_f9(S8, n);
+    print_vector_f9(op_pointer, op_part1*n + op_part2*(2*n-1));
+
     /*if (m < 6){
         return schoolbook_f9(m, p1, p2);
     }

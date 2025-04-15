@@ -456,8 +456,23 @@ int main(int argc, char* argv[]) {
         free(ris);
     }
      */
-
-
+    f9_element p1 [10] = {
+        get_f9_element(0,1), get_f9_element(1,2), get_f9_element(2,2), get_f9_element(1,0), get_f9_element(0,0),
+        get_f9_element(2,1), get_f9_element(0,2), get_f9_element(1,1), get_f9_element(1,0), get_f9_element(1,1)
+    };
+    f9_element p2 [10] = {
+        get_f9_element(1,0), get_f9_element(2,2), get_f9_element(1,2), get_f9_element(1,1), get_f9_element(1,0),
+        get_f9_element(2,0), get_f9_element(0,1), get_f9_element(2,1), get_f9_element(0,1), get_f9_element(2,2)
+    };
+    int m = 10;
+    print_vector_f9(p1, m);
+    print_vector_f9(p2, m);
+    f9_element* ris = split_4_f9(m, p1, p2);
+    if (ris != NULL){
+        printf("ris: ");
+        print_vector_f9(ris, 2*m-1);
+    }
+    free(ris);
     return 0;
 }
 
