@@ -97,7 +97,7 @@ def gen_correct_output_prod_f9(file_name): #Z = (Y.real, Y.imag)
 
 def main():
     num_rows = 100
-    num_terms = 1078
+    num_terms = 777
     min_range = 0
     max_range = 3
 
