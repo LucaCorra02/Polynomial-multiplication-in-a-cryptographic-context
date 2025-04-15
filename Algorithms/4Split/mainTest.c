@@ -447,25 +447,25 @@ int* split_operands_f3(char* p, int num_operands){
 }
 
 #define BUFFERSIZE 100000
-#define NUM_OPERANDS 2045
+#define NUM_OPERANDS 2893
 
 int main(int argc, char* argv[]) {
-    munit_suite_main(&suite, NULL, argc, argv);
-	munit_suite_main(&suite_f3, NULL, argc, argv);
+    //munit_suite_main(&suite, NULL, argc, argv);
+	//munit_suite_main(&suite_f3, NULL, argc, argv);
 
-    /*char buffer[BUFFERSIZE];
+    char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
         char* right = strtok(NULL, ";");
         f9_element* p1 = split_operands_f9(left,NUM_OPERANDS);
         f9_element* p2 = split_operands_f9(right,NUM_OPERANDS);
-        f9_element* ris = split_3_v2_f9(NUM_OPERANDS, p1,p2);
+        f9_element* ris = split_4_f9(NUM_OPERANDS, p1,p2);
         print_vector_f9(ris,(2*NUM_OPERANDS)-1);
         free(p1);
         free(p2);
         free(ris);
     }
-     */
+
 
     /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
@@ -480,6 +480,9 @@ int main(int argc, char* argv[]) {
         free(ris);
     }
      */
+    printf("dim: %d\n", NUM_OPERANDS);
+
+    /*
     f9_element p1 [10] = {
         get_f9_element(0,1), get_f9_element(1,2), get_f9_element(2,2), get_f9_element(1,0), get_f9_element(0,0),
         get_f9_element(2,1), get_f9_element(0,2), get_f9_element(1,1), get_f9_element(1,0), get_f9_element(1,1)
@@ -497,6 +500,8 @@ int main(int argc, char* argv[]) {
         print_vector_f9(ris, 2*m-1);
     }
     free(ris);
+     */
+
     return 0;
 }
 
