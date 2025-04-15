@@ -107,6 +107,11 @@ f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2){
     f9_element* A2 = p1 + 2 * n;
     f9_element* A3 = p1 + 3 * n;
 
+    f9_element* B0 = p2;
+    f9_element* B1 = p2 + n;
+    f9_element* B2 = p2 + 2 * n;
+    f9_element* B3 = p2 + 3 * n;
+
     printf("A0: ");
     print_vector_f9(A0, n);
     printf("A1: ");
@@ -115,6 +120,15 @@ f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2){
     print_vector_f9(A2, n);
     printf("A3: ");
     print_vector_f9(A3, k);
+
+    printf("B0: ");
+    print_vector_f9(B0, n);
+    printf("B1: ");
+    print_vector_f9(B1, n);
+    printf("B2: ");
+    print_vector_f9(B2, n);
+    printf("B3: ");
+    print_vector_f9(B3, k);
 
     int op_part1 = (20);
     int op_part2 = (17);
@@ -136,6 +150,32 @@ f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2){
     sum_poly_img(n, n, S4, S5, S7); // S7 = S4 + wS5
     f9_element* S8 = S7 + n;
     sum_poly_img(n, n, A2, S6, S8); //S8 = A2 + wS6
+    f9_element* S9 = S8 + n;
+    neg_sum_poly_img(n, n, A0, S8, S9); // S9 = -A0 + wS8
+    f9_element* S10 = S9 + n;
+    sum_poly_img_neg(n, n, S1, S8, S10); //S10 = S1 - wS8
+
+    f9_element* S1_b = S10 + n;
+    sum_poly(n, k, B1, B3, S1_b); // S1_b = B1 + B3
+    f9_element* S2_b = S1_b + n;
+    sum_poly(n, n, B2, S1_b, S2_b); // S2_b = B2 + S1_b
+    f9_element* S3_b = S2_b + n;
+    sum_poly(n, n, B0, S2_b, S3_b); // S3_b = B0 + S2_b
+    f9_element* S4_b = S3_b + n;
+    sum_poly(n, n, B0, S1_b, S4_b); // S4_b = B0 + S1_b
+    f9_element* S5_b = S4_b + n;
+    sum_poly(n, n, B1, S2_b, S5_b); //S5_b = B1 + S2_b
+    f9_element* S6_b = S5_b + n;
+    sum_poly_img_neg(n, n, S4_b, S5_b, S6_b); // S6_b = S4_b -wS5_b
+    f9_element* S7_b = S6_b + n;
+    sum_poly_img(n, n, S4_b, S5_b, S7_b); // S7_b = S4_b + wS5_b
+    f9_element* S8_b = S7_b + n;
+    sum_poly_img(n, n, B2, S6_b, S8_b); //S8_b = B2 + wS6_b
+    f9_element* S9_b = S8_b + n;
+    neg_sum_poly_img(n, n, B0, S8_b, S9_b); // S9_b = -B0 + wS8_b
+    f9_element* S10_b = S9_b + n;
+    sum_poly_img_neg(n, n, S1_b, S8_b, S10_b); //S10_b = S1_b - wS8_b
+
 
 
     printf("S1: ");
@@ -154,6 +194,30 @@ f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2){
     print_vector_f9(S7, n);
     printf("S8: ");
     print_vector_f9(S8, n);
+    printf("S9: ");
+    print_vector_f9(S9, n);
+    printf("S10: ");
+    print_vector_f9(S10, n);
+    printf("S1_b: ");
+    print_vector_f9(S1_b, n);
+    printf("S2_b: ");
+    print_vector_f9(S2_b, n);
+    printf("S3_b: ");
+    print_vector_f9(S3_b, n);
+    printf("S4_b: ");
+    print_vector_f9(S4_b, n);
+    printf("S5_b: ");
+    print_vector_f9(S5_b, n);
+    printf("S6_b: ");
+    print_vector_f9(S6_b, n);
+    printf("S7_b: ");
+    print_vector_f9(S7_b, n);
+    printf("S8_b: ");
+    print_vector_f9(S8_b, n);
+    printf("S9_b: ");
+    print_vector_f9(S9_b, n);
+    printf("S10_b: ");
+    print_vector_f9(S10_b, n);
     print_vector_f9(op_pointer, op_part1*n + op_part2*(2*n-1));
 
     /*if (m < 6){
