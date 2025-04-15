@@ -447,7 +447,7 @@ int* split_operands_f3(char* p, int num_operands){
 }
 
 #define BUFFERSIZE 100000
-#define NUM_OPERANDS 2893
+#define NUM_OPERANDS 1078
 
 int main(int argc, char* argv[]) {
     //munit_suite_main(&suite, NULL, argc, argv);
