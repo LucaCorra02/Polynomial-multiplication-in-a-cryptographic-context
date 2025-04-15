@@ -216,7 +216,7 @@ f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2){
     print_vector_f9(S9_b, n);
     printf("S10_b: ");
     print_vector_f9(S10_b, n);
-    print_vector_f9(op_pointer, op_part1*n + op_part2*(2*n-1));
+
 
     f9_element *P0, *P1, *P2, *P3, *P4, *P5, *P6;
     P0 = schoolbook_f9(n, A0, B0);
@@ -244,6 +244,54 @@ f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2){
     printf("P6: ");
     print_vector_f9(P6, dim_subproduct_rem);
 
+    f9_element* Q1 = S10_b + n;
+    sum_poly(dim_subproduct, dim_subproduct, P2, P4, Q1); // Q1 = P2 + P4
+    f9_element* Q2 = Q1 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, P3, P5, Q2); //Q2 = P3 + P5
+    f9_element* Q3 = Q2 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, Q1, Q2, Q3); //Q3 = Q1 + Q2
+    f9_element* Q4 = Q3 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, P0, Q3, Q4); //Q4 = P0 - Q3
+    f9_element* Q5 = Q4 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, Q1, Q2, Q5); // Q5 = Q1 - Q2
+    f9_element* Q6 = Q5 + dim_subproduct;
+    sum_poly_img(dim_subproduct_rem, dim_subproduct, P6, Q5, Q6); // Q6 = P6 + wQ5
+    f9_element* Q7 = Q6 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, P0, P1, Q7); // Q7 = P0 + P1
+    f9_element* Q8 = Q7 + dim_subproduct;
+    sum_poly(dim_subproduct_rem, dim_subproduct, P6, Q7, Q8); //Q8 = P6 + Q7
+    f9_element* Q9 = Q8 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, P2, P3, Q9); //Q9 = P2 - P3
+    f9_element* Q10 = Q9 + dim_subproduct;
+    sum_poly_img(dim_subproduct, dim_subproduct, Q3, Q9, Q10); //Q10 = Q3 + wQ9
+    f9_element* Q11 = Q10 + dim_subproduct;
+    diff_poly_double(dim_subproduct, dim_subproduct, Q8, Q10, Q11); //Q11 = -Q8 - Q10
+
+
+    printf("Q1: ");
+    print_vector_f9(Q1, dim_subproduct);
+    printf("Q2: ");
+    print_vector_f9(Q2, dim_subproduct);
+    printf("Q3: ");
+    print_vector_f9(Q3, dim_subproduct);
+    printf("Q4: ");
+    print_vector_f9(Q4, dim_subproduct);
+    printf("Q5: ");
+    print_vector_f9(Q5, dim_subproduct);
+    printf("Q6: ");
+    print_vector_f9(Q6, dim_subproduct);
+    printf("Q7: ");
+    print_vector_f9(Q7, dim_subproduct);
+    printf("Q8: ");
+    print_vector_f9(Q8, dim_subproduct);
+    printf("Q9: ");
+    print_vector_f9(Q9, dim_subproduct);
+    printf("Q10: ");
+    print_vector_f9(Q10, dim_subproduct);
+    printf("Q11: ");
+    print_vector_f9(Q11, dim_subproduct);
+
+    print_vector_f9(op_pointer, op_part1*n + op_part2*(2*n-1));
 
     /*if (m < 6){
         return schoolbook_f9(m, p1, p2);
