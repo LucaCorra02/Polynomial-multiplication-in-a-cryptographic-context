@@ -33,6 +33,8 @@
 
     void sum_poly_img(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris); // P1 + wP2
 
+    void neg_sum_poly_img(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris); // -P1 + wP2
+
     void sum_poly_img_neg(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris); //P1 - wP2
 
     f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2);
