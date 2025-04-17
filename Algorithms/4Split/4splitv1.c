@@ -370,9 +370,12 @@ int* split_4_f3(int m, int* p1, int* p2){
     diff_poly_f3(n, k, S5, A3, S7); //S7 = S5 - A3
     f9_element* S8 = op_pointer_f9;
     sum_poly_img_f3(n, n, S2, S6, S8); //S8 = S2 + wS6
-
-
-
+    f9_element* S9 = S8 + n;
+    sum_poly_neg_img_f3(n, n, S2, S6, S9); //S9 = S2 -wS6
+    f9_element* S10 = S9 + n;
+    sum_poly_img_f3(n, n, S3, S7, S10); //S10 = S3 + wS7
+    f9_element* S11 = S10 + n;
+    sum_poly_neg_img_f3(n, n, S3, S7, S11); //S11 = S3 - wS7
 
     printf("S1: ");
     print_vector_f3(S1, n);
@@ -390,6 +393,12 @@ int* split_4_f3(int m, int* p1, int* p2){
     print_vector_f3(S7, n);
     printf("S8: ");
     print_vector_f9(S8, n);
+    printf("S9: ");
+    print_vector_f9(S9, n);
+    printf("S10: ");
+    print_vector_f9(S10, n);
+    printf("S11: ");
+    print_vector_f9(S11, n);
 
 
     printf("Spazio F9: ");
