@@ -332,6 +332,11 @@ void sum_poly_real_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* 
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_real_part(p2[i])); }
 }
 
+void sum_poly_double_real_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris){ // F9(P1_real_part) + F9(P2_real_part)
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], get_real_part(p1[i])); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_real_part(p2[i])); }
+}
+
 int* split_4_f3(int m, int* p1, int* p2){
     if (m < 6){
         return schoolbook_f3(m, p1, p2);
@@ -472,6 +477,9 @@ int* split_4_f3(int m, int* p1, int* p2){
     print_vector_f9(P5, dim_subproduct);
     printf("P6: ");
     print_vector_f3(P6, dim_subproduct_rem);
+
+    int* Q1 = S7_b + n;
+
 
     printf("Spazio F9: ");
     print_vector_f9(op_pointer_f9, (n) * 8);
