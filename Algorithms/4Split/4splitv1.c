@@ -541,5 +541,39 @@ int* split_4_f3(int m, int* p1, int* p2){
     printf("Spazio F3: ");
     print_vector_f3(op_pointer, n*op_part1 + op_part2*(2*n-1));
 
-    return NULL;
+    int dim_ris = (2*m-1);
+    int* ris = calloc(dim_ris, sizeof(int));
+
+    for(int i = 0; i < dim_subproduct ; i++){
+        ris[i] = f3_sum(ris[i], P0[i]); //R0
+    }
+    for(int i = 0; i < dim_subproduct ; i++){
+        ris[i+n] = f3_sum(ris[i+n], Q10[i]); //R1
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris ; i++){
+        ris[i+2*n] = f3_sum(ris[i+2*n], Q4[i]); //R2
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+        ris[i+3*n] = f3_sum(ris[i+3*n], Q8[i]); //R3
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+        ris[i+4*n] = f3_sum(ris[i+4*n], Q2[i]); //R4
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+        ris[i+5*n] = f3_sum(ris[i+5*n], Q11[i]); //R5
+    }
+    for(int i = 0; i < dim_subproduct_rem && i < dim_ris; i++){
+        ris[i+6*n] = f3_sum(ris[i+6*n], P6[i]);
+    }
+
+    free(op_pointer);
+    free(op_pointer_f9);
+    free(P0);
+    free(P1);
+    free(P2);
+    free(P3);
+    free(P4);
+    free(P5);
+    free(P6);
+    return ris;
 }
