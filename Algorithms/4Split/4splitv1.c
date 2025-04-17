@@ -502,6 +502,14 @@ int* split_4_f3(int m, int* p1, int* p2){
     sum_poly_real_img_f3(dim_subproduct, dim_subproduct, P2, P4, Q6); //Q6 = P2,0 + P4,1
     int* Q7 = Q6 + dim_subproduct;
     diff_single_poly_imag_f3(dim_subproduct, dim_subproduct, Q6, P2, Q7); //Q7 = -Q6 + P2,1
+    int* Q8 = Q7 + dim_subproduct;
+    diff_double_poly_real_f3(dim_subproduct, dim_subproduct, Q7, P4, Q8); //Q8 = -Q7 -P4,0
+    int* Q9 = Q8 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct, Q5, Q3, Q9); //Q9 = Q5 + Q3
+    int* Q10 = Q9 + dim_subproduct;
+    diff_poly_double_f3(dim_subproduct, dim_subproduct, Q9, Q1, Q10); //Q10 = -Q9 - Q1
+    int* Q11 = Q10 + dim_subproduct;
+    diff_poly_double_f3(dim_subproduct, dim_subproduct, Q7, Q9, Q11); //Q11 = -Q7 - Q9
 
 
 
@@ -519,6 +527,14 @@ int* split_4_f3(int m, int* p1, int* p2){
     print_vector_f3(Q6, dim_subproduct);
     printf("Q7: ");
     print_vector_f3(Q7, dim_subproduct);
+    printf("Q8: ");
+    print_vector_f3(Q8, dim_subproduct);
+    printf("Q9: ");
+    print_vector_f3(Q9, dim_subproduct);
+    printf("Q10: ");
+    print_vector_f3(Q10, dim_subproduct);
+    printf("Q11: ");
+    print_vector_f3(Q11, dim_subproduct);
 
     printf("Spazio F9: ");
     print_vector_f9(op_pointer_f9, (n) * 8);
