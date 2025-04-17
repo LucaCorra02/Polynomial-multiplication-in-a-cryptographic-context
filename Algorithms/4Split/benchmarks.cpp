@@ -26,9 +26,26 @@ static void Benchmark_4split_v2_f9(benchmark::State& state){ //Testo F9_split3
     delete[] p2;
 }
 
+static void Benchmark_4split_f3(benchmark::State& state){
+    int size = static_cast<int>(state.range(0));
+
+    int* p1 = new int[size];
+    int* p2 = new int[size];
+
+    for (int i = 0; i < size; ++i){
+        p1[i] = (i + 1) % 3;
+        p2[i] = (i * 3) % 3;
+    }
+
+    for (auto _ : state) {
+        benchmark::DoNotOptimize(split_4_f3(size, p1, p2));
+    }
+    delete[] p1;
+    delete[] p2;
+}
 
 
-BENCHMARK(Benchmark_4split_v2_f9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
-//BENCHMARK(Benchmark_3split_v2_f3)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
+//BENCHMARK(Benchmark_4split_v2_f9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
+BENCHMARK(Benchmark_4split_f3)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_MAIN();
