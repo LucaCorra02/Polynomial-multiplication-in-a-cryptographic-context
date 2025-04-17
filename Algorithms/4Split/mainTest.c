@@ -523,7 +523,7 @@ int main(int argc, char* argv[]) {
     printf("dim: %d\n", NUM_OPERANDS);
 
     int p1 [] = {1, 2, 0, 2, 1, 1, 1, 2, 2, 1};
-    int p2 [] = {2, 0, 1, 1, 2, 2, 0, 1, 2, 2};
+    int p2 [] = {2, 0, 1, 1, 2, 2, 0, 1, 2, 1};
     int dim = 10;
     int* ris = split_4_f3(dim, p1, p2);
     if (ris != NULL){
