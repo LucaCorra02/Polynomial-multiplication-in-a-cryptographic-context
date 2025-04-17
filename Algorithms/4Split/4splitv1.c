@@ -332,6 +332,11 @@ void sum_poly_real_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* 
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_real_part(p2[i])); }
 }
 
+void diff_double_poly_real_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris){ // - P1 - P2_real_part
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], swap_bits(p1[i])); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_real_part(p2[i]))); }
+}
+
 void sum_poly_double_real_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris){ // F9(P1_real_part) + F9(P2_real_part)
     for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], get_real_part(p1[i])); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_real_part(p2[i])); }
@@ -493,7 +498,10 @@ int* split_4_f3(int m, int* p1, int* p2){
     sum_poly_imag_f3(dim_subproduct, dim_subproduct, Q3, P4, Q4); //Q4 = Q3 + P4,1
     int* Q5 = Q4 + dim_subproduct;
     sum_poly_f3(dim_subproduct, dim_subproduct, Q2, P1, Q5); //Q5 = Q2 + P1
-
+    int* Q6 = Q5 + dim_subproduct;
+    sum_poly_real_img_f3(dim_subproduct, dim_subproduct, P2, P4, Q6); //Q6 = P2,0 + P4,1
+    int* Q7 = Q6 + dim_subproduct;
+    diff_single_poly_imag_f3(dim_subproduct, dim_subproduct, Q6, P2, Q7); //Q7 = -Q6 + P2,1
 
 
 
@@ -507,6 +515,10 @@ int* split_4_f3(int m, int* p1, int* p2){
     print_vector_f3(Q4, dim_subproduct);
     printf("Q5: ");
     print_vector_f3(Q5, dim_subproduct);
+    printf("Q6: ");
+    print_vector_f3(Q6, dim_subproduct);
+    printf("Q7: ");
+    print_vector_f3(Q7, dim_subproduct);
 
     printf("Spazio F9: ");
     print_vector_f9(op_pointer_f9, (n) * 8);
