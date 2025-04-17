@@ -415,51 +415,6 @@ int* split_4_f3(int m, int* p1, int* p2){
     f9_element* S11_b = S10_b + n;
     sum_poly_neg_img_f3(n, n, S3_b, S7_b, S11_b); //S11_b = S3_b - wS7_b
 
-    printf("S1: ");
-    print_vector_f3(S1, n);
-    printf("S2: ");
-    print_vector_f3(S2, n);
-    printf("S3: ");
-    print_vector_f3(S3, n);
-    printf("S4: ");
-    print_vector_f3(S4, n);
-    printf("S5: ");
-    print_vector_f3(S5, n);
-    printf("S6: ");
-    print_vector_f3(S6, n);
-    printf("S7: ");
-    print_vector_f3(S7, n);
-    printf("S8: ");
-    print_vector_f9(S8, n);
-    printf("S9: ");
-    print_vector_f9(S9, n);
-    printf("S10: ");
-    print_vector_f9(S10, n);
-    printf("S11: ");
-    print_vector_f9(S11, n);
-    printf("S1_b: ");
-    print_vector_f3(S1_b, n);
-    printf("S2_b: ");
-    print_vector_f3(S2_b, n);
-    printf("S3_b: ");
-    print_vector_f3(S3_b, n);
-    printf("S4_b: ");
-    print_vector_f3(S4_b, n);
-    printf("S5_b: ");
-    print_vector_f3(S5_b, n);
-    printf("S6_b: ");
-    print_vector_f3(S6_b, n);
-    printf("S7_b: ");
-    print_vector_f3(S7_b, n);
-    printf("S8_b: ");
-    print_vector_f9(S8_b, n);
-    printf("S9_b: ");
-    print_vector_f9(S9_b, n);
-    printf("S10_b: ");
-    print_vector_f9(S10_b, n);
-    printf("S11_b: ");
-    print_vector_f9(S11_b, n);
-
     int *P0, *P1, *P6;
     f9_element *P2, *P3, *P4, *P5;
     P0 = schoolbook_f3(n, A0, B0);
@@ -472,21 +427,6 @@ int* split_4_f3(int m, int* p1, int* p2){
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
-
-    printf("P0: ");
-    print_vector_f3(P0, dim_subproduct);
-    printf("P1: ");
-    print_vector_f3(P1, dim_subproduct);
-    printf("P2: ");
-    print_vector_f9(P2, dim_subproduct);
-    printf("P3: ");
-    print_vector_f9(P3, dim_subproduct);
-    printf("P4: ");
-    print_vector_f9(P4, dim_subproduct);
-    printf("P5: ");
-    print_vector_f9(P5, dim_subproduct);
-    printf("P6: ");
-    print_vector_f3(P6, dim_subproduct_rem);
 
     int* Q1 = S7_b + n;
     sum_poly_double_real_f3(dim_subproduct, dim_subproduct, P2, P4, Q1); // Q1 = P2,0 + P4,0
@@ -510,36 +450,6 @@ int* split_4_f3(int m, int* p1, int* p2){
     diff_poly_double_f3(dim_subproduct, dim_subproduct, Q9, Q1, Q10); //Q10 = -Q9 - Q1
     int* Q11 = Q10 + dim_subproduct;
     diff_poly_double_f3(dim_subproduct, dim_subproduct, Q7, Q9, Q11); //Q11 = -Q7 - Q9
-
-
-
-    printf("Q1: ");
-    print_vector_f3(Q1, dim_subproduct);
-    printf("Q2: ");
-    print_vector_f3(Q2, dim_subproduct);
-    printf("Q3: ");
-    print_vector_f3(Q3, dim_subproduct);
-    printf("Q4: ");
-    print_vector_f3(Q4, dim_subproduct);
-    printf("Q5: ");
-    print_vector_f3(Q5, dim_subproduct);
-    printf("Q6: ");
-    print_vector_f3(Q6, dim_subproduct);
-    printf("Q7: ");
-    print_vector_f3(Q7, dim_subproduct);
-    printf("Q8: ");
-    print_vector_f3(Q8, dim_subproduct);
-    printf("Q9: ");
-    print_vector_f3(Q9, dim_subproduct);
-    printf("Q10: ");
-    print_vector_f3(Q10, dim_subproduct);
-    printf("Q11: ");
-    print_vector_f3(Q11, dim_subproduct);
-
-    printf("Spazio F9: ");
-    print_vector_f9(op_pointer_f9, (n) * 8);
-    printf("Spazio F3: ");
-    print_vector_f3(op_pointer, n*op_part1 + op_part2*(2*n-1));
 
     int dim_ris = (2*m-1);
     int* ris = calloc(dim_ris, sizeof(int));
