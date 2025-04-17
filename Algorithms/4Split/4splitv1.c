@@ -479,7 +479,29 @@ int* split_4_f3(int m, int* p1, int* p2){
     print_vector_f3(P6, dim_subproduct_rem);
 
     int* Q1 = S7_b + n;
+    sum_poly_double_real_f3(dim_subproduct, dim_subproduct, P2, P4, Q1); // Q1 = P2,0 + P4,0
+    int* Q2 = Q1 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct, P0, Q1, Q2); // Q2 = P0 + Q1
+    int* Q3 = Q2 + dim_subproduct;
+    sum_poly_imag_f3(dim_subproduct_rem, dim_subproduct, P6, P2, Q3); //Q3 = P6 + P2,1
+    int* Q4 = Q3 + dim_subproduct;
+    sum_poly_imag_f3(dim_subproduct, dim_subproduct, Q3, P4, Q4); //Q4 = Q3 + P4,1
+    int* Q5 = Q4 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct, Q2, P1, Q5); //Q5 = Q2 + P1
 
+
+
+
+    printf("Q1: ");
+    print_vector_f3(Q1, dim_subproduct);
+    printf("Q2: ");
+    print_vector_f3(Q2, dim_subproduct);
+    printf("Q3: ");
+    print_vector_f3(Q3, dim_subproduct);
+    printf("Q4: ");
+    print_vector_f3(Q4, dim_subproduct);
+    printf("Q5: ");
+    print_vector_f3(Q5, dim_subproduct);
 
     printf("Spazio F9: ");
     print_vector_f9(op_pointer_f9, (n) * 8);
