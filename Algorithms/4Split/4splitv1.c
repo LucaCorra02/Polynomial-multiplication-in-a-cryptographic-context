@@ -348,7 +348,7 @@ void sum_poly_real_img_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element
 }
 
 int* split_4_f3(int m, int* p1, int* p2){
-    if (m < 6){
+    if (m < 18){
         return schoolbook_f3(m, p1, p2);
     }
     int n = get_split_n_param(m, 4);
@@ -417,13 +417,13 @@ int* split_4_f3(int m, int* p1, int* p2){
 
     int *P0, *P1, *P6;
     f9_element *P2, *P3, *P4, *P5;
-    P0 = schoolbook_f3(n, A0, B0);
-    P1 = schoolbook_f3(n, S4, S4_b);
-    P2 = schoolbook_f9(n, S8, S8_b);
-    P3 = schoolbook_f9(n, S9, S9_b);
-    P4 = schoolbook_f9(n, S10, S10_b);
-    P5 = schoolbook_f9(n, S11, S11_b);
-    P6 = schoolbook_f3(k, A3, B3);
+    P0 = split_4_f3(n, A0, B0);
+    P1 = split_4_f3(n, S4, S4_b);
+    P2 = split_4_f9(n, S8, S8_b);
+    P3 = split_4_f9(n, S9, S9_b);
+    P4 = split_4_f9(n, S10, S10_b);
+    P5 = split_4_f9(n, S11, S11_b);
+    P6 = split_4_f3(k, A3, B3);
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
