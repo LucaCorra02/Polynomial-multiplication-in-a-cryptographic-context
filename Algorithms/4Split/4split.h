@@ -49,6 +49,8 @@
 
     void diff_poly_f3(int terms_p1, int terms_p2, int* p1, int* p2, int* ris); // P1 - P2
 
+    void diff_poly_double_f3(int terms_p1, int terms_p2, int* p1, int* p2, int* ris); // -P1 -P2
+
     void sum_poly_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* ris); // F9(P1) + F9(P2)w
 
     void diff_poly_img_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris); //P1 - P2_imag_part

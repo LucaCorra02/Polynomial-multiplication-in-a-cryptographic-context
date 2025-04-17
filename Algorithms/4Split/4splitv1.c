@@ -287,6 +287,11 @@ void diff_poly_f3(int terms_p1, int terms_p2, int* p1, int* p2, int* ris){ // P1
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(p2[i])); }
 }
 
+void diff_poly_double_f3(int terms_p1, int terms_p2, int* p1, int* p2, int* ris){ // -P1 -P2
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], swap_bits(p1[i])); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(p2[i])); }
+}
+
 void sum_poly_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* ris){ // F9(P1) + F9(P2)w
     for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(ris[i], get_f9_element(0, p1[i])); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], get_f9_element(p2[i], 0)); }
@@ -344,9 +349,26 @@ int* split_4_f3(int m, int* p1, int* p2){
     int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
     f9_element* op_pointer_f9 = calloc((n) * 8, sizeof(f9_element));
 
+    int* S1 = op_pointer;
+    sum_poly_f3(n, k, A1, A3, S1); // S1 = A1 + A3
+    int* S2 = S1 + n;
+    sum_poly_f3(n, n, S1, A0, S2); // S2 = S1 + A0
+    int* S3 = S2 + n;
+    diff_poly_f3(n, n, A0, S1, S3); // S3 = A0 - S1
+    int* S4 = S3 + n;
+    sum_poly_f3(n, n, S2, A2, S4); // S4 = S2 + A2
+    int* S5 = S4 + n;
 
 
 
+
+    printf("S1: ");
+    print_vector_f3(S1, n);
+
+    printf("Spazio F9: ");
+    print_vector_f9(op_pointer_f9, (n) * 8);
+    printf("Spazio F3: ");
+    print_vector_f3(op_pointer, n*op_part1 + op_part2*(2*n-1));
 
     return NULL;
 }
