@@ -1,28 +1,28 @@
-TARGET = testAlgorithms.out
-SRC = algorithms.c choseAlgorithms.c fileutilsImplementation.c testAlgorithms.c
-OBJ = algorithms.o choseAlgorithms.o fileutilsImplementation.o testAlgorithms.o
+TARGET = mainTest.out
+SRC = mainTest.c algoUtils.c f9Implementation.c f3Implementation.c ../munit/munit.c
+OBJ = mainTest.o algoUtils.o f9Implementation.o f3Implementation.o munit.o
 
-CFLAGS = -O3
+CFLAGS = -O3 -Wall -fopenmp
+F9_SRC_DIR = FieldImplementation
+
+#./benchmarks.out --benchmark_out=ris.json --benchmark_out_format=json --benchmark_min_warmup_time=2
 
 all: $(TARGET)
 
-# Creazione del file eseguibile
 $(TARGET): $(OBJ)
 	gcc $(CFLAGS) $(OBJ) -o $(TARGET)
 
-algorithms.o: algorithms.c algorithms.h
-	gcc $(CFLAGS) -c algorithms.c
+f3Implementation.o: $(F9_SRC_DIR)/f3Implementation.c $(F9_SRC_DIR)/f3Utils.h
+	gcc $(CFLAGS) -c $(F9_SRC_DIR)/f3Implementation.c
 
-chooseAlgorithms.o: choseAlgorithms.c algorithms.h
-	gcc $(CFLAGS) -c choseAlgorithms.c
+f9Implementation.o: $(F9_SRC_DIR)/f9Implementation.c $(F9_SRC_DIR)/F9Utils.h
+	gcc $(CFLAGS) -c $(F9_SRC_DIR)/f9Implementation.c
 
-fileutilsImplementation.o: fileutilsImplementation.c fileutils.h
-	gcc $(CFLAGS) -c fileutilsImplementation.c
+algoUtils.o: algoUtils.c algoUtils.h
+	gcc $(CFLAGS) -c algoUtils.c
 
-testAlgorithms.o: testAlgorithms.c algorithms.h
-	gcc $(CFLAGS) -c testAlgorithms.c
+munit.o: ../munit/munit.c ../munit/munit.h
+	$(CC) $(CFLAGS) -c ../munit/munit.c -o munit.o
 
-clean:
-	rm -f $(OBJ) $(TARGET)
-
-.PHONY: all clean
+mainTest.o: mainTest.c algoUtils.h ../munit/munit.h
+	gcc $(CFLAGS) -c mainTest.c
