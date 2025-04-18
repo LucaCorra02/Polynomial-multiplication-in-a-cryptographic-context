@@ -29,3 +29,13 @@ algorithms.o: algorithms.c algorithms.h
 
 mainTest.o: mainTest.c algorithms.h ../munit/munit.h
 	gcc $(CFLAGS) -c mainTest.c
+
+benchmarks: algorithms.o algoUtils.o f3Implementation.o f9Implementation.o benchmarks.cpp
+	g++ $(CFLAGS) -c benchmarks.cpp -o benchmarks.o -I../benchmark/include
+	g++ $(CFLAGS) benchmarks.o algorithms.o algoUtils.o f3Implementation.o f9Implementation.o \
+		-std=c++14 -I. -isystem -I../benchmark/include -L../benchmark/build/src -lbenchmark -lpthread -o benchmarks.out
+
+clean:
+	rm -f $(OBJ) $(TARGET)
+
+.PHONY: all clean
