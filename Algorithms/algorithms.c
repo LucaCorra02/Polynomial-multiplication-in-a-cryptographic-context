@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include "algorithms.h"
 
+/*SCHOOLBOOK IMPLEMENTATION*/
+
 f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2) { //coefficenti solo in f9
     int dim_ris = (2 * n) - 1;
     f9_element* ris = calloc(dim_ris, sizeof(f9_element));
@@ -25,6 +27,31 @@ f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2) { //coefficenti
     free(sub_result);
     return ris;
 }
+
+int* schoolbook_f3(int n, int* p1, int* p2) {
+    int dim_ris = (2 * n) - 1;
+    int* ris = calloc(dim_ris, sizeof(int));
+    if (n == 1) { ris[0] = f3_prod(p1[0], p2[0]); return ris; }
+    int max_deg = n - 1;
+    unsigned int mst_p1 = p1[max_deg];
+    unsigned int mst_p2 = p2[max_deg];
+    ris[max_deg * 2] = f3_sum(ris[max_deg * 2], f3_prod(mst_p1,mst_p2));
+
+    for (int i = 0; i < max_deg; i++) {
+        ris[max_deg + i] = f3_sum(ris[max_deg + i], f3_prod(mst_p1, p2[i]));
+        ris[max_deg + i] = f3_sum(ris[max_deg + i], f3_prod(mst_p2, p1[i]));
+    }
+
+    int* sub_result = schoolbook_f3(n - 1, p1, p2);
+    for (int i = 0; i < (dim_ris - 1); i++) {
+        ris[i] = f3_sum(ris[i],sub_result[i]);
+    }
+
+    free(sub_result);
+    return ris;
+}
+
+/* 4_SPLIT_V2 IMPLEMENTATION */
 
 f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2){
     if (m < 18){
@@ -168,6 +195,147 @@ f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2){
     free(P3);
     free(P4);
 	free(P5);
+    free(P6);
+    return ris;
+}
+
+int* split_4_f3(int m, int* p1, int* p2){
+    if (m < 18){
+        return schoolbook_f3(m, p1, p2);
+    }
+    int n = get_split_n_param(m, 4);
+    int k = get_split_k_param(m, n, 4);
+
+    int* A0 = p1;
+    int* A1 = p1 + n;
+    int* A2 = p1 + 2 * n;
+    int* A3 = p1 + 3 * n;
+
+    int* B0 = p2;
+    int* B1 = p2 + n;
+    int* B2 = p2 + 2 * n;
+    int* B3 = p2 + 3 * n;
+
+    int op_part1 = (14);
+    int op_part2 = (11);
+    int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
+    f9_element* op_pointer_f9 = calloc((n) * 8, sizeof(f9_element));
+
+    int* S1 = op_pointer;
+    sum_poly_f3(n, k, A1, A3, S1); // S1 = A1 + A3
+    int* S2 = S1 + n;
+    sum_poly_f3(n, n, S1, A0, S2); // S2 = S1 + A0
+    int* S3 = S2 + n;
+    diff_poly_f3(n, n, A0, S1, S3); // S3 = A0 - S1
+    int* S4 = S3 + n;
+    sum_poly_f3(n, n, S2, A2, S4); // S4 = S2 + A2
+    int* S5 = S4 + n;
+    diff_poly_double_f3(n, n, A2, S1, S5); // S5 = -A2 -S1
+    int* S6 = S5 + n;
+    diff_poly_f3(n, n, S5, A1, S6); // S6 = S5 - A1
+    int* S7 = S6 + n;
+    diff_poly_f3(n, k, S5, A3, S7); //S7 = S5 - A3
+    f9_element* S8 = op_pointer_f9;
+    sum_poly_img_f3(n, n, S2, S6, S8); //S8 = S2 + wS6
+    f9_element* S9 = S8 + n;
+    sum_poly_neg_img_f3(n, n, S2, S6, S9); //S9 = S2 -wS6
+    f9_element* S10 = S9 + n;
+    sum_poly_img_f3(n, n, S3, S7, S10); //S10 = S3 + wS7
+    f9_element* S11 = S10 + n;
+    sum_poly_neg_img_f3(n, n, S3, S7, S11); //S11 = S3 - wS7
+
+    int* S1_b = S7 + n;
+    sum_poly_f3(n, k, B1, B3, S1_b); // S1_b = B1 + B3
+    int* S2_b = S1_b + n;
+    sum_poly_f3(n, n, S1_b, B0, S2_b); // S2_b = S1_b + B0
+    int* S3_b = S2_b + n;
+    diff_poly_f3(n, n, B0, S1_b, S3_b); // S3_b = B0 - S1_b
+    int* S4_b = S3_b + n;
+    sum_poly_f3(n, n, S2_b, B2, S4_b); // S4_b = S2_b + B2
+    int* S5_b = S4_b + n;
+    diff_poly_double_f3(n, n, B2, S1_b, S5_b); // S5_b = -B2 -S1_b
+    int* S6_b = S5_b + n;
+    diff_poly_f3(n, n, S5_b, B1, S6_b); // S6_b = S5_b - B1
+    int* S7_b = S6_b + n;
+    diff_poly_f3(n, k, S5_b, B3, S7_b); //S7_b = S5_b - B3
+    f9_element* S8_b = S11 + n;
+    sum_poly_img_f3(n, n, S2_b, S6_b, S8_b); //S8_b = S2_b + wS6_b
+    f9_element* S9_b = S8_b + n;
+    sum_poly_neg_img_f3(n, n, S2_b, S6_b, S9_b); //S9_b = S2_b -wS6_b
+    f9_element* S10_b = S9_b + n;
+    sum_poly_img_f3(n, n, S3_b, S7_b, S10_b); //S10_b = S3_b + wS7_b
+    f9_element* S11_b = S10_b + n;
+    sum_poly_neg_img_f3(n, n, S3_b, S7_b, S11_b); //S11_b = S3_b - wS7_b
+
+    int *P0, *P1, *P6;
+    f9_element *P2, *P3, *P4, *P5;
+    P0 = split_4_f3(n, A0, B0);
+    P1 = split_4_f3(n, S4, S4_b);
+    P2 = split_4_f9(n, S8, S8_b);
+    P3 = split_4_f9(n, S9, S9_b);
+    P4 = split_4_f9(n, S10, S10_b);
+    P5 = split_4_f9(n, S11, S11_b);
+    P6 = split_4_f3(k, A3, B3);
+
+    int dim_subproduct = (2*n-1);
+    int dim_subproduct_rem = (2*k-1);
+
+    int* Q1 = S7_b + n;
+    sum_poly_double_real_f3(dim_subproduct, dim_subproduct, P2, P4, Q1); // Q1 = P2,0 + P4,0
+    int* Q2 = Q1 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct, P0, Q1, Q2); // Q2 = P0 + Q1
+    int* Q3 = Q2 + dim_subproduct;
+    sum_poly_imag_f3(dim_subproduct_rem, dim_subproduct, P6, P2, Q3); //Q3 = P6 + P2,1
+    int* Q4 = Q3 + dim_subproduct;
+    sum_poly_imag_f3(dim_subproduct, dim_subproduct, Q3, P4, Q4); //Q4 = Q3 + P4,1
+    int* Q5 = Q4 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct, Q2, P1, Q5); //Q5 = Q2 + P1
+    int* Q6 = Q5 + dim_subproduct;
+    sum_poly_real_img_f3(dim_subproduct, dim_subproduct, P2, P4, Q6); //Q6 = P2,0 + P4,1
+    int* Q7 = Q6 + dim_subproduct;
+    diff_single_poly_imag_f3(dim_subproduct, dim_subproduct, Q6, P2, Q7); //Q7 = -Q6 + P2,1
+    int* Q8 = Q7 + dim_subproduct;
+    diff_double_poly_real_f3(dim_subproduct, dim_subproduct, Q7, P4, Q8); //Q8 = -Q7 -P4,0
+    int* Q9 = Q8 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct, Q5, Q3, Q9); //Q9 = Q5 + Q3
+    int* Q10 = Q9 + dim_subproduct;
+    diff_poly_double_f3(dim_subproduct, dim_subproduct, Q9, Q1, Q10); //Q10 = -Q9 - Q1
+    int* Q11 = Q10 + dim_subproduct;
+    diff_poly_double_f3(dim_subproduct, dim_subproduct, Q7, Q9, Q11); //Q11 = -Q7 - Q9
+
+    int dim_ris = (2*m-1);
+    int* ris = calloc(dim_ris, sizeof(int));
+
+    for(int i = 0; i < dim_subproduct ; i++){
+        ris[i] = f3_sum(ris[i], P0[i]); //R0
+    }
+    for(int i = 0; i < dim_subproduct ; i++){
+        ris[i+n] = f3_sum(ris[i+n], Q10[i]); //R1
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris ; i++){
+        ris[i+2*n] = f3_sum(ris[i+2*n], Q4[i]); //R2
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+        ris[i+3*n] = f3_sum(ris[i+3*n], Q8[i]); //R3
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+        ris[i+4*n] = f3_sum(ris[i+4*n], Q2[i]); //R4
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+        ris[i+5*n] = f3_sum(ris[i+5*n], Q11[i]); //R5
+    }
+    for(int i = 0; i < dim_subproduct_rem && i < dim_ris; i++){
+        ris[i+6*n] = f3_sum(ris[i+6*n], P6[i]);
+    }
+
+    free(op_pointer);
+    free(op_pointer_f9);
+    free(P0);
+    free(P1);
+    free(P2);
+    free(P3);
+    free(P4);
+    free(P5);
     free(P6);
     return ris;
 }
