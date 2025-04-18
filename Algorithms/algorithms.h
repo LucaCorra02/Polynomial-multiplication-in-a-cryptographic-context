@@ -1,17 +1,16 @@
 #ifndef ALGORITMS_H
+#include "algoUtils.h"
 
-typedef int* (*NextAlgorithms)(int n, int* p1, int* p2);
+/* SCHOOLBOOK ALGO */
+//int* schoolbook_f3(int n, int* p1, int* p2);
 
-NextAlgorithms choose_next_algo(int n, int* p1, int* p2);
+f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2);
 
-void polynomial_sum(int* A, int lenA, int* B, int lenB, int* result);
 
-int* schoolbook_r(int n, int* p1, int* p2);
+/* 4_SPLIT_V2 ALGO */
+//int* split_4_f3(int m, int* p1, int* p2);
 
-int* karatsuba(int n, int* p1, int* p2);
+f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2);
 
-int* unbalanced_karatsuba(int n, int* p1, int* p2);
-
-#define ALGORITMS_H
 
 #endif

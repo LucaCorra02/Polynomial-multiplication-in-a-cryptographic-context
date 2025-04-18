@@ -1,6 +1,6 @@
 TARGET = mainTest.out
-SRC = mainTest.c algoUtils.c f9Implementation.c f3Implementation.c ../munit/munit.c
-OBJ = mainTest.o algoUtils.o f9Implementation.o f3Implementation.o munit.o
+SRC = mainTest.c algorithms.c algoUtils.c f9Implementation.c f3Implementation.c ../munit/munit.c
+OBJ = mainTest.o algorithms.o algoUtils.o f9Implementation.o f3Implementation.o munit.o
 
 CFLAGS = -O3 -Wall -fopenmp
 F9_SRC_DIR = FieldImplementation
@@ -18,11 +18,14 @@ f3Implementation.o: $(F9_SRC_DIR)/f3Implementation.c $(F9_SRC_DIR)/f3Utils.h
 f9Implementation.o: $(F9_SRC_DIR)/f9Implementation.c $(F9_SRC_DIR)/F9Utils.h
 	gcc $(CFLAGS) -c $(F9_SRC_DIR)/f9Implementation.c
 
-algoUtils.o: algoUtils.c algoUtils.h
+algoUtils.o: algoUtils.c algorithms.h
 	gcc $(CFLAGS) -c algoUtils.c
 
 munit.o: ../munit/munit.c ../munit/munit.h
 	$(CC) $(CFLAGS) -c ../munit/munit.c -o munit.o
 
-mainTest.o: mainTest.c algoUtils.h ../munit/munit.h
+algorithms.o: algorithms.c algorithms.h
+	gcc $(CFLAGS) -c algorithms.c
+
+mainTest.o: mainTest.c algorithms.h ../munit/munit.h
 	gcc $(CFLAGS) -c mainTest.c

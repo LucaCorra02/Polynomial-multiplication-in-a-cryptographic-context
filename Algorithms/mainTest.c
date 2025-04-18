@@ -1,4 +1,4 @@
-#include "algoUtils.h"
+#include "algorithms.h"
 #include "../munit/munit.h"
 
 /*
@@ -546,13 +546,13 @@ int* split_operands_f3(char* p, int num_operands){
 }
 
 #define BUFFERSIZE 100000
-#define NUM_OPERANDS 150
+#define NUM_OPERANDS 1024
 
 int main(int argc, char* argv[]) {
-    munit_suite_main(&suite, NULL, argc, argv);
-	munit_suite_main(&suite_f3, NULL, argc, argv);
+    //munit_suite_main(&suite, NULL, argc, argv);
+	//munit_suite_main(&suite_f3, NULL, argc, argv);
 
-    /*char buffer[BUFFERSIZE];
+    char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
         char* right = strtok(NULL, ";");
@@ -564,7 +564,6 @@ int main(int argc, char* argv[]) {
         free(p2);
         free(ris);
     }
-     */
 
     /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
