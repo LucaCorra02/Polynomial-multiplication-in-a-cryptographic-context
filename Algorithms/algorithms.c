@@ -51,6 +51,107 @@ int* schoolbook_f3(int n, int* p1, int* p2) {
     return ris;
 }
 
+/* KARATSUBA Implementation */
+
+void polynomial_sum_f3(int* p1, int len_p1, int* p2, int len_p2, int* ris) { // Somma per polinomi sbilanciati
+    for (int i = 0; i < len_p1; i++) ris[i] = f3_sum(int_to_f3(ris[i]), int_to_f3(p1[i]));
+    for (int i = 0; i < len_p2; i++) ris[i] = f3_sum(int_to_f3(ris[i]), int_to_f3(p2[i]));
+}
+
+int* unbalanced_karatsuba_f3(int n, int* p1, int* p2) {
+    int* result = calloc((2 * n) - 1, sizeof(int));
+    if (n == 1) { result[0] = f3_prod(int_to_f3(p1[0]), int_to_f3(p2[0])); return result; }
+
+    int k = n / 2;
+    int mid = n - k; // Resto divisione
+    int* a0 = p1;
+    int* a1 = p1 + mid; // a1 ha meno terimi rispetto ad a0
+    int* b0 = p2;
+    int* b1 = p2 + mid;
+    int size_a1 = n - mid, size_b1 = n - mid;
+
+    int* a0a1 = calloc(mid, sizeof(int));
+    int* b0b1 = calloc(mid, sizeof(int));
+    polynomial_sum_f3(a0, mid, a1, size_a1, a0a1);
+    polynomial_sum_f3(b0, mid, b1, size_b1, b0b1);
+
+    int *P0, *P1, *P2;
+    #pragma omp parallel sections
+    {
+        #pragma omp section
+            P0 = unbalanced_karatsuba_f3(mid, a0, b0); // P0 = A0 * B0
+        #pragma omp section
+            P2 = unbalanced_karatsuba_f3(size_a1, a1, b1); // P2 = A1 * B1
+        #pragma omp section
+            P1 = unbalanced_karatsuba_f3(mid, a0a1, b0b1); // P1 = (A0 + A1) * (B0 + B1)
+    }
+
+    for (int i = 0; i < (2 * mid ) - 1; i++){ P1[i] = f3_sum(int_to_f3(P1[i]), swap_bits(int_to_f3(P0[i]))); } // P1 = P1 - P0
+    for (int i = 0; i < (2 * size_a1) - 1; i++) { P1[i] = f3_sum(int_to_f3(P1[i]), swap_bits(int_to_f3(P2[i])));  } // P1 = (P1 - P0) - P0
+
+    //Combini i risultati
+    for (int i = 0; i < (2 * mid ) - 1; i++) {
+        result[i] = f3_sum(int_to_f3(result[i]), int_to_f3(P0[i])); // Termini da 0 a mid-1
+        result[i + mid] = f3_sum(int_to_f3(result[i + mid]), int_to_f3(P1[i])); // Terimini da mid a (2*mid)-1
+    }
+    for (int i = 0; i < (2 * size_a1) - 1; i++) {
+        result[i + (2 * mid)] = f3_sum(int_to_f3(result[i + (2 * mid)]), int_to_f3(P2[i])); // Termini da (2*mid) a n-1
+    }
+
+    free(a0a1);
+    free(b0b1);
+    free(P0);
+    free(P1);
+    free(P2);
+    return result;
+}
+
+void polynomial_sum_f9(f9_element* p1, int len_p1, f9_element* p2, int len_p2, f9_element* ris) { // Somma per polinomi sbilanciati
+    for (int i = 0; i < len_p1; i++) ris[i] = f9_sum(ris[i], p1[i]);
+    for (int i = 0; i < len_p2; i++) ris[i] = f9_sum(ris[i], p2[i]);
+}
+
+f9_element* unbalanced_karatsuba_f9(int n, f9_element* p1, f9_element* p2) {
+    f9_element* result = calloc((2 * n) - 1, sizeof(f9_element));
+    if (n == 1) { result[0] = f9_prod(p1[0], p2[0]); return result; }
+
+    int k = n / 2;
+    int mid = n - k; // Resto divisione
+    f9_element* a0 = p1;
+    f9_element* a1 = p1 + mid; // a1 ha meno terimi rispetto ad a0
+    f9_element* b0 = p2;
+    f9_element* b1 = p2 + mid;
+    int size_a1 = n - mid, size_b1 = n - mid;
+
+    f9_element* a0a1 = calloc(mid, sizeof(f9_element));
+    f9_element* b0b1 = calloc(mid, sizeof(f9_element));
+    polynomial_sum_f9(a0, mid, a1, size_a1, a0a1);
+    polynomial_sum_f9(b0, mid, b1, size_b1, b0b1);
+
+    f9_element* P0 = unbalanced_karatsuba_f9(mid, a0, b0); // P0 = A0 * B0
+    f9_element* P2 = unbalanced_karatsuba_f9(size_a1, a1, b1); // P2 = A1 * B1
+    f9_element* P1 = unbalanced_karatsuba_f9(mid, a0a1, b0b1); // P1 = (A0 + A1) * (B0 + B1)
+
+    for (int i = 0; i < (2 * mid ) - 1; i++){ P1[i] = f9_sum(P1[i], f9_neg(P0[i])); } // P1 = P1 - P0
+    for (int i = 0; i < (2 * size_a1) - 1; i++) { P1[i] = f9_sum(P1[i], f9_neg(P2[i])); } // P1 = (P1 - P0) - P0
+
+    //Combini i risultati
+    for (int i = 0; i < (2 * mid ) - 1; i++) {
+        result[i] = f9_sum(result[i], P0[i]); // Termini da 0 a mid-1
+        result[i + mid] = f9_sum(result[i + mid], P1[i]); // Terimini da mid a (2*mid)-1
+    }
+    for (int i = 0; i < (2 * size_a1) - 1; i++) {
+        result[i + (2 * mid)] = f9_sum(result[i + (2 * mid)], P2[i]); // Termini da (2*mid) a n-1
+    }
+
+    free(a0a1);
+    free(b0b1);
+    free(P0);
+    free(P1);
+    free(P2);
+    return result;
+}
+
 /* 3_SPLIT_V1 Implementation */
 
 f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
