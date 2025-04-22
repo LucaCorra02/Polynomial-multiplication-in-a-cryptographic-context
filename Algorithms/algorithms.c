@@ -907,6 +907,62 @@ f9_element* split_5_f9(int m, f9_element* p1, f9_element* p2) {
     printf("B4: ");
     print_vector_f9(B4, k);
 
+    int op_part1 = (34);
+    int op_part2 = (25);
+    f9_element* op_pointer = allocate_mem(op_part1, n, op_part2, (2*n-1));
+
+    f9_element* S1 = op_pointer;
+    sum_poly(n, k, A0, A4, S1); // S1 = A0 + A4
+    f9_element* S2 = S1 + n;
+    sum_poly(n, n, A1, A3, S2); // S2 = A1 + A3
+    f9_element* S3 = S2 + n;
+    diff_poly(n, k, A0, A4, S3); //S3 = A0 - A4
+    f9_element* S4 = S3 + n;
+    diff_poly(n, n, A1, A3, S4); //S4 = A1 - A3
+    f9_element* S5 = S4 + n;
+    sum_poly(n, n, S1, S2, S5); //S5 = S1 + S2
+    f9_element* S6 = S5 + n;
+    diff_poly(n, n, S1, A2, S6); //S6 = S1 - A2
+    f9_element* S7 = S6 + n;
+    sum_poly(n, n, S2, S3, S7); //S7 = S2 + S3
+    f9_element* S8 = S7 + n;
+    diff_poly(n, n, S2, S3, S8); //S8 = S2 - S3
+    f9_element* S9 = S8 + n;
+    diff_poly(n, n, S4, A2, S9); //S9 = S4 - A2
+    f9_element* S10 = S9 + n;
+    sum_poly(n, n, S4, A2, S10); //S10 = S4 + A2
+    f9_element* S11 = S10 + n;
+    sum_poly(n, n, S5, A2, S11); //S11 = S5 + A2 -> P1
+
+
+    printf("S1: ");
+    print_vector_f9(S1, n);
+    printf("S2: ");
+    print_vector_f9(S2, n);
+    printf("S3: ");
+    print_vector_f9(S3, n);
+    printf("S4: ");
+    print_vector_f9(S4, n);
+    printf("S5: ");
+    print_vector_f9(S5, n);
+    printf("S6: ");
+    print_vector_f9(S6, n);
+    printf("S7: ");
+    print_vector_f9(S7, n);
+    printf("S8: ");
+    print_vector_f9(S8, n);
+    printf("S9: ");
+    print_vector_f9(S9, n);
+    printf("S10: ");
+    print_vector_f9(S10, n);
+    printf("S11: ");
+    print_vector_f9(S11, n);
+
+
+    printf("mem: ");
+    //print_vector_f9(op_pointer, op_part1* n+ op_part2 * (2*n-1) );
+
+
 
 
     return NULL;
