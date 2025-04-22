@@ -31,5 +31,9 @@ int* split_4_f3(int m, int* p1, int* p2);
 
 f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2);
 
+/* 5_SPLIT ALGO */
+
+f9_element* split_5_f9(int m, f9_element* p1, f9_element* p2);
+
 
 #endif

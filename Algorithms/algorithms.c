@@ -863,3 +863,51 @@ int* split_4_f3(int m, int* p1, int* p2){
     free(P6);
     return ris;
 }
+
+/*5_SPLIT IMPLEMENTATION*/
+
+f9_element* split_5_f9(int m, f9_element* p1, f9_element* p2) {
+    if (m < 14){ //Vero lim 32
+        return schoolbook_f9(m, p1, p2);
+    }
+    int n = get_split_n_param(m, 5);
+    int k = get_split_k_param(m, n, 5);
+
+    f9_element* A0 = p1;
+    f9_element* A1 = p1 + n;
+    f9_element* A2 = p1 + 2 * n;
+    f9_element* A3 = p1 + 3 * n;
+    f9_element* A4 = p1 + 4 * n;
+
+    f9_element* B0 = p2;
+    f9_element* B1 = p2 + n;
+    f9_element* B2 = p2 + 2 * n;
+    f9_element* B3 = p2 + 3 * n;
+    f9_element* B4 = p2 + 4 * n;
+
+    printf("A0: ");
+    print_vector_f9(A0, n);
+    printf("A1: ");
+    print_vector_f9(A1, n);
+    printf("A2: ");
+    print_vector_f9(A2, n);
+    printf("A3: ");
+    print_vector_f9(A3, n);
+    printf("A4: ");
+    print_vector_f9(A4, k);
+
+    printf("B0: ");
+    print_vector_f9(B0, n);
+    printf("B1: ");
+    print_vector_f9(B1, n);
+    printf("B2: ");
+    print_vector_f9(B2, n);
+    printf("B3: ");
+    print_vector_f9(B3, n);
+    printf("B4: ");
+    print_vector_f9(B4, k);
+
+
+
+    return NULL;
+}
