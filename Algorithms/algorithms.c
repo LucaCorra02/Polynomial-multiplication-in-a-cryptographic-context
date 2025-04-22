@@ -1084,10 +1084,49 @@ f9_element* split_5_f9(int m, f9_element* p1, f9_element* p2) {
     printf("P8: ");
     print_vector_f9(P8, dim_subproduct_rem);
 
+    f9_element* Q1 = S17_b + n;
+    sum_poly(dim_subproduct, dim_subproduct_rem, P0, P8, Q1); //Q1 = P0 + P8
+    f9_element* Q2 = Q1 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, P2, P3, Q2); //Q2 = P2 + P3
+    f9_element* Q3 = Q2 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, P4, P5, Q3); //Q3 = P4 + P5
+    f9_element* Q4 = Q3 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, P6, P7, Q4); //Q4 = P6 + P7
+    f9_element* Q5 = Q4 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, P2, P3, Q5); //Q5 = P2 - P3
+    f9_element* Q6 = Q5 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, P4, P5, Q6); //Q6 = P4 - P5
+    f9_element* Q7 = Q6 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, P6, P7, Q7); //Q7 = P6 - P7
+    f9_element* Q8 = Q7 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, P1, Q1, Q8); // Q8 = P1 - Q1
+    f9_element* Q9 = Q8 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, Q1, Q2, Q9); //Q9 = Q1 - Q2
+    f9_element* Q10 = Q9 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, Q3, Q4, Q10); //Q10 = Q3 + Q4
+    f9_element* Q11 = Q10 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, Q6, Q7, Q11); //Q11 = Q6 - Q7
+    f9_element* Q12 = Q11 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, Q6, Q7, Q12); //Q12 = Q6 + Q7
+    f9_element* Q13 = Q12 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, Q8, Q2, Q13); //Q13 = Q8 - Q2
+    f9_element* Q14 = Q13 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, Q9, Q10, Q14); //Q14 = Q9 + Q10
 
-
-
-
+    printf("Q1: ");
+    print_vector_f9(Q1, dim_subproduct);
+    printf("Q2: ");
+    print_vector_f9(Q2, dim_subproduct);
+    printf("Q3: ");
+    print_vector_f9(Q3, dim_subproduct);
+    printf("Q4: ");
+    print_vector_f9(Q4, dim_subproduct);
+    printf("Q5: ");
+    print_vector_f9(Q5, dim_subproduct);
+    printf("Q6: ");
+    print_vector_f9(Q6, dim_subproduct);
+    printf("Q7: ");
+    print_vector_f9(Q7, dim_subproduct);
 
 
 
