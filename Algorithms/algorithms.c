@@ -867,7 +867,7 @@ int* split_4_f3(int m, int* p1, int* p2){
 /*5_SPLIT IMPLEMENTATION*/
 
 f9_element* split_5_f9(int m, f9_element* p1, f9_element* p2) {
-    if (m < 14){ //Vero lim 32
+    if (m < 32){
         return schoolbook_f9(m, p1, p2);
     }
     int n = get_split_n_param(m, 5);
@@ -959,110 +959,19 @@ f9_element* split_5_f9(int m, f9_element* p1, f9_element* p2) {
     f9_element* S17_b = S16_b + n;
     neg_sum_poly_img(n, n, S8_b, S10_b, S17_b); //S17_b = -S8_b + wS10_b
 
-    /*printf("S1: ");
-    print_vector_f9(S1, n);
-    printf("S2: ");
-    print_vector_f9(S2, n);
-    printf("S3: ");
-    print_vector_f9(S3, n);
-    printf("S4: ");
-    print_vector_f9(S4, n);
-    printf("S5: ");
-    print_vector_f9(S5, n);
-    printf("S6: ");
-    print_vector_f9(S6, n);
-    printf("S7: ");
-    print_vector_f9(S7, n);
-    printf("S8: ");
-    print_vector_f9(S8, n);
-    printf("S9: ");
-    print_vector_f9(S9, n);
-    printf("S10: ");
-    print_vector_f9(S10, n);
-    printf("S11: ");
-    print_vector_f9(S11, n);
-    printf("S12: ");
-    print_vector_f9(S12, n);
-    printf("S13: ");
-    print_vector_f9(S13, n);
-    printf("S14: ");
-    print_vector_f9(S14, n);
-    printf("S15: ");
-    print_vector_f9(S15, n);
-    printf("S16: ");
-    print_vector_f9(S16, n);
-    printf("S17: ");
-    print_vector_f9(S17, n);
-
-    printf("S1_b: ");
-    print_vector_f9(S1_b, n);
-    printf("S2_b: ");
-    print_vector_f9(S2_b, n);
-    printf("S3_b: ");
-    print_vector_f9(S3_b, n);
-    printf("S4_b: ");
-    print_vector_f9(S4_b, n);
-    printf("S5_b: ");
-    print_vector_f9(S5_b, n);
-    printf("S6_b: ");
-    print_vector_f9(S6_b, n);
-    printf("S7_b: ");
-    print_vector_f9(S7_b, n);
-    printf("S8_b: ");
-    print_vector_f9(S8_b, n);
-    printf("S9_b: ");
-    print_vector_f9(S9_b, n);
-    printf("S10_b: ");
-    print_vector_f9(S10_b, n);
-    printf("S11_b: ");
-    print_vector_f9(S11_b, n);
-    printf("S12_b: ");
-    print_vector_f9(S12_b, n);
-    printf("S13_b: ");
-    print_vector_f9(S13_b, n);
-    printf("S14_b: ");
-    print_vector_f9(S14_b, n);
-    printf("S15_b: ");
-    print_vector_f9(S15_b, n);
-    printf("S16_b: ");
-    print_vector_f9(S16_b, n);
-    printf("S17_b: ");
-    print_vector_f9(S17_b, n);
-    */
-
     f9_element *P0, *P1, *P2, *P3, *P4, *P5, *P6, *P7, *P8;
-    P0 = schoolbook_f9(n, A0, B0);
-    P1 = schoolbook_f9(n, S11, S11_b);
-    P2 = schoolbook_f9(n, S12, S12_b);
-    P3 = schoolbook_f9(n, S13, S13_b);
-    P4 = schoolbook_f9(n, S14, S14_b);
-    P5 = schoolbook_f9(n, S15, S15_b);
-    P6 = schoolbook_f9(n, S16, S16_b);
-    P7 = schoolbook_f9(n, S17, S17_b);
-    P8 = schoolbook_f9(k, A4, B4);
+    P0 = split_5_f9(n, A0, B0);
+    P1 = split_5_f9(n, S11, S11_b);
+    P2 = split_5_f9(n, S12, S12_b);
+    P3 = split_5_f9(n, S13, S13_b);
+    P4 = split_5_f9(n, S14, S14_b);
+    P5 = split_5_f9(n, S15, S15_b);
+    P6 = split_5_f9(n, S16, S16_b);
+    P7 = split_5_f9(n, S17, S17_b);
+    P8 = split_5_f9(k, A4, B4);
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
-
-    /*printf("P0: ");
-    print_vector_f9(P0, dim_subproduct);
-    printf("P1: ");
-    print_vector_f9(P1, dim_subproduct);
-    printf("P2: ");
-    print_vector_f9(P2, dim_subproduct);
-    printf("P3: ");
-    print_vector_f9(P3, dim_subproduct);
-    printf("P4: ");
-    print_vector_f9(P4, dim_subproduct);
-    printf("P5: ");
-    print_vector_f9(P5, dim_subproduct);
-    printf("P6: ");
-    print_vector_f9(P6, dim_subproduct);
-    printf("P7: ");
-    print_vector_f9(P7, dim_subproduct);
-    printf("P8: ");
-    print_vector_f9(P8, dim_subproduct_rem);
-    */
 
     f9_element* Q1 = S17_b + n;
     sum_poly(dim_subproduct, dim_subproduct_rem, P0, P8, Q1); //Q1 = P0 + P8
@@ -1114,60 +1023,6 @@ f9_element* split_5_f9(int m, f9_element* p1, f9_element* p2) {
     sum_poly_img(dim_subproduct, dim_subproduct, Q19, Q16, Q24); //Q24 = Q19 + wQ16
     f9_element* Q25 = Q24 + dim_subproduct;
     sum_poly_img_neg(dim_subproduct, dim_subproduct, Q19, Q16, Q25); //Q25 = Q19 - wQ16
-
-    /*printf("Q1: ");
-    print_vector_f9(Q1, dim_subproduct);
-    printf("Q2: ");
-    print_vector_f9(Q2, dim_subproduct);
-    printf("Q3: ");
-    print_vector_f9(Q3, dim_subproduct);
-    printf("Q4: ");
-    print_vector_f9(Q4, dim_subproduct);
-    printf("Q5: ");
-    print_vector_f9(Q5, dim_subproduct);
-    printf("Q6: ");
-    print_vector_f9(Q6, dim_subproduct);
-    printf("Q7: ");
-    print_vector_f9(Q7, dim_subproduct);
-    printf("Q8: ");
-    print_vector_f9(Q8, dim_subproduct);
-    printf("Q9: ");
-    print_vector_f9(Q9, dim_subproduct);
-    printf("Q10: ");
-    print_vector_f9(Q10, dim_subproduct);
-    printf("Q11: ");
-    print_vector_f9(Q11, dim_subproduct);
-    printf("Q12: ");
-    print_vector_f9(Q12, dim_subproduct);
-    printf("Q13: ");
-    print_vector_f9(Q13, dim_subproduct);
-    printf("Q14: ");
-    print_vector_f9(Q14, dim_subproduct);
-    printf("Q15: ");
-    print_vector_f9(Q15, dim_subproduct);
-    printf("Q16: ");
-    print_vector_f9(Q16, dim_subproduct);
-    printf("Q17: ");
-    print_vector_f9(Q17, dim_subproduct);
-    printf("Q18: ");
-    print_vector_f9(Q18, dim_subproduct);
-    printf("Q19: ");
-    print_vector_f9(Q19, dim_subproduct);
-    printf("Q20: ");
-    print_vector_f9(Q20, dim_subproduct);
-    printf("Q21: ");
-    print_vector_f9(Q21, dim_subproduct);
-    printf("Q22: ");
-    print_vector_f9(Q22, dim_subproduct);
-    printf("Q23: ");
-    print_vector_f9(Q23, dim_subproduct);
-    printf("Q24: ");
-    print_vector_f9(Q24, dim_subproduct);
-    printf("Q25: ");
-    print_vector_f9(Q25, dim_subproduct);
-    printf("mem: ");
-    //print_vector_f9(op_pointer, op_part1* n+ op_part2 * (2*n-1) );
-    */
 
     int dim_ris = (2*m-1);
     f9_element* ris = calloc(dim_ris, sizeof(f9_element));
