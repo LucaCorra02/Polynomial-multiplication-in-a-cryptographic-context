@@ -576,8 +576,8 @@ int* split_operands_f3(char* p, int num_operands){
 #define NUM_OPERANDS 2510
 
 int main(int argc, char* argv[]) {
-    munit_suite_main(&suite, NULL, argc, argv);
-	munit_suite_main(&suite_f3, NULL, argc, argv);
+    //munit_suite_main(&suite, NULL, argc, argv);
+	//munit_suite_main(&suite_f3, NULL, argc, argv);
 
     /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
@@ -606,7 +606,7 @@ int main(int argc, char* argv[]) {
     }
      */
 
-	f9_element p1 [] = {
+	/*f9_element p1 [] = {
         get_f9_element(1, 2), get_f9_element(0, 1), get_f9_element(2, 2), get_f9_element(1, 1), get_f9_element(0, 0),
     	get_f9_element(2, 1), get_f9_element(1, 0), get_f9_element(2, 0), get_f9_element(1, 1), get_f9_element(0, 2),
         get_f9_element(1, 2), get_f9_element(2, 1), get_f9_element(0, 0), get_f9_element(2, 2)
@@ -619,11 +619,11 @@ int main(int argc, char* argv[]) {
 	int m = 14;
     f9_element* ris = split_5_f9(m, p1, p2);
 	if (ris != NULL){
-        printf("ciaoo");
     	print_vector_f9(ris, 2*m-1);
     }
     free(ris);
     printf("dim: %d\n", NUM_OPERANDS);
+	 */
     return 0;
 }
 
