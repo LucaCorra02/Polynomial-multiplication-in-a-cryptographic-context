@@ -623,7 +623,7 @@ int main(int argc, char* argv[]) {
     }
     free(ris);
 	 */
-    printf("dim: %d\n", NUM_OPERANDS);
+    printf("dim poly: %d\n", NUM_OPERANDS);
     return 0;
 }
 
