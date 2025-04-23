@@ -60,6 +60,8 @@
 
     void diff_poly_neg_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* ris); //-P1 - F9(P2)w
 
+    void diff_poly_pos_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* ris); //-P1 + F9(P2)w
+
     void diff_poly_img_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris); //P1 - P2_imag_part
 
     void sum_poly_imag_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris); //P1 + P2_imag_part
