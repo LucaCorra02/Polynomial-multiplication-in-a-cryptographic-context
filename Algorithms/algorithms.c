@@ -1110,5 +1110,76 @@ int* split_5_f3(int m, int* p1, int* p2) {
     printf("B4: ");
     print_vector_f3(B4, k);
 
+    int op_part1 = (22);
+    int op_part2 = (19);
+    int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
+    f9_element* op_pointer_f9 = calloc((n) * 12, sizeof(f9_element));
+
+    int* S1 = op_pointer;
+    sum_poly_f3(n, k, A0 ,A4, S1); //S1 = A0 + A4
+    int* S2 = S1 + n;
+    sum_poly_f3(n, n, A1, A3, S2); //S2 = A1 + A3
+    int* S3 = S2 + n;
+    diff_poly_f3(n, k, A0, A4, S3); //S3 = A0 - A4
+    int* S4 = S3 + n;
+    diff_poly_f3(n, n, A1, A3, S4); //S4 = A1 - A3
+    int* S5 = S4 + n;
+    sum_poly_f3(n, n, S1, S2, S5); //S5 = S1 + S3
+    int* S6 = S5 + n;
+    diff_poly_f3(n, n, S1, A2, S6); //S6 = S1 - A2
+    int* S7 = S6 + n;
+    sum_poly_f3(n, n, S2, S3, S7); //S7 = S2 + S3
+    int* S8 = S7 + n;
+    diff_poly_f3(n, n, S2, S3, S8); //S8 = S2 - S3
+    int* S9 = S8 + n;
+    diff_poly_f3(n, n, S4, A2, S9); //S9 = S4 - A2
+    int* S10 = S9 + n;
+    sum_poly_f3(n, n, S4, A2, S10); //S10 = S4 + A2
+    int* S11 = S10 + n;
+    sum_poly_f3(n, n, S5, A2, S11); //S11 = S5 + A2
+    f9_element* S12 = op_pointer_f9;
+    sum_poly_img_f3(n, n, S6, S4, S12); //S12 = S6 + wS4
+    f9_element* S13 = S12 + n;
+    sum_poly_neg_img_f3(n, n, S6, S4, S13); //S13 = S6 -wS4
+    f9_element* S14 = S13 + n;
+    sum_poly_img_f3(n, n, S7, S9, S14); //S14 = S7 + wS9
+    f9_element* S15 = S14 + n;
+    sum_poly_neg_img_f3(n, n, S7, S9, S15); //S15 = S7 - wS9
+
+
+
+
+    printf("S1: ");
+    print_vector_f3(S1, n);
+    printf("S2: ");
+    print_vector_f3(S2, n);
+    printf("S3: ");
+    print_vector_f3(S3, n);
+    printf("S4: ");
+    print_vector_f3(S4, n);
+    printf("S5: ");
+    print_vector_f3(S5, n);
+    printf("S6: ");
+    print_vector_f3(S6, n);
+    printf("S7: ");
+    print_vector_f3(S7, n);
+    printf("S8: ");
+    print_vector_f3(S8, n);
+    printf("S9: ");
+    print_vector_f3(S9, n);
+    printf("S10: ");
+    print_vector_f3(S10, n);
+    printf("S11: ");
+    print_vector_f3(S11, n);
+    printf("S12: ");
+    print_vector_f9(S12, n);
+    printf("S13: ");
+    print_vector_f9(S13, n);
+    printf("S14: ");
+    print_vector_f9(S14, n);
+    printf("S15: ");
+    print_vector_f9(S15, n);
+
+
     return NULL;
 }
