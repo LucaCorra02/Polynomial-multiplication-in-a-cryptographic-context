@@ -1068,3 +1068,47 @@ f9_element* split_5_f9(int m, f9_element* p1, f9_element* p2) {
     return ris;
 
 }
+
+int* split_5_f3(int m, int* p1, int* p2) {
+    if (m < 14){
+        return schoolbook_f3(m, p1, p2);
+    }
+    int n = get_split_n_param(m, 5);
+    int k = get_split_k_param(m, n, 5);
+
+    int* A0 = p1;
+    int* A1 = p1 + n;
+    int* A2 = p1 + 2 * n;
+    int* A3 = p1 + 3 * n;
+    int* A4 = p1 + 4 * n;
+
+    int* B0 = p2;
+    int* B1 = p2 + n;
+    int* B2 = p2 + 2 * n;
+    int* B3 = p2 + 3 * n;
+    int* B4 = p2 + 4 * n;
+
+    printf("A0: ");
+    print_vector_f3(A0, n);
+    printf("A1: ");
+    print_vector_f3(A1, n);
+    printf("A2: ");
+    print_vector_f3(A2, n);
+    printf("A3: ");
+    print_vector_f3(A3, n);
+    printf("A4: ");
+    print_vector_f3(A4, k);
+
+    printf("B0: ");
+    print_vector_f3(B0, n);
+    printf("B1: ");
+    print_vector_f3(B1, n);
+    printf("B2: ");
+    print_vector_f3(B2, n);
+    printf("B3: ");
+    print_vector_f3(B3, n);
+    printf("B4: ");
+    print_vector_f3(B4, k);
+
+    return NULL;
+}

@@ -579,7 +579,7 @@ int main(int argc, char* argv[]) {
     //munit_suite_main(&suite, NULL, argc, argv);
 	//munit_suite_main(&suite_f3, NULL, argc, argv);
 
-    char buffer[BUFFERSIZE];
+    /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
         char* right = strtok(NULL, ";");
@@ -590,7 +590,7 @@ int main(int argc, char* argv[]) {
         free(p1);
         free(p2);
         free(ris);
-    }
+    }*/
 
     /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
@@ -606,23 +606,14 @@ int main(int argc, char* argv[]) {
     }
      */
 
-	/*f9_element p1 [] = {
-        get_f9_element(1, 2), get_f9_element(0, 1), get_f9_element(2, 2), get_f9_element(1, 1), get_f9_element(0, 0),
-    	get_f9_element(2, 1), get_f9_element(1, 0), get_f9_element(2, 0), get_f9_element(1, 1), get_f9_element(0, 2),
-        get_f9_element(1, 2), get_f9_element(2, 1), get_f9_element(0, 0), get_f9_element(2, 2)
-    };
-    f9_element p2 [] = {
-    	get_f9_element(0, 2), get_f9_element(1, 1), get_f9_element(2, 0), get_f9_element(2, 1), get_f9_element(1, 0),
-    	get_f9_element(0, 1), get_f9_element(2, 2), get_f9_element(0, 0), get_f9_element(1, 2), get_f9_element(0, 2),
-    	get_f9_element(2, 0), get_f9_element(1, 1), get_f9_element(0, 1), get_f9_element(2, 2)
-    };
+	int p1 [] = { 2, 1, 2, 1, 0, 1, 0, 2, 1, 2, 2, 1, 0, 2 };
+    int p2 [] = { 2, 1, 0, 2, 1, 1, 2, 0, 2, 2, 0, 1, 1, 2 };
 	int m = 14;
-    f9_element* ris = split_5_f9(m, p1, p2);
+    int* ris = split_5_f3(m, p1, p2);
 	if (ris != NULL){
-    	print_vector_f9(ris, 2*m-1);
+    	print_vector_f3(ris, 2*m-1);
     }
     free(ris);
-	 */
     printf("dim poly: %d\n", NUM_OPERANDS);
     return 0;
 }
