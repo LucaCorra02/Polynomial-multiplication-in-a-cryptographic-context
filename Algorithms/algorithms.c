@@ -1145,6 +1145,45 @@ int* split_5_f3(int m, int* p1, int* p2) {
     sum_poly_img_f3(n, n, S7, S9, S14); //S14 = S7 + wS9
     f9_element* S15 = S14 + n;
     sum_poly_neg_img_f3(n, n, S7, S9, S15); //S15 = S7 - wS9
+    f9_element* S16 = S15 + n;
+    diff_poly_neg_img_f3(n, n, S8, S10, S16); //S16 = -S8 -wS10
+    f9_element* S17 = S16 + n;
+    diff_poly_pos_img_f3(n, n, S8, S10, S17); //S17 = -S8 + wS10
+
+    int* S1_b = S11 + n;
+    sum_poly_f3(n, k, B0, B4, S1_b); //S1_b = B0 + B4
+    int* S2_b = S1_b + n;
+    sum_poly_f3(n, n, B1, B3, S2_b); //S2_b = B1 + B3
+    int* S3_b = S2_b + n;
+    diff_poly_f3(n, k, B0, B4, S3_b); //S3_b = B0 - B4
+    int* S4_b = S3_b + n;
+    diff_poly_f3(n, n, B1, B3, S4_b); //S4_b = B1 - B3
+    int* S5_b = S4_b + n;
+    sum_poly_f3(n, n, S1_b, S2_b, S5_b); //S5_b = S1_b + S3_b
+    int* S6_b = S5_b + n;
+    diff_poly_f3(n, n, S1_b, B2, S6_b); //S6_b = S1_b - B2
+    int* S7_b = S6_b + n;
+    sum_poly_f3(n, n, S2_b, S3_b, S7_b); //S7_b = S2_b + S3_b
+    int* S8_b = S7_b + n;
+    diff_poly_f3(n, n, S2_b, S3_b, S8_b); //S8_b = S2_b - S3_b
+    int* S9_b = S8_b + n;
+    diff_poly_f3(n, n, S4_b, B2, S9_b); //S9_b = S4_b - B2
+    int* S10_b = S9_b + n;
+    sum_poly_f3(n, n, S4_b, B2, S10_b); //S10_b = S4_b + B2
+    int* S11_b = S10_b + n;
+    sum_poly_f3(n, n, S5_b, B2, S11_b); //S11_b = S5_b + B2
+    f9_element* S12_b = S17 + n;
+    sum_poly_img_f3(n, n, S6_b, S4_b, S12_b); //S12_b = S6_b + wS4_b
+    f9_element* S13_b = S12_b + n;
+    sum_poly_neg_img_f3(n, n, S6_b, S4_b, S13_b); //S13_b = S6_b -wS4_b
+    f9_element* S14_b = S13_b + n;
+    sum_poly_img_f3(n, n, S7_b, S9_b, S14_b); //S14_b = S7_b + wS9_b
+    f9_element* S15_b = S14_b + n;
+    sum_poly_neg_img_f3(n, n, S7_b, S9_b, S15_b); //S15_b = S7_b - wS9_b
+    f9_element* S16_b = S15_b + n;
+    diff_poly_neg_img_f3(n, n, S8_b, S10_b, S16_b); //S16_b = -S8_b -wS10_b
+    f9_element* S17_b = S16_b + n;
+    diff_poly_pos_img_f3(n, n, S8_b, S10_b, S17_b); //S17_b = -S8_b + wS10_b
 
 
 
@@ -1179,6 +1218,81 @@ int* split_5_f3(int m, int* p1, int* p2) {
     print_vector_f9(S14, n);
     printf("S15: ");
     print_vector_f9(S15, n);
+    printf("S16: ");
+    print_vector_f9(S16, n);
+    printf("S17: ");
+    print_vector_f9(S17, n);
+
+    printf("S1_b: ");
+    print_vector_f3(S1_b, n);
+    printf("S2_b: ");
+    print_vector_f3(S2_b, n);
+    printf("S3_b: ");
+    print_vector_f3(S3_b, n);
+    printf("S4_b: ");
+    print_vector_f3(S4_b, n);
+    printf("S5_b: ");
+    print_vector_f3(S5_b, n);
+    printf("S6_b: ");
+    print_vector_f3(S6_b, n);
+    printf("S7_b: ");
+    print_vector_f3(S7_b, n);
+    printf("S8_b: ");
+    print_vector_f3(S8_b, n);
+    printf("S9_b: ");
+    print_vector_f3(S9_b, n);
+    printf("S10_b: ");
+    print_vector_f3(S10_b, n);
+    printf("S11_b: ");
+    print_vector_f3(S11_b, n);
+    printf("S12_b: ");
+    print_vector_f9(S12_b, n);
+    printf("S13_b: ");
+    print_vector_f9(S13_b, n);
+    printf("S14_b: ");
+    print_vector_f9(S14_b, n);
+    printf("S15_b: ");
+    print_vector_f9(S15_b, n);
+    printf("S16_b: ");
+    print_vector_f9(S16_b, n);
+    printf("S17_b: ");
+    print_vector_f9(S17_b, n);
+
+    int *P0, *P1, *P8;
+    f9_element *P2, *P3, *P4, *P5, *P6, *P7;
+    P0 = schoolbook_f3(n, A0, B0);
+    P1 = schoolbook_f3(n, S11, S11_b);
+    P2 = schoolbook_f9(n, S12, S12_b);
+    P3 = schoolbook_f9(n, S13, S13_b);
+    P4 = schoolbook_f9(n, S14, S14_b);
+    P5 = schoolbook_f9(n, S15, S15_b);
+    P6 = schoolbook_f9(n, S16, S16_b);
+    P7 = schoolbook_f9(n, S17, S17_b);
+    P8 = schoolbook_f3(k, A4, B4);
+
+    int dim_subproduct = (2*n-1);
+    int dim_subproduct_rem = (2*k-1);
+
+    printf("P0: ");
+    print_vector_f3(P0, dim_subproduct);
+    printf("P1: ");
+    print_vector_f3(P1, dim_subproduct);
+    printf("P2: ");
+    print_vector_f9(P2, dim_subproduct);
+    printf("P3: ");
+    print_vector_f9(P3, dim_subproduct);
+    printf("P4: ");
+    print_vector_f9(P4, dim_subproduct);
+    printf("P5: ");
+    print_vector_f9(P5, dim_subproduct);
+    printf("P6: ");
+    print_vector_f9(P6, dim_subproduct);
+    printf("P7: ");
+    print_vector_f9(P7, dim_subproduct);
+    printf("P8: ");
+    print_vector_f3(P8, dim_subproduct_rem);
+
+
 
 
     return NULL;
