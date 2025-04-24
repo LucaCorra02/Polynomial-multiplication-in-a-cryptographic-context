@@ -1297,13 +1297,73 @@ int* split_5_f3(int m, int* p1, int* p2) {
     sum_poly_f3(dim_subproduct, dim_subproduct_rem, P0, P8, Q1); //Q8 = P0 + P8
     int* Q2 = Q1 + dim_subproduct;
     sum_poly_real_f3(dim_subproduct, dim_subproduct, P1, P2, Q2); //Q2 = P1 + P2,0
+    int* Q3 = Q2 + dim_subproduct;
+    diff_poly_img_img_f3(dim_subproduct, dim_subproduct, P4, P6, Q3); //Q3 = P4,1 - P6,1
+    int* Q4 = Q3 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct, Q1, Q3, Q4); //Q4 = Q1 + Q3
+    int* Q5 = Q4 + dim_subproduct;
+    diff_poly_f3(dim_subproduct, dim_subproduct, Q2, Q4, Q5); //Q5 = Q2 - Q4
+    int* Q6 = Q5 + dim_subproduct;
+    sum_poly_double_real_f3(dim_subproduct, dim_subproduct, P4, P6, Q6); //Q6 = P4,0 + P6,0
+    int* Q7 = Q6 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct, Q1, Q6, Q7); //Q7 = Q1 + Q6
+    int* Q8 = Q7 + dim_subproduct;
+    diff_poly_f3(dim_subproduct, dim_subproduct, P1, Q5, Q8); //Q8 = P1 - Q5
+    int* Q9 = Q8 + dim_subproduct;
+    diff_poly_f3(dim_subproduct, dim_subproduct, Q3, Q5, Q9); //Q9 = Q3 - Q5
+    int* Q10 = Q9 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct, Q7, Q8, Q10); //Q10 = Q7 + Q8
+    int* Q11 = Q10 + dim_subproduct;
+    diff_single_poly_imag_f3(dim_subproduct, dim_subproduct, Q10, P6, Q11); //Q11 = -Q10 + P6,1
+    int* Q12 = Q11 + dim_subproduct;
+    diff_double_poly_imag_f3(dim_subproduct, dim_subproduct, Q10, P4, Q12); //Q12 = -Q10 - P6,1
+    int* Q13 = Q12 + dim_subproduct;
+    sum_poly_real_img_f3(dim_subproduct, dim_subproduct, P4, P2, Q13); //Q13 = P4,0 + P2,1
+    int* Q14 = Q13 + dim_subproduct;
+    diff_poly_f3(dim_subproduct, dim_subproduct, Q5, Q13, Q14); //Q14 = Q5 - Q13
+    int* Q15 = Q14 + dim_subproduct;
+    sum_poly_imag_f3(dim_subproduct, dim_subproduct, Q9, P2, Q15); //Q15 = Q9 + P2,1
+    int* Q16 = Q15 + dim_subproduct;
+    diff_double_poly_real_f3(dim_subproduct, dim_subproduct, Q15, P6, Q16); //Q16 = -Q15 - P6
+    int* Q17 = Q16 + dim_subproduct;
+    diff_poly_double_f3(dim_subproduct, dim_subproduct, Q13, Q15, Q17); //Q17 = -Q13 - Q15
+
+
 
     printf("Q1: ");
     print_vector_f3(Q1, dim_subproduct);
     printf("Q2: ");
     print_vector_f3(Q2, dim_subproduct);
-
-
+    printf("Q3: ");
+    print_vector_f3(Q3, dim_subproduct);
+    printf("Q4: ");
+    print_vector_f3(Q4, dim_subproduct);
+    printf("Q5: ");
+    print_vector_f3(Q5, dim_subproduct);
+    printf("Q6: ");
+    print_vector_f3(Q6, dim_subproduct);
+    printf("Q7: ");
+    print_vector_f3(Q7, dim_subproduct);
+    printf("Q8: ");
+    print_vector_f3(Q8, dim_subproduct);
+    printf("Q9: ");
+    print_vector_f3(Q9, dim_subproduct);
+    printf("Q10: ");
+    print_vector_f3(Q10, dim_subproduct);
+    printf("Q11: ");
+    print_vector_f3(Q11, dim_subproduct);
+    printf("Q12: ");
+    print_vector_f3(Q12, dim_subproduct);
+    printf("Q13: ");
+    print_vector_f3(Q13, dim_subproduct);
+    printf("Q14: ");
+    print_vector_f3(Q14, dim_subproduct);
+    printf("Q15: ");
+    print_vector_f3(Q15, dim_subproduct);
+    printf("Q16: ");
+    print_vector_f3(Q16, dim_subproduct);
+    printf("Q17: ");
+    print_vector_f3(Q17, dim_subproduct);
 
     return NULL;
 }
