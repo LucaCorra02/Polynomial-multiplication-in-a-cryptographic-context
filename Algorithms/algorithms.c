@@ -1293,6 +1293,15 @@ int* split_5_f3(int m, int* p1, int* p2) {
     printf("P8: ");
     print_vector_f3(P8, dim_subproduct_rem);
 
+    int* Q1 = S11_b + n;
+    sum_poly_f3(dim_subproduct, dim_subproduct_rem, P0, P8, Q1); //Q8 = P0 + P8
+    int* Q2 = Q1 + dim_subproduct;
+    sum_poly_real_f3(dim_subproduct, dim_subproduct, P1, P2, Q2); //Q2 = P1 + P2,0
+
+    printf("Q1: ");
+    print_vector_f3(Q1, dim_subproduct);
+    printf("Q2: ");
+    print_vector_f3(Q2, dim_subproduct);
 
 
 
