@@ -1070,7 +1070,7 @@ f9_element* split_5_f9(int m, f9_element* p1, f9_element* p2) {
 }
 
 int* split_5_f3(int m, int* p1, int* p2) {
-    if (m < 14){
+    if (m < 32){
         return schoolbook_f3(m, p1, p2);
     }
     int n = get_split_n_param(m, 5);
@@ -1327,8 +1327,10 @@ int* split_5_f3(int m, int* p1, int* p2) {
     diff_double_poly_real_f3(dim_subproduct, dim_subproduct, Q15, P6, Q16); //Q16 = -Q15 - P6
     int* Q17 = Q16 + dim_subproduct;
     diff_poly_double_f3(dim_subproduct, dim_subproduct, Q13, Q15, Q17); //Q17 = -Q13 - Q15
-
-
+    int* Q18 = Q17 + dim_subproduct;
+    diff_poly_real_img_f3(dim_subproduct, dim_subproduct, P6, P2, Q18); //Q18 = P6,0 - P2,1
+    int* Q19 = Q18 + dim_subproduct;
+    diff_poly_f3(dim_subproduct, dim_subproduct, Q5, Q18, Q19); //Q19 = Q5 - Q18
 
     printf("Q1: ");
     print_vector_f3(Q1, dim_subproduct);
@@ -1364,6 +1366,52 @@ int* split_5_f3(int m, int* p1, int* p2) {
     print_vector_f3(Q16, dim_subproduct);
     printf("Q17: ");
     print_vector_f3(Q17, dim_subproduct);
+    printf("Q18: ");
+    print_vector_f3(Q18, dim_subproduct);
+    printf("Q19: ");
+    print_vector_f3(Q19, dim_subproduct);
 
-    return NULL;
+    int dim_ris = (2*m-1);
+    int* ris = calloc(dim_ris, sizeof(f9_element));
+
+    for(int i = 0; i < dim_subproduct ; i++){
+        ris[i] = f3_sum(ris[i], P0[i]); //R0
+    }
+    for(int i = 0; i < dim_subproduct ; i++){
+        ris[i+n] = f3_sum(ris[i+n], Q19[i]); //R1
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris ; i++){
+        ris[i+2*n] = f3_sum(ris[i+2*n], Q11[i]); //R2
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+        ris[i+3*n] = f3_sum(ris[i+3*n], Q16[i]); //R3
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+        ris[i+4*n] = f3_sum(ris[i+4*n], Q7[i]); //R4
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+        ris[i+5*n] = f3_sum(ris[i+5*n], Q17[i]); //R5
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris; i++){
+        ris[i+6*n] = f3_sum(ris[i+6*n], Q12[i]); //R6
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris; i++){
+        ris[i+7*n] = f3_sum(ris[i+7*n], Q14[i]); //R7
+    }
+    for(int i = 0; i < dim_subproduct_rem && i < dim_ris; i++){
+        ris[i+8*n] = f3_sum(ris[i+8*n], P8[i]); //R6
+    }
+
+    free(op_pointer);
+    free(op_pointer_f9);
+    free(P0);
+    free(P1);
+    free(P2);
+    free(P3);
+    free(P4);
+    free(P5);
+    free(P6);
+    free(P7);
+    free(P8);
+    return ris;
 }
