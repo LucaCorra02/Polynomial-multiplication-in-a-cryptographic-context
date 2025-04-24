@@ -1088,28 +1088,6 @@ int* split_5_f3(int m, int* p1, int* p2) {
     int* B3 = p2 + 3 * n;
     int* B4 = p2 + 4 * n;
 
-    printf("A0: ");
-    print_vector_f3(A0, n);
-    printf("A1: ");
-    print_vector_f3(A1, n);
-    printf("A2: ");
-    print_vector_f3(A2, n);
-    printf("A3: ");
-    print_vector_f3(A3, n);
-    printf("A4: ");
-    print_vector_f3(A4, k);
-
-    printf("B0: ");
-    print_vector_f3(B0, n);
-    printf("B1: ");
-    print_vector_f3(B1, n);
-    printf("B2: ");
-    print_vector_f3(B2, n);
-    printf("B3: ");
-    print_vector_f3(B3, n);
-    printf("B4: ");
-    print_vector_f3(B4, k);
-
     int op_part1 = (22);
     int op_part2 = (19);
     int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
@@ -1188,7 +1166,7 @@ int* split_5_f3(int m, int* p1, int* p2) {
 
 
 
-    printf("S1: ");
+    /*printf("S1: ");
     print_vector_f3(S1, n);
     printf("S2: ");
     print_vector_f3(S2, n);
@@ -1257,6 +1235,7 @@ int* split_5_f3(int m, int* p1, int* p2) {
     print_vector_f9(S16_b, n);
     printf("S17_b: ");
     print_vector_f9(S17_b, n);
+    */
 
     int *P0, *P1, *P8;
     f9_element *P2, *P3, *P4, *P5, *P6, *P7;
@@ -1274,7 +1253,7 @@ int* split_5_f3(int m, int* p1, int* p2) {
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
 
-    printf("P0: ");
+    /*printf("P0: ");
     print_vector_f3(P0, dim_subproduct);
     printf("P1: ");
     print_vector_f3(P1, dim_subproduct);
@@ -1292,6 +1271,7 @@ int* split_5_f3(int m, int* p1, int* p2) {
     print_vector_f9(P7, dim_subproduct);
     printf("P8: ");
     print_vector_f3(P8, dim_subproduct_rem);
+    */
 
     int* Q1 = S11_b + n;
     sum_poly_f3(dim_subproduct, dim_subproduct_rem, P0, P8, Q1); //Q8 = P0 + P8
@@ -1332,7 +1312,7 @@ int* split_5_f3(int m, int* p1, int* p2) {
     int* Q19 = Q18 + dim_subproduct;
     diff_poly_f3(dim_subproduct, dim_subproduct, Q5, Q18, Q19); //Q19 = Q5 - Q18
 
-    printf("Q1: ");
+    /*printf("Q1: ");
     print_vector_f3(Q1, dim_subproduct);
     printf("Q2: ");
     print_vector_f3(Q2, dim_subproduct);
@@ -1370,6 +1350,7 @@ int* split_5_f3(int m, int* p1, int* p2) {
     print_vector_f3(Q18, dim_subproduct);
     printf("Q19: ");
     print_vector_f3(Q19, dim_subproduct);
+    */
 
     int dim_ris = (2*m-1);
     int* ris = calloc(dim_ris, sizeof(f9_element));
