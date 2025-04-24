@@ -655,7 +655,7 @@ int* split_operands_f3(char* p, int num_operands){
 }
 
 #define BUFFERSIZE 100000
-#define NUM_OPERANDS 2024
+#define NUM_OPERANDS 1024
 
 int main(int argc, char* argv[]) {
     //munit_suite_main(&suite, NULL, argc, argv);
@@ -687,18 +687,6 @@ int main(int argc, char* argv[]) {
         free(ris);
     }
     printf("dim poly: %d\n", NUM_OPERANDS);
-
-	/*int p1 [] = { 2, 1, 2, 1, 0, 1, 0, 2, 1, 2, 2, 1, 0, 2 };
-    int p2 [] = { 2, 1, 0, 2, 1, 1, 2, 0, 2, 2, 0, 1, 1, 2 };
-	int m = 14;
-    int* ris = split_5_f3(m, p1, p2);
-	if (ris != NULL){
-    	print_vector_f3(ris, 2*m-1);
-    }
-    free(ris);
-
-    return 0;
-    */
 }
 
 
