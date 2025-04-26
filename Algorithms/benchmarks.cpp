@@ -70,15 +70,15 @@ static void Benchmark_4split_f3(benchmark::State& state){
     }
 
     for (auto _ : state) {
-        benchmark::DoNotOptimize(split_4_f3(size, p1, p2));
+        benchmark::DoNotOptimize(split_5_f3(size, p1, p2));
     }
     delete[] p1;
     delete[] p2;
 }
 
 
-BENCHMARK(Benchmark_4split_v2_f9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
-//BENCHMARK(Benchmark_4split_f3)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
+//BENCHMARK(Benchmark_4split_v2_f9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
+BENCHMARK(Benchmark_4split_f3)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
 
 BENCHMARK_MAIN();
 
