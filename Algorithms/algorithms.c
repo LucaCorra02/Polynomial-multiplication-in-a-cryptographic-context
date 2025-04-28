@@ -716,11 +716,85 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     printf("P6: ");
     print_vector_f9(P6, dim_subproduct_rem);
 
+    f9_element* Q1 = S11_b + n;
+    sum_poly(dim_subproduct, dim_subproduct, P0, P1, Q1); //Q1 = P0 + P1
+    f9_element* Q2 = Q1 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, P1, P0, Q2); //Q2 = P1 - P0
+    f9_element* Q3 = Q2 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, P2, P3, Q3); //Q3 = P2 + P3
+    f9_element* Q4 = Q3 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, P3, P2, Q4); //Q4 = P3 - P2
+    f9_element* Q5 = Q4 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, P4, P5, Q5); //Q5 = P4 + P5
+    f9_element* Q6 = Q5 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, P5, P4, Q6); //Q6 = P5 - P4
+    f9_element* Q7 = Q6 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, Q3, Q5, Q7); //Q7 = Q3 + Q5
+    f9_element* Q8 = Q7 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, Q5, Q3, Q8); //Q8 = Q5 - Q3
+    f9_element* Q9 = Q8 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, Q4, Q6, Q9); //Q9 = Q4 + Q6
+    f9_element* Q10 = Q9 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, Q4, Q6, Q10); //Q10 = Q4 - Q6
+    f9_element* Q11 = Q10 + dim_subproduct;
+    diff_poly(dim_subproduct, dim_subproduct, Q1, Q7, Q11); //Q11 = Q1 - Q7
+    f9_element* Q12 = Q11 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct_rem, Q11, P6, Q12); //Q12 = Q11 + P6
+    f9_element* Q13 = Q12 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct, Q1, Q7, Q13); //Q13 = Q1 + Q7
+    f9_element* Q14 = Q13 + dim_subproduct;
+    sum_poly(dim_subproduct, dim_subproduct_rem, Q13, P6, Q14); //Q14 = Q13 + P6
+    f9_element* Q15 = Q14 + dim_subproduct;
+    sum_poly_img(dim_subproduct, dim_subproduct, Q12, Q9, Q15); //Q15 = Q12 + wQ9
+    f9_element* Q16 = Q15 + dim_subproduct;
+    sum_poly_img(dim_subproduct, dim_subproduct, Q8, Q2, Q16); //Q16 = Q8 + wQ2
+    f9_element* Q17 = Q16 + dim_subproduct;
+    sum_poly_img_neg(dim_subproduct_rem, dim_subproduct, P6, Q9, Q17); //Q17 = P6 - wQ9
+    f9_element* Q18 = Q17 + dim_subproduct;
+    sum_poly_img(dim_subproduct, dim_subproduct, Q8, Q10, Q18); //Q18 = Q8 + wQ10
+    f9_element* Q19 = Q18 + dim_subproduct;
+    sum_poly_img(dim_subproduct, dim_subproduct, Q14, Q9, Q19); //Q19 = Q14 + wQ9
 
 
 
-
-
+    printf("Q1: ");
+    print_vector_f9(Q1, dim_subproduct);
+    printf("Q2: ");
+    print_vector_f9(Q2, dim_subproduct);
+    printf("Q3: ");
+    print_vector_f9(Q3, dim_subproduct);
+    printf("Q4: ");
+    print_vector_f9(Q4, dim_subproduct);
+    printf("Q5: ");
+    print_vector_f9(Q5, dim_subproduct);
+    printf("Q6: ");
+    print_vector_f9(Q6, dim_subproduct);
+    printf("Q7: ");
+    print_vector_f9(Q7, dim_subproduct);
+    printf("Q8: ");
+    print_vector_f9(Q8, dim_subproduct);
+    printf("Q9: ");
+    print_vector_f9(Q9, dim_subproduct);
+    printf("Q10: ");
+    print_vector_f9(Q10, dim_subproduct);
+    printf("Q11: ");
+    print_vector_f9(Q11, dim_subproduct);
+    printf("Q12: ");
+    print_vector_f9(Q12, dim_subproduct);
+    printf("Q13: ");
+    print_vector_f9(Q13, dim_subproduct);
+    printf("Q14: ");
+    print_vector_f9(Q14, dim_subproduct);
+    printf("Q15: ");
+    print_vector_f9(Q15, dim_subproduct);
+    printf("Q16: ");
+    print_vector_f9(Q16, dim_subproduct);
+    printf("Q17: ");
+    print_vector_f9(Q17, dim_subproduct);
+    printf("Q18: ");
+    print_vector_f9(Q18, dim_subproduct);
+    printf("Q19: ");
+    print_vector_f9(Q19, dim_subproduct);
 
 
     return NULL;
