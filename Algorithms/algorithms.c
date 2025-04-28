@@ -617,6 +617,8 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     diff_poly_double_img_neg(n, n, S1, S7, S9); //S9 = -S1 - wS7
     f9_element* S10 = S9 + n;
     sum_poly_img(n, n, S8, S3, S10); //S10 = S8 + wS3
+    f9_element* S11 = S10 + n;
+    diff_poly_double_img(n, n, A2, S7, S11); //S11 = -wA2 - wS7
 
     printf("S1: ");
     print_vector_f9(S1, n);
@@ -638,6 +640,8 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     print_vector_f9(S9, n);
     printf("S10: ");
     print_vector_f9(S10, n);
+    printf("S11: ");
+    print_vector_f9(S11, n);
 
 
     return NULL;
