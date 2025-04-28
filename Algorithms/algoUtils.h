@@ -42,6 +42,8 @@
 
     void diff_poly_double_img_neg(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris); //-P1 - wP2
 
+    void diff_poly_double_img(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris); //-wP1 - wP2
+
     /*F3 FUNCTION*/
 
     void print_vector_f3(int* v, int num_elements);

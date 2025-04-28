@@ -71,6 +71,11 @@ void diff_poly_double_img_neg(int terms_p1, int terms_p2, f9_element* p1, f9_ele
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], f9_prod_img_neg(p2[i])); }
 }
 
+void diff_poly_double_img(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, f9_element* ris) { //-wP1 - wP2
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(ris[i], f9_prod_img_neg(p1[i])); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], f9_prod_img_neg(p2[i])); }
+}
+
 void print_vector_f3(int* v, int num_elements){
     for (int i = 0; i < num_elements-1; i++){
         printf("%d,",v[i]);
