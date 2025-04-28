@@ -575,6 +575,27 @@ int* split_3_v2_f3(int m, int* p1, int* p2){
     return ris;
 }
 
+/* 4_SPLIT_V1 IMPLEMENTATION */
+f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
+    if (m < 12){
+        return schoolbook_f9(m, p1, p2);
+    }
+    int n = get_split_n_param(m, 4);
+    int k = get_split_k_param(m, n, 4);
+
+
+
+
+
+
+
+
+    return NULL;
+}
+
+
+
+
 /* 4_SPLIT_V2 IMPLEMENTATION */
 
 f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2){
