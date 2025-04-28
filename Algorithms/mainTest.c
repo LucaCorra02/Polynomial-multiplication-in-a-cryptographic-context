@@ -269,6 +269,30 @@ static MunitResult test_diff_poly_double_img(const MunitParameter params[], void
     return MUNIT_OK;
 }
 
+static MunitResult test_sum_poly_double_img(const MunitParameter params[], void* user_data) {
+    (void) params;
+    (void) user_data;
+
+    f9_element p1[] = {
+        get_f9_element(1,2), get_f9_element(0,0), get_f9_element(2,2), get_f9_element(1,0)
+    };//(2,2)(0,0)(2,1)(0,2)
+    f9_element p2[] = {
+        get_f9_element(2,1), get_f9_element(1,2), get_f9_element(1,0)
+    };//(1,2)(2,2)(0,2)
+    f9_element expected[] = {
+        get_f9_element(0,0), get_f9_element(2,2), get_f9_element(2,0), get_f9_element(0,2)
+    };
+
+    f9_element ris[4] = {0,0,0,0};
+    int dim_p1 = 4;
+    int dim_p2 = 3;
+    sum_poly_double_img(dim_p1, dim_p2, p1, p2, ris);
+    for (int j = 0; j < dim_p1; ++j) {
+        munit_assert_int(ris[j], ==, expected[j]);
+    }
+    return MUNIT_OK;
+}
+
 static MunitTest tests[] = {
     { "/test_split_params", test_split_params, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     //{ "/test_schoolbook_f9", test_schoolbook_f9, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
@@ -280,7 +304,8 @@ static MunitTest tests[] = {
     { "/test_split_params_4", test_split_params_4, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_neg_sum_poly_img", test_neg_sum_poly_img, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { "/test_diff_poly_double_img_neg", test_diff_poly_double_img_neg, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
-       { "/test_diff_poly_double_img", test_diff_poly_double_img, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
+    { "/test_diff_poly_double_img", test_diff_poly_double_img, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
+    { "/test_sum_poly_double_img", test_sum_poly_double_img, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL },
     { NULL, NULL, NULL, NULL, MUNIT_TEST_OPTION_NONE, NULL }
 };
 
