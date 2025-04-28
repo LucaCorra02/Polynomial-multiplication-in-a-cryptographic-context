@@ -643,8 +643,6 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     f9_element* S11_b = S10_b + n;
     diff_poly_double_img(n, n, B2, S7_b, S11_b); //S11_b = -wB2 - wS7_b
 
-
-
     printf("S1: ");
     print_vector_f9(S1, n);
     printf("S2: ");
@@ -689,6 +687,38 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     print_vector_f9(S10_b, n);
     printf("S11_b: ");
     print_vector_f9(S11_b, n);
+    //print_vector_f9(op_pointer, op_part1*n + op_part2* (2*n-1));
+
+    f9_element *P0, *P1, *P2, *P3, *P4, *P5, *P6;
+    P0 = schoolbook_f9(n, S6, S6_b);
+    P1 = schoolbook_f9(n, S4, S4_b);
+    P2 = schoolbook_f9(n, S9, S9_b);
+    P3 = schoolbook_f9(n, S8, S8_b);
+    P4 = schoolbook_f9(n, S10, S10_b);
+    P5 = schoolbook_f9(n, S11, S11_b);
+    P6 = schoolbook_f9(k, A3, B3);
+
+    int dim_subproduct = (2*n-1);
+    int dim_subproduct_rem = (2*k-1);
+
+    printf("P0: ");
+    print_vector_f9(P0, dim_subproduct);
+    printf("P1: ");
+    print_vector_f9(P1, dim_subproduct);
+    printf("P2: ");
+    print_vector_f9(P2, dim_subproduct);
+    printf("P3: ");
+    print_vector_f9(P3, dim_subproduct);
+    printf("P4: ");
+    print_vector_f9(P4, dim_subproduct);
+    printf("P5: ");
+    print_vector_f9(P5, dim_subproduct);
+    printf("P6: ");
+    print_vector_f9(P6, dim_subproduct_rem);
+
+
+
+
 
 
 
