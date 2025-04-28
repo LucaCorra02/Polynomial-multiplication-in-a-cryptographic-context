@@ -644,13 +644,13 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     diff_poly_double_img(n, n, B2, S7_b, S11_b); //S11_b = -wB2 - wS7_b
 
     f9_element *P0, *P1, *P2, *P3, *P4, *P5, *P6;
-    P0 = schoolbook_f9(n, S6, S6_b);
-    P1 = schoolbook_f9(n, S4, S4_b);
-    P2 = schoolbook_f9(n, S9, S9_b);
-    P3 = schoolbook_f9(n, S8, S8_b);
-    P4 = schoolbook_f9(n, S10, S10_b);
-    P5 = schoolbook_f9(n, S11, S11_b);
-    P6 = schoolbook_f9(k, A3, B3);
+    P0 = split_4_v1_f9(n, S6, S6_b);
+    P1 = split_4_v1_f9(n, S4, S4_b);
+    P2 = split_4_v1_f9(n, S9, S9_b);
+    P3 = split_4_v1_f9(n, S8, S8_b);
+    P4 = split_4_v1_f9(n, S10, S10_b);
+    P5 = split_4_v1_f9(n, S11, S11_b);
+    P6 = split_4_v1_f9(k, A3, B3);
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
