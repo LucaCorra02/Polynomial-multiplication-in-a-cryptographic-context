@@ -577,7 +577,7 @@ int* split_3_v2_f3(int m, int* p1, int* p2){
 
 /* 4_SPLIT_V1 IMPLEMENTATION */
 f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
-    if (m < 10){
+    if (m < 18){
         return schoolbook_f9(m, p1, p2);
     }
     int n = get_split_n_param(m, 4);
@@ -643,7 +643,7 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     f9_element* S11_b = S10_b + n;
     diff_poly_double_img(n, n, B2, S7_b, S11_b); //S11_b = -wB2 - wS7_b
 
-    printf("S1: ");
+    /*printf("S1: ");
     print_vector_f9(S1, n);
     printf("S2: ");
     print_vector_f9(S2, n);
@@ -688,6 +688,7 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     printf("S11_b: ");
     print_vector_f9(S11_b, n);
     //print_vector_f9(op_pointer, op_part1*n + op_part2* (2*n-1));
+    */
 
     f9_element *P0, *P1, *P2, *P3, *P4, *P5, *P6;
     P0 = schoolbook_f9(n, S6, S6_b);
@@ -701,7 +702,7 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
 
-    printf("P0: ");
+   /* printf("P0: ");
     print_vector_f9(P0, dim_subproduct);
     printf("P1: ");
     print_vector_f9(P1, dim_subproduct);
@@ -715,6 +716,7 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     print_vector_f9(P5, dim_subproduct);
     printf("P6: ");
     print_vector_f9(P6, dim_subproduct_rem);
+    */
 
     f9_element* Q1 = S11_b + n;
     sum_poly(dim_subproduct, dim_subproduct, P0, P1, Q1); //Q1 = P0 + P1
@@ -757,7 +759,7 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     f9_element* Q20 = Q19 + dim_subproduct;
     sum_poly_double_img(dim_subproduct, dim_subproduct, Q2, Q10, Q20); //Q20 = wQ2 + wQ10
 
-    printf("Q1: ");
+    /*printf("Q1: ");
     print_vector_f9(Q1, dim_subproduct);
     printf("Q2: ");
     print_vector_f9(Q2, dim_subproduct);
@@ -797,6 +799,7 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     print_vector_f9(Q19, dim_subproduct);
     printf("Q20: ");
     print_vector_f9(Q20, dim_subproduct);
+    */
 
     int dim_ris = (2*m-1);
     f9_element* ris = calloc(dim_ris, sizeof(f9_element));
