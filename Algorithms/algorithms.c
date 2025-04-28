@@ -620,6 +620,31 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     f9_element* S11 = S10 + n;
     diff_poly_double_img(n, n, A2, S7, S11); //S11 = -wA2 - wS7
 
+    f9_element* S1_b = S11 + n;
+    sum_poly(n, k, B1, B3, S1_b); // S1_b = B1 + B3
+    f9_element* S2_b = S1_b + n;
+    sum_poly_img(n, n, B0, B1, S2_b); // S2_b = B0 + wB1
+    f9_element* S3_b = S2_b + n;
+    sum_poly_img_neg(n, n, B2, S1_b, S3_b); //S3_b = B2 - wS1_b
+    f9_element* S4_b = S3_b + n;
+    diff_poly(n, n, S2_b, S3_b, S4_b); //S4_b = S2_b - S3_b
+    f9_element* S5_b = S4_b + n;
+    sum_poly_img(k, n, B3, S2_b, S5_b); //S5_b = B3 + wS2_b
+    f9_element* S6_b = S5_b + n;
+    diff_poly_double_img_neg(n, n, B2, S5_b, S6_b); //S6_b = -B2 -wS5_b
+    f9_element* S7_b = S6_b + n;
+    sum_poly(n, n, S3_b, S5_b, S7_b); //S7_b = S3_b + S5_b
+    f9_element* S8_b = S7_b + n;
+    neg_sum_poly_img(n, n, B0, S7_b, S8_b); //S8_b = -B0 + wS7_b
+    f9_element* S9_b = S8_b + n;
+    diff_poly_double_img_neg(n, n, S1_b, S7_b, S9_b); //S9_b = -S1_b - wS7_b
+    f9_element* S10_b = S9_b + n;
+    sum_poly_img(n, n, S8_b, S3_b, S10_b); //S10_b = S8_b + wS3_b
+    f9_element* S11_b = S10_b + n;
+    diff_poly_double_img(n, n, B2, S7_b, S11_b); //S11_b = -wB2 - wS7_b
+
+
+
     printf("S1: ");
     print_vector_f9(S1, n);
     printf("S2: ");
@@ -642,6 +667,30 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     print_vector_f9(S10, n);
     printf("S11: ");
     print_vector_f9(S11, n);
+    printf("S1_b: ");
+    print_vector_f9(S1_b, n);
+    printf("S2_b: ");
+    print_vector_f9(S2_b, n);
+    printf("S3_b: ");
+    print_vector_f9(S3_b, n);
+    printf("S4_b: ");
+    print_vector_f9(S4_b, n);
+    printf("S5_b: ");
+    print_vector_f9(S5_b, n);
+    printf("S6_b: ");
+    print_vector_f9(S6_b, n);
+    printf("S7_b: ");
+    print_vector_f9(S7_b, n);
+    printf("S8_b: ");
+    print_vector_f9(S8_b, n);
+    printf("S9_b: ");
+    print_vector_f9(S9_b, n);
+    printf("S10_b: ");
+    print_vector_f9(S10_b, n);
+    printf("S11_b: ");
+    print_vector_f9(S11_b, n);
+
+
 
 
     return NULL;
