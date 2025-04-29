@@ -82,11 +82,13 @@
 
     void sum_poly_double_real_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris); // F9(P1_real_part) + F9(P2_real_part)
 
+    void diff_poly_double_real_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris); // F9(P1_real_part) - F9(P2_real_part)
+
     void sum_poly_double_img_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris); // F9(P1_imag_part) + F9(P2_imag_part)
 
-    void sum_poly_real_img_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris); // F9(P1_real_part) + F9(P2_imag_part)
-
     void diff_poly_img_img_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris); // F9(P1_imag_part) - F9(P2_imag_part)
+
+    void sum_poly_real_img_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris); // F9(P1_real_part) + F9(P2_imag_part)
 
     void diff_poly_real_img_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris); // F9(P1_real_part) - F9(P2_imag_part)
 

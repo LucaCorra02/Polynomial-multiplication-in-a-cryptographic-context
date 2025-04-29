@@ -169,6 +169,11 @@ void sum_poly_double_real_f3(int terms_p1, int terms_p2, f9_element* p1, f9_elem
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_real_part(p2[i])); }
 }
 
+void diff_poly_double_real_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris) { // F9(P1_real_part) - F9(P2_real_part)
+    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], get_real_part(p1[i])); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_real_part(p2[i]))); }
+}
+
 void sum_poly_double_img_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris){ // F9(P1_imag_part) + F9(P2_imag_part)
     for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], get_imaginary_part(p1[i])); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_imaginary_part(p2[i])); }

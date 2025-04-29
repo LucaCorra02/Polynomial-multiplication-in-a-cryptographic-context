@@ -892,10 +892,22 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
     print_vector_f3(P6, dim_subproduct_rem);
 
     int* Q1 = S7_b + n;
-    //sum_poly_double_real_f3(dim_subproduct, dim_subproduct, P2, P4, Q1); //Q1 = P2,1 + P4,1
+    sum_poly_double_img_f3(dim_subproduct, dim_subproduct, P2, P4, Q1); //Q1 = P2,1 + P4,1
+    int* Q2 = Q1 + dim_subproduct;
+    diff_poly_img_img_f3(dim_subproduct, dim_subproduct, P4, P2, Q2); //Q2 = P4,1 - P2,1
+    int* Q3 = Q2 + dim_subproduct;
+    sum_poly_double_real_f3(dim_subproduct, dim_subproduct, P2, P4, Q3); //Q3 = P2,0 + P4,0
+    int* Q4 = Q3 + dim_subproduct;
+
+
 
     printf("Q1: ");
     print_vector_f3(Q1, dim_subproduct);
+    printf("Q2: ");
+    print_vector_f3(Q2, dim_subproduct);
+    printf("Q3: ");
+    print_vector_f3(Q3, dim_subproduct);
+
 
 
 
