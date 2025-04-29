@@ -891,6 +891,13 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
     printf("P6: ");
     print_vector_f3(P6, dim_subproduct_rem);
 
+    int* Q1 = S7_b + n;
+    //sum_poly_double_real_f3(dim_subproduct, dim_subproduct, P2, P4, Q1); //Q1 = P2,1 + P4,1
+
+    printf("Q1: ");
+    print_vector_f3(Q1, dim_subproduct);
+
+
 
     return NULL;
 }
