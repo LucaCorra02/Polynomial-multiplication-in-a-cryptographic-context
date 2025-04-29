@@ -740,11 +740,11 @@ int* split_operands_f3(char* p, int num_operands){
 }
 
 #define BUFFERSIZE 100000
-#define NUM_OPERANDS 2048
+#define NUM_OPERANDS 1743
 
 int main(int argc, char* argv[]) {
-    munit_suite_main(&suite, NULL, argc, argv);
-	munit_suite_main(&suite_f3, NULL, argc, argv);
+    //munit_suite_main(&suite, NULL, argc, argv);
+	//munit_suite_main(&suite_f3, NULL, argc, argv);
 
     /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
@@ -759,30 +759,20 @@ int main(int argc, char* argv[]) {
         free(ris);
     }*/
 
-    /*char buffer[BUFFERSIZE];
+    char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
         char* right = strtok(NULL, ";");
         int* p1 = split_operands_f3(left,NUM_OPERANDS);
         int* p2 = split_operands_f3(right,NUM_OPERANDS);
-        int* ris = split_3_v2_f3(NUM_OPERANDS, p1,p2);
+        int* ris = split_4_v1_f3(NUM_OPERANDS, p1,p2);
         print_vector_f3(ris,(2*NUM_OPERANDS)-1);
         free(p1);
         free(p2);
         free(ris);
     }
-    */
     printf("dim poly: %d\n", NUM_OPERANDS);
 
-    int p1 [] = {1, 2, 1, 0, 2, 1, 0, 2, 0, 1};
-    int p2 [] = {1, 2, 2, 1, 0, 0, 1, 0, 1, 1};
-    int m = 10;
-    int* ris = split_4_v1_f3(m, p1, p2);
-    if (ris != NULL) {
-        printf("RIS: ");
-        print_vector_f3(ris, 2*m-1);
-    }
-    free(ris);
     return 0;
 }
 
