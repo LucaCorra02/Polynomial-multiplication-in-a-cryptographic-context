@@ -709,7 +709,7 @@ int main(int argc, char* argv[]) {
     //munit_suite_main(&suite, NULL, argc, argv);
 	//munit_suite_main(&suite_f3, NULL, argc, argv);
 
-    char buffer[BUFFERSIZE];
+    /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
         char* right = strtok(NULL, ";");
@@ -720,7 +720,7 @@ int main(int argc, char* argv[]) {
         free(p1);
         free(p2);
         free(ris);
-    }
+    }*/
 
     /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
@@ -736,6 +736,16 @@ int main(int argc, char* argv[]) {
     }
     */
     printf("dim poly: %d\n", NUM_OPERANDS);
+
+    int p1 [] = {1, 2, 1, 0, 2, 1, 0, 2, 0, 1};
+    int p2 [] = {1, 2, 2, 1, 0, 0, 1, 0, 1, 1};
+    int m = 10;
+    int* ris = split_4_v1_f3(m, p1, p2);
+    if (ris != NULL) {
+        printf("RIS: ");
+        print_vector_f3(ris, 2*m-1);
+    }
+    free(ris);
     return 0;
 }
 
