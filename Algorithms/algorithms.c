@@ -863,9 +863,33 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
     printf("S13_b: ");
     print_vector_f9(S13_b, n);
 
-    //printf("memf9: ");
-    //print_vector_f9(op_pointer_f9, n * 12);
+    int *P6;
+    f9_element *P0, *P1, *P2, *P3, *P4, *P5;
+    P0 = schoolbook_f9(n, S8, S8_b);
+    P1 = schoolbook_f9(n, S11, S11_b);
+    P2 = schoolbook_f9(n, S9, S9_b);
+    P3 = schoolbook_f9(n, S12, S12_b);
+    P4 = schoolbook_f9(n, S10, S10_b);
+    P5 = schoolbook_f9(n, S13, S13_b);
+    P6 = schoolbook_f3(k, A3, B3);
 
+    int dim_subproduct = (2*n-1);
+    int dim_subproduct_rem = (2*k-1);
+
+    printf("P0: ");
+    print_vector_f9(P0, dim_subproduct);
+    printf("P1: ");
+    print_vector_f9(P1, dim_subproduct);
+    printf("P2: ");
+    print_vector_f9(P2, dim_subproduct);
+    printf("P3: ");
+    print_vector_f9(P3, dim_subproduct);
+    printf("P4: ");
+    print_vector_f9(P4, dim_subproduct);
+    printf("P5: ");
+    print_vector_f9(P5, dim_subproduct);
+    printf("P6: ");
+    print_vector_f3(P6, dim_subproduct_rem);
 
 
     return NULL;
