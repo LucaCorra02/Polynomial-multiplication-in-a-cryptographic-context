@@ -755,6 +755,94 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
     int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
     f9_element* op_pointer_f9 = calloc((n) * 12, sizeof(f9_element));
 
+    int* S1 = op_pointer;
+    diff_poly_f3(n, n, A0, A2, S1); //S1 = A0 - A2
+    int* S2 = S1 + n;
+    diff_poly_f3(n, k, A1, A3, S2); //S2 = A1 - A3
+    int* S3 = S2 + n;
+    sum_poly_f3(n, k, A1, A3, S3); //S3 = A1 + A3
+    int* S4 = S3 + n;
+    sum_poly_f3(n, n, A0, S3, S4); //S4 = A0 + S3
+    int* S5 = S4 + n;
+    diff_poly_f3(n, n, S2, A2, S5); //S5 = S2 - A2
+    int* S6 = S5 + n;
+    diff_poly_f3(n, n, A0, S3, S6); //S6 = A0 - S3
+    int* S7 = S6 + n;
+    diff_poly_double_f3(n, n, A2, S2, S7); //S7 = -A2 - S2
+    f9_element* S8 =  op_pointer_f9;
+    sum_poly_img_f3(n, n, S1, S2, S8); //S8 = S1 + wS2
+    f9_element* S9 = S8 + n;
+    sum_poly_img_f3(n, n, S4, S5, S9); //S9 = S4 + wS5
+    f9_element* S10 = S9 + n;
+    sum_poly_img_f3(n, n, S6, S7, S10); //S10 = S6 + wS7
+    f9_element* S11 = S10 + n;
+    sum_poly_neg_img_f3(n, n, S1, S2, S11); //S11 = S1 - wS2
+    f9_element* S12 = S11 + n;
+    sum_poly_neg_img_f3(n, n, S4, S5, S12); //S12 = S4 - wS5
+    f9_element* S13 = S12 + n;
+    sum_poly_neg_img_f3(n, n, S6, S7, S13); //S13 = S6 - wS7
+
+    int* S1_b = S7 + n;
+    diff_poly_f3(n, n, B0, B2, S1_b); //S1_b = B0 - B2
+    int* S2_b = S1_b + n;
+    diff_poly_f3(n, k, B1, B3, S2_b); //S2_b = B1 - B3
+    int* S3_b = S2_b + n;
+    sum_poly_f3(n, k, B1, B3, S3_b); //S3_b = B1 + B3
+    int* S4_b = S3_b + n;
+    sum_poly_f3(n, n, B0, S3_b, S4_b); //S4_b = B0 + S3_b
+    int* S5_b = S4_b + n;
+    diff_poly_f3(n, n, S2_b, B2, S5_b); //S5_b = S2_b - B2
+    int* S6_b = S5_b + n;
+    diff_poly_f3(n, n, B0, S3_b, S6_b); //S6_b = B0 - S3_b
+    int* S7_b = S6_b + n;
+    diff_poly_double_f3(n, n, B2, S2_b, S7_b); //S7_b = -B2 - S2_b
+
+
+
+
+
+
+    printf("S1: ");
+    print_vector_f3(S1, n);
+    printf("S2: ");
+    print_vector_f3(S2, n);
+    printf("S3: ");
+    print_vector_f3(S3, n);
+    printf("S4: ");
+    print_vector_f3(S4, n);
+    printf("S5: ");
+    print_vector_f3(S5, n);
+    printf("S6: ");
+    print_vector_f3(S6, n);
+    printf("S7: ");
+    print_vector_f3(S7, n);
+    printf("S8: ");
+    print_vector_f9(S8, n);
+    printf("S9: ");
+    print_vector_f9(S9, n);
+    printf("S10: ");
+    print_vector_f9(S10, n);
+    printf("S11: ");
+    print_vector_f9(S11, n);
+    printf("S12: ");
+    print_vector_f9(S12, n);
+    printf("S13: ");
+    print_vector_f9(S13, n);
+    printf("S1_b: ");
+    print_vector_f3(S1_b, n);
+    printf("S2_b: ");
+    print_vector_f3(S2_b, n);
+    printf("S3_b: ");
+    print_vector_f3(S3_b, n);
+    printf("S4_b: ");
+    print_vector_f3(S4_b, n);
+    printf("S5_b: ");
+    print_vector_f3(S5_b, n);
+    printf("S6_b: ");
+    print_vector_f3(S6_b, n);
+    printf("S7_b: ");
+    print_vector_f3(S7_b, n);
+
 
 
 
