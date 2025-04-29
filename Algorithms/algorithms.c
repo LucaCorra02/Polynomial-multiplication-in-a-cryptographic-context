@@ -796,10 +796,18 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
     diff_poly_f3(n, n, B0, S3_b, S6_b); //S6_b = B0 - S3_b
     int* S7_b = S6_b + n;
     diff_poly_double_f3(n, n, B2, S2_b, S7_b); //S7_b = -B2 - S2_b
-
-
-
-
+    f9_element* S8_b = S13 + n;
+    sum_poly_img_f3(n, n, S1_b, S2_b, S8_b); //S8_b = S1_b + wS2_b
+    f9_element* S9_b = S8_b + n;
+    sum_poly_img_f3(n, n, S4_b, S5_b, S9_b); //S9_b = S4_b + wS5_b
+    f9_element* S10_b = S9_b + n;
+    sum_poly_img_f3(n, n, S6_b, S7_b, S10_b); //S10_b = S6_b + wS7_b
+    f9_element* S11_b = S10_b + n;
+    sum_poly_neg_img_f3(n, n, S1_b, S2_b, S11_b); //S11_b = S1_b - wS2_b
+    f9_element* S12_b = S11_b + n;
+    sum_poly_neg_img_f3(n, n, S4_b, S5_b, S12_b); //S12_b = S4_b - wS5_b
+    f9_element* S13_b = S12_b + n;
+    sum_poly_neg_img_f3(n, n, S6_b, S7_b, S13_b); //S13_b = S6_b - wS7_b
 
 
     printf("S1: ");
@@ -842,8 +850,21 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
     print_vector_f3(S6_b, n);
     printf("S7_b: ");
     print_vector_f3(S7_b, n);
+    printf("S8_b: ");
+    print_vector_f9(S8_b, n);
+    printf("S9_b: ");
+    print_vector_f9(S9_b, n);
+    printf("S10_b: ");
+    print_vector_f9(S10_b, n);
+    printf("S11_b: ");
+    print_vector_f9(S11_b, n);
+    printf("S12_b: ");
+    print_vector_f9(S12_b, n);
+    printf("S13_b: ");
+    print_vector_f9(S13_b, n);
 
-
+    //printf("memf9: ");
+    //print_vector_f9(op_pointer_f9, n * 12);
 
 
 
