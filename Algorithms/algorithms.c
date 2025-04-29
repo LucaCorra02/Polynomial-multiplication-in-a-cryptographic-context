@@ -898,8 +898,23 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
     int* Q3 = Q2 + dim_subproduct;
     sum_poly_double_real_f3(dim_subproduct, dim_subproduct, P2, P4, Q3); //Q3 = P2,0 + P4,0
     int* Q4 = Q3 + dim_subproduct;
-
-
+    diff_poly_double_real_f3(dim_subproduct, dim_subproduct, P2, P4, Q4); //Q4 = P2,0 - P4,0
+    int* Q5 = Q4 + dim_subproduct;
+    diff_poly_real_f3(dim_subproduct_rem, dim_subproduct, P6, P0, Q5); //Q5 = P6 - P0,0
+    int* Q6 = Q5 + dim_subproduct;
+    diff_poly_f3(dim_subproduct, dim_subproduct, Q5, Q1, Q6); //Q6 = Q5 - Q1
+    int* Q7 = Q6 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct, Q6, Q3, Q7); //Q7 = Q6 + Q3
+    int* Q8 = Q7 + dim_subproduct;
+    diff_poly_img_f3(dim_subproduct, dim_subproduct, Q4, P0, Q8); //Q8 = Q4 - P0,1
+    int* Q9 = Q8 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct_rem, Q1, P6, Q9); //Q9 = Q1 + P6
+    int* Q10 = Q9 + dim_subproduct;
+    sum_poly_f3(dim_subproduct, dim_subproduct, Q2, Q4, Q10); //Q10 = Q2 + Q4
+    int* Q11 = Q10 + dim_subproduct;
+    diff_poly_f3(dim_subproduct, dim_subproduct, Q6, Q3, Q11); //Q11 = Q6 - Q3
+    int* Q12 = Q11 + dim_subproduct;
+    diff_poly_img_f3(dim_subproduct, dim_subproduct, Q2, P0, Q12); //Q12 = Q2 - P0,1
 
     printf("Q1: ");
     print_vector_f3(Q1, dim_subproduct);
@@ -907,11 +922,60 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
     print_vector_f3(Q2, dim_subproduct);
     printf("Q3: ");
     print_vector_f3(Q3, dim_subproduct);
+    printf("Q4: ");
+    print_vector_f3(Q4, dim_subproduct);
+    printf("Q5: ");
+    print_vector_f3(Q5, dim_subproduct);
+    printf("Q6: ");
+    print_vector_f3(Q6, dim_subproduct);
+    printf("Q7: ");
+    print_vector_f3(Q7, dim_subproduct);
+    printf("Q8: ");
+    print_vector_f3(Q8, dim_subproduct);
+    printf("Q9: ");
+    print_vector_f3(Q9, dim_subproduct);
+    printf("Q10: ");
+    print_vector_f3(Q10, dim_subproduct);
+    printf("Q11: ");
+    print_vector_f3(Q11, dim_subproduct);
+    printf("Q12: ");
+    print_vector_f3(Q12, dim_subproduct);
 
+    int dim_ris = (2*m-1);
+    int* ris = calloc(dim_ris, sizeof(int));
 
+    for(int i = 0; i < dim_subproduct ; i++){
+        ris[i] = f3_sum(ris[i], Q7[i]); //R0
+    }
+    for(int i = 0; i < dim_subproduct ; i++){
+        ris[i+n] = f3_sum(ris[i+n], Q8[i]); //R1
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris ; i++){
+        ris[i+2*n] = f3_sum(ris[i+2*n], Q9[i]); //R2
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+        ris[i+3*n] = f3_sum(ris[i+3*n], Q10[i]); //R3
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+        ris[i+4*n] = f3_sum(ris[i+4*n], Q11[i]); //R4
+    }
+    for(int i = 0; i < dim_subproduct && i < dim_ris  ; i++){
+        ris[i+5*n] = f3_sum(ris[i+5*n], Q12[i]); //R5
+    }
+    for(int i = 0; i < dim_subproduct_rem && i < dim_ris; i++){
+        ris[i+6*n] = f3_sum(ris[i+6*n], P6[i]);
+    }
 
-
-    return NULL;
+    free(op_pointer);
+    free(op_pointer_f9);
+    free(P0);
+    free(P1);
+    free(P2);
+    free(P3);
+    free(P4);
+    free(P5);
+    free(P6);
+    return ris;
 }
 
 
