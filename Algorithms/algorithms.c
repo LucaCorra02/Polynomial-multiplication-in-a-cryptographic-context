@@ -811,13 +811,13 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
 
     int *P6;
     f9_element *P0, *P1, *P2, *P3, *P4, *P5;
-    P0 = schoolbook_f9(n, S8, S8_b);
-    P1 = schoolbook_f9(n, S11, S11_b);
-    P2 = schoolbook_f9(n, S9, S9_b);
-    P3 = schoolbook_f9(n, S12, S12_b);
-    P4 = schoolbook_f9(n, S10, S10_b);
-    P5 = schoolbook_f9(n, S13, S13_b);
-    P6 = schoolbook_f3(k, A3, B3);
+    P0 = split_4_v1_f9(n, S8, S8_b);
+    P1 = split_4_v1_f9(n, S11, S11_b);
+    P2 = split_4_v1_f9(n, S9, S9_b);
+    P3 = split_4_v1_f9(n, S12, S12_b);
+    P4 = split_4_v1_f9(n, S10, S10_b);
+    P5 = split_4_v1_f9(n, S13, S13_b);
+    P6 = split_4_v1_f3(k, A3, B3);
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
