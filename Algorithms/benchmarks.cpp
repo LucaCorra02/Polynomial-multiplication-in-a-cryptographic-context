@@ -78,6 +78,8 @@ static void Benchmark_4split_f3(benchmark::State& state){
     delete[] p2;
 }
 
+//./benchmarks.out --algo=split_3_f3  --benchmark_min_warmup_time=2 --benchmark_out=split_3_f3.json --benchmark_out_format=json
+
 std::string selected_algo = "split_5_f3";
 
 static void BenchmarkF3(benchmark::State& state) {
