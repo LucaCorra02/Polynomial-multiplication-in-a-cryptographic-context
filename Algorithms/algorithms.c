@@ -76,15 +76,15 @@ int* unbalanced_karatsuba_f3(int n, int* p1, int* p2) {
     polynomial_sum_f3(b0, mid, b1, size_b1, b0b1);
 
     int *P0, *P1, *P2;
-    #pragma omp parallel sections
-    {
-        #pragma omp section
+    //#pragma omp parallel sections
+    //{
+        //#pragma omp section
             P0 = unbalanced_karatsuba_f3(mid, a0, b0); // P0 = A0 * B0
-        #pragma omp section
+        //#pragma omp section
             P2 = unbalanced_karatsuba_f3(size_a1, a1, b1); // P2 = A1 * B1
-        #pragma omp section
+        //#pragma omp section
             P1 = unbalanced_karatsuba_f3(mid, a0a1, b0b1); // P1 = (A0 + A1) * (B0 + B1)
-    }
+    //}
 
     for (int i = 0; i < (2 * mid ) - 1; i++){ P1[i] = f3_sum(int_to_f3(P1[i]), swap_bits(int_to_f3(P0[i]))); } // P1 = P1 - P0
     for (int i = 0; i < (2 * size_a1) - 1; i++) { P1[i] = f3_sum(int_to_f3(P1[i]), swap_bits(int_to_f3(P2[i])));  } // P1 = (P1 - P0) - P0
@@ -306,19 +306,19 @@ int* split_3_f3(int m, int* p1, int* p2){
 
     int *P0, *P1, *P2, *P4;
     f9_element *P3;
-    #pragma omp parallel sections
-    {
-       #pragma omp section
+    //#pragma omp parallel sections
+    //{
+       //#pragma omp section
        P0 = split_3_f3(n, A0, B0);
-       #pragma omp section
+       //#pragma omp section
        P1 = split_3_f3(n, S2, S2_b);
-       #pragma omp section
+       //#pragma omp section
        P2 = split_3_f3(n, S3, S3_b);
-       #pragma omp section
+       //#pragma omp section
        P3 = split_3_f9(n, S5, S5_b);
-       #pragma omp section
+       //#pragma omp section
        P4 = split_3_f3(k, A2, B2);
-    }
+    //}
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);

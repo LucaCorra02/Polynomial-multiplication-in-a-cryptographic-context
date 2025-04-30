@@ -70,7 +70,7 @@ static void Benchmark_4split_f3(benchmark::State& state){
     }
 
     for (auto _ : state) {
-        benchmark::DoNotOptimize(split_3_v2_f3(size, p1, p2));
+        benchmark::DoNotOptimize(split_4_f3(size, p1, p2));
     }
     delete[] p1;
     delete[] p2;
