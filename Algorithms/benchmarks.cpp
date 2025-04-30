@@ -95,6 +95,8 @@ static void BenchmarkF3(benchmark::State& state) {
     for (auto _ : state) {
         if (selected_algo == "schoolbook_f3") {
             benchmark::DoNotOptimize(schoolbook_f3(size, p1, p2));
+        } else if (selected_algo == "karatsuba_f3") {
+            benchmark::DoNotOptimize(unbalanced_karatsuba_f3(size, p1, p2));
         } else if (selected_algo == "split_3_f3") {
             benchmark::DoNotOptimize(split_3_f3(size, p1, p2));
         } else if (selected_algo == "split_3_v2_f3") {
