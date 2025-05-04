@@ -80,12 +80,22 @@ static void Benchmark_4split_f3(benchmark::State& state){
 
 //./benchmarks.out --algo=split_3_f3  --benchmark_min_warmup_time=2 --benchmark_out=split_3_f3.json --benchmark_out_format=json
 
-std::string selected_algo = "split_5_f3";
-std::string selected_algo_f9 = "schoolbook_f9";
+std::string selected_algo = "";
+
+using AlgoFn_f3 = int* (*)(int, int*, int*);
+std::map<std::string, AlgoFn_f3> algo_map_f3 = {
+    {"schoolbook_f3", schoolbook_f3},
+    {"karatsuba_f3", unbalanced_karatsuba_f3},
+    {"split_3_f3", split_3_f3},
+    {"split_3_v2_f3", split_3_v2_f3},
+    {"split_4_v1_f3", split_4_v1_f3},
+    {"split_4_v2_f3", split_4_f3},
+    {"split_5_f3", split_5_f3}
+};
 
 static void BenchmarkF3(benchmark::State& state) {
     int size = static_cast<int>(state.range(0));
-    int* p1 = new int[size];
+	int* p1 = new int[size];
     int* p2 = new int[size];
 
     for (int i = 0; i < size; ++i){
@@ -93,34 +103,28 @@ static void BenchmarkF3(benchmark::State& state) {
         p2[i] = (i * 3) % 3;
     }
 
-    for (auto _ : state) {
-        if (selected_algo == "schoolbook_f3") {
-            benchmark::DoNotOptimize(schoolbook_f3(size, p1, p2));
-        } else if (selected_algo == "karatsuba_f3") {
-            benchmark::DoNotOptimize(unbalanced_karatsuba_f3(size, p1, p2));
-        } else if (selected_algo == "split_3_f3") {
-            benchmark::DoNotOptimize(split_3_f3(size, p1, p2));
-        } else if (selected_algo == "split_3_v2_f3") {
-            benchmark::DoNotOptimize(split_3_v2_f3(size, p1, p2));
-        } else if (selected_algo == "split_4_f3") {
-            benchmark::DoNotOptimize(split_4_f3(size, p1, p2));
-        } else if (selected_algo == "split_4_v1_f3") {
-            benchmark::DoNotOptimize(split_4_v1_f3(size, p1, p2));
-        } else if (selected_algo == "split_5_f3") {
-            benchmark::DoNotOptimize(split_5_f3(size, p1, p2));
-        } else {
-            std::cerr << "Algoritmo non riconosciuto: " << selected_algo << std::endl;
-            break;
-        }
+    auto it = algo_map_f3.find(selected_algo);
+    if (it == algo_map_f3.end()) {
+        std::cerr << "Algoritmo non riconosciuto: " << selected_algo << std::endl;
+        delete[] p1;
+        delete[] p2;
+        return;
     }
 
+    AlgoFn_f3  selected_fn = it->second;
+    int* result = nullptr;
+    for (auto _ : state) {
+        result = selected_fn(size, p1, p2);
+        benchmark::DoNotOptimize(result);
+        benchmark::ClobberMemory();
+        delete[] result;
+    }
     delete[] p1;
     delete[] p2;
 }
 
-// Mappa nome → funzione
-using AlgoFn = f9_element* (*)(int, f9_element*, f9_element*);
-std::map<std::string, AlgoFn> algo_map = {
+using AlgoFn_f9 = f9_element* (*)(int, f9_element*, f9_element*);
+std::map<std::string, AlgoFn_f9> algo_map_f9 = {
     {"schoolbook_f9", schoolbook_f9},
     {"karatsuba_f9", unbalanced_karatsuba_f9},
     {"split_3_f9", split_3_f9},
@@ -140,15 +144,15 @@ static void BenchmarkF9(benchmark::State& state) {
         p2[i] = get_f9_element((i * 3) % 3, (i + 1) % 3);
     }
 
-    auto it = algo_map.find(selected_algo_f9);
-    if (it == algo_map.end()) {
-        std::cerr << "Algoritmo non riconosciuto: " << selected_algo_f9 << std::endl;
+    auto it = algo_map_f9.find(selected_algo);
+    if (it == algo_map_f9.end()) {
+        std::cerr << "Algoritmo non riconosciuto: " << selected_algo << std::endl;
         delete[] p1;
         delete[] p2;
         return;
     }
 
-    AlgoFn selected_fn = it->second;
+    AlgoFn_f9 selected_fn = it->second;
     f9_element* result = nullptr;
     for (auto _ : state) {
         result = selected_fn(size, p1, p2);
@@ -160,8 +164,8 @@ static void BenchmarkF9(benchmark::State& state) {
     delete[] p2;
 }
 
-BENCHMARK(BenchmarkF9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
-//BENCHMARK(BenchmarkF3)->DenseRange(30, 400, 10)->Unit(benchmark::kMillisecond);
+//BENCHMARK(BenchmarkF9)->DenseRange(30, 400, 10)->Unit(benchmark::kMillisecond);
+BENCHMARK(BenchmarkF3)->DenseRange(30, 400, 10)->Unit(benchmark::kMillisecond);
 
 //BENCHMARK(Benchmark_4split_v2_f9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
 //BENCHMARK(Benchmark_4split_f3)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
@@ -172,10 +176,10 @@ int main(int argc, char** argv) {
     for (int i = 1; i < argc; ++i) {
         std::string arg = argv[i];
         if (arg.rfind("--algo=", 0) == 0) {
-            selected_algo_f9 = arg.substr(7);
+            selected_algo = arg.substr(7);
         }
     }
-    std::cout << "Eseguo benchmark con algoritmo: " << selected_algo_f9 << std::endl;
+    std::cout << "Eseguo benchmark con algoritmo: " << selected_algo << std::endl;
     ::benchmark::Initialize(&argc, argv);
     ::benchmark::RunSpecifiedBenchmarks();
     return 0;
