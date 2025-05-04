@@ -197,23 +197,23 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
 
 
     f9_element *P0, *P1, *P2, *P3, *P4;
-    #pragma omp parallel sections
-    {
-        #pragma omp section
+    //#pragma omp parallel sections
+    //{
+        //#pragma omp section
         P0 = split_3_f9(n, A0, B0);
 
-        #pragma omp section
+        //#pragma omp section
         P1 = split_3_f9(n, S2, S2_b);
 
-        #pragma omp section
+        //#pragma omp section
         P2 = split_3_f9(n, S3, S3_b);
 
-        #pragma omp section
+        //#pragma omp section
         P3 = split_3_f9(n, S5, S5_b);
 
-        #pragma omp section
+        //#pragma omp section
         P4 = split_3_f9(k, A2, B2);
-    }
+    //}
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
@@ -408,23 +408,23 @@ f9_element* split_3_v2_f9(int m, f9_element* p1, f9_element* p2){
     sum_poly(n, n, S4_b, B1, S5_b); // S5_b = S4_b + B1
 
     f9_element *P0, *P1, *P2, *P3, *P4;
-    #pragma omp parallel sections
-    {
-        #pragma omp section
+    //#pragma omp parallel sections
+    //{
+        //#pragma omp section
         P0 = split_3_v2_f9(n, A0, B0);
 
-        #pragma omp section
+        //#pragma omp section
         P1 = split_3_v2_f9(n, S5, S5_b);
 
-        #pragma omp section
+        //#pragma omp section
         P2 = split_3_v2_f9(n, S2, S2_b);
 
-        #pragma omp section
+        //#pragma omp section
         P3 = split_3_v2_f9(n, S3, S3_b);
 
-        #pragma omp section
+        //#pragma omp section
         P4 = split_3_v2_f9(k, A2, B2);
-    }
+    //}
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
@@ -516,20 +516,20 @@ int* split_3_v2_f3(int m, int* p1, int* p2){
 	int *P0, *P1, *P4;
     f9_element *P2;
 
-    #pragma omp parallel sections
-    {
-        #pragma omp section
+    //#pragma omp parallel sections
+    //{
+        //#pragma omp section
         P0 = split_3_v2_f3(n, A0, B0); // P0 = A0*B0
 
-        #pragma omp section
+        //#pragma omp section
         P1 = split_3_v2_f3(n, S4, S4_b); // P1 = S4 * S4_b
 
-        #pragma omp section
+        //#pragma omp section
         P2 = split_3_v2_f9(n, S2, S2_b); //P2 = S2 * S2_b Su F9
 
-        #pragma omp section
+        //#pragma omp section
         P4 = split_3_v2_f3(k, A2, B2); //P4 = A2 * B2
-    }
+    //}
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
