@@ -7,6 +7,8 @@ int* schoolbook_f3(int n, int* p1, int* p2);
 f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2);
 
 /* KARATSUBA ALGO */
+int* karatsuba_f3(int n, int* p1, int* p2);
+
 void polynomial_sum_f3(int* p1, int len_p1, int* p2, int len_p2, int* ris);
 
 int* unbalanced_karatsuba_f3(int n, int* p1, int* p2);
