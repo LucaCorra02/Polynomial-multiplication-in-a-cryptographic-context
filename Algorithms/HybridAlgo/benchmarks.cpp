@@ -146,6 +146,7 @@ static void BenchmarkF9(benchmark::State& state) {
         p2[i] = get_f9_element((i * 3) % 3, (i + 1) % 3);
     }
 
+    read_file_f9("f9_min.txt", size);
     auto it = algo_map_f9.find(selected_algo);
     if (it == algo_map_f9.end()) {
         std::cerr << "Algoritmo non riconosciuto: " << selected_algo << std::endl;
@@ -194,7 +195,7 @@ int main(int argc, char** argv) {
     }
 
     ::benchmark::Initialize(&argc, argv);
-    benchmark::RegisterBenchmark("BenchmarkF3", BenchmarkF3)
+    benchmark::RegisterBenchmark("BenchmarkF9", BenchmarkF9)
         ->Arg(selected_degree)
         ->Unit(benchmark::kMillisecond);
 
