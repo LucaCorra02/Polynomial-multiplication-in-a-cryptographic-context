@@ -108,12 +108,12 @@ def main():
 
     ##F3 MAIN
     #gen_input_random_f3(num_rows, num_terms, min_range, max_range)
-    file_name = "TestFile/F3/input.txt"
-    gen_correct_output_prod_f3(file_name)
+    #file_name = "TestFile/F3/input.txt"
+    #gen_correct_output_prod_f3(file_name)
 
     ##F9 MAIN
     #gen_input_random_f9(num_rows, num_terms, min_range, max_range)
-    #file_name = "TestFile/F9/input.txt"
-    #gen_correct_output_prod_f9(file_name)
+    file_name = "TestFile/F9/input.txt"
+    gen_correct_output_prod_f9(file_name)
 
 main()
