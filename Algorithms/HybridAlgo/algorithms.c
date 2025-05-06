@@ -76,7 +76,8 @@ int* schoolbook_f3(int n, int* p1, int* p2) {
         ris[max_deg + i] = f3_sum(ris[max_deg + i], f3_prod(mst_p2, p1[i]));
     }
 
-    int* sub_result = schoolbook_f3(n - 1, p1, p2);
+    NextAlgoF3 chosen = choose_next_algo_f3(n-1);
+    int* sub_result = chosen(n - 1, p1, p2);
     for (int i = 0; i < (dim_ris - 1); i++) {
         ris[i] = f3_sum(ris[i],sub_result[i]);
     }

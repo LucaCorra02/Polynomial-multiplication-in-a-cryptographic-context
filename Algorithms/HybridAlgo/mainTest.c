@@ -740,7 +740,7 @@ int* split_operands_f3(char* p, int num_operands){
 }
 
 #define BUFFERSIZE 100000
-#define NUM_OPERANDS 761
+#define NUM_OPERANDS 1024
 
 int main(int argc, char* argv[]) {
     //munit_suite_main(&suite, NULL, argc, argv);
@@ -759,7 +759,8 @@ int main(int argc, char* argv[]) {
         free(ris);
     }*/
 
-    /*char buffer[BUFFERSIZE];
+    read_file("prova.txt", 1024);
+    char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
         char* right = strtok(NULL, ";");
@@ -771,10 +772,10 @@ int main(int argc, char* argv[]) {
         free(p2);
         free(ris);
     }
-    printf("dim poly: %d\n", NUM_OPERANDS);*/
+    printf("dim poly: %d\n", NUM_OPERANDS);
 
-    read_file("prova.txt", 761);
-    for (int i = 0; i < 10; i++) {
+
+    /*for (int i = 0; i < 10; i++) {
         int id = list_f3[i];
         NextAlgoF3 chosen = choose_next_algo_f3(i);
 
@@ -800,6 +801,7 @@ int main(int argc, char* argv[]) {
     }
     printf("\n");
     free(list_f3);
+     */
     return 0;
 
 }
