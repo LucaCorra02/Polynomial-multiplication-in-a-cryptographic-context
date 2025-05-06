@@ -740,26 +740,30 @@ int* split_operands_f3(char* p, int num_operands){
 }
 
 #define BUFFERSIZE 100000
-#define NUM_OPERANDS 1024
+#define NUM_OPERANDS 761
 
 int main(int argc, char* argv[]) {
     //munit_suite_main(&suite, NULL, argc, argv);
 	//munit_suite_main(&suite_f3, NULL, argc, argv);
 
-    /*char buffer[BUFFERSIZE];
+
+	read_file_f9("prova.txt", 761);
+	char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
         char* right = strtok(NULL, ";");
         f9_element* p1 = split_operands_f9(left,NUM_OPERANDS);
         f9_element* p2 = split_operands_f9(right,NUM_OPERANDS);
-        f9_element* ris = split_4_v1_f9(NUM_OPERANDS, p1,p2);
+        f9_element* ris = schoolbook_f9(NUM_OPERANDS, p1,p2);
         print_vector_f9(ris,(2*NUM_OPERANDS)-1);
         free(p1);
         free(p2);
         free(ris);
-    }*/
+    }
+    printf("dim poly: %d\n", NUM_OPERANDS);
+    free(list_f9);
 
-    read_file("prova.txt", 1024);
+    /*read_file_f3("prova.txt", 1024);
     char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
@@ -773,35 +777,37 @@ int main(int argc, char* argv[]) {
         free(ris);
     }
     printf("dim poly: %d\n", NUM_OPERANDS);
+	*/
 
 
-    /*for (int i = 0; i < 10; i++) {
-        int id = list_f3[i];
-        NextAlgoF3 chosen = choose_next_algo_f3(i);
+	/*read_file_f9("prova.txt", 1024);
+	for (int i = 0; i < 10; i++) {
+        int id = list_f9[i];
+        NextAlgoF9 chosen = choose_next_algo_f9(i);
 
         printf("Indice %d -> id_algo: %d -> funzione scelta: ", i, id);
 
-        if (chosen == schoolbook_f3) {
+        if (chosen == schoolbook_f9) {
             printf("schoolbook_f3\n");
-        } else if (chosen == unbalanced_karatsuba_f3) {
+        } else if (chosen == unbalanced_karatsuba_f9) {
             printf("unbalanced_karatsuba_f3\n");
-        } else if (chosen == split_3_f3) {
+        } else if (chosen == split_3_f9) {
             printf("split_3_f3\n");
-        } else if (chosen == split_3_v2_f3) {
+        } else if (chosen == split_3_v2_f9) {
             printf("split_3_v2_f3\n");
-        } else if (chosen == split_4_v1_f3) {
+        } else if (chosen == split_4_v1_f9) {
             printf("split_4_v1_f3\n");
-        } else if (chosen == split_4_f3) {
+        } else if (chosen == split_4_f9) {
             printf("split_4_f3\n");
-        } else if (chosen == split_5_f3) {
+        } else if (chosen == split_5_f9) {
             printf("split_5_f3\n");
         } else {
             printf("funzione sconosciuta!\n");
         }
     }
     printf("\n");
-    free(list_f3);
-     */
+    free(list_f9);
+	 */
     return 0;
 
 }

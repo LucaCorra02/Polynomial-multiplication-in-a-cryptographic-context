@@ -14,7 +14,20 @@ NextAlgoF3 look_up_table_sign_f3[7] = {
     split_5_f3
 };
 
-void read_file(char* file_name, int dim_file){
+int* list_f9 = NULL;
+
+NextAlgoF9 look_up_table_sign_f9[7] = {
+    schoolbook_f9,
+    unbalanced_karatsuba_f9,
+    split_3_f9,
+    split_3_v2_f9,
+    split_4_v1_f9,
+    split_4_f9,
+    split_5_f9
+};
+
+
+void read_file_f3(char* file_name, int dim_file){
   	FILE *fp = fopen(file_name, "r");
 
     list_f3 = calloc(dim_file, sizeof(int));
@@ -30,6 +43,24 @@ void read_file(char* file_name, int dim_file){
 NextAlgoF3 choose_next_algo_f3(int degree){
 	int id_algo = list_f3[degree];
     return look_up_table_sign_f3[id_algo];
+}
+
+void read_file_f9(char* file_name, int dim_file){
+  	FILE *fp = fopen(file_name, "r");
+
+    list_f9 = calloc(dim_file, sizeof(int));
+	char str[50];
+    int cont = 0;
+    while(fgets(str, 50, fp) && cont < dim_file) {
+    	int num_algo = atoi(str);
+        list_f9[cont] = num_algo;
+        cont++;
+  	}
+}
+
+NextAlgoF9 choose_next_algo_f9(int degree){
+	int id_algo = list_f9[degree];
+    return look_up_table_sign_f9[id_algo];
 }
 
 /*END READ FILE*/
@@ -53,8 +84,9 @@ f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2) { //coefficenti
         ris[max_deg + i] = f9_sum(ris[max_deg + i], f9_prod(mst_p1, p2[i]));
         ris[max_deg + i] = f9_sum(ris[max_deg + i], f9_prod(mst_p2, p1[i]));
     }
-    //print_vector(ris,dim_ris);
-    f9_element* sub_result = schoolbook_f9(n - 1, p1, p2);
+
+    NextAlgoF9 chosen = choose_next_algo_f9(n-1);
+    f9_element* sub_result = chosen(n - 1, p1, p2);
     for (int i = 0; i < (dim_ris - 1); i++) {
         ris[i] = f9_sum(ris[i],sub_result[i]);
     }

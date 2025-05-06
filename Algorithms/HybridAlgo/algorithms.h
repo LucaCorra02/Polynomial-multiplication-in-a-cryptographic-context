@@ -47,10 +47,20 @@ typedef int* (*NextAlgoF3)(int n, int* p1, int* p2);
 
 extern NextAlgoF3 look_up_table_sign_f3[7];
 
+typedef f9_element* (*NextAlgoF9)(int n, f9_element* p1, f9_element* p2);
+
+extern NextAlgoF9 look_up_table_sign_f9[7];
+
 extern int* list_f3;
 
-void read_file(char* file_name, int dim_file);
+void read_file_f3(char* file_name, int dim_file);
 
 NextAlgoF3 choose_next_algo_f3(int n);
+
+extern int* list_f9;
+
+void read_file_f9(char* file_name, int dim_file);
+
+NextAlgoF9 choose_next_algo_f9(int n);
 
 #endif
