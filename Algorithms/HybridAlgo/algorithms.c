@@ -1,6 +1,40 @@
 #include <stdlib.h>
 #include "algorithms.h"
 
+/*READ FILE*/
+int* list_f3 = NULL;
+
+NextAlgoF3 look_up_table_sign_f3[7] = {
+    schoolbook_f3,
+    unbalanced_karatsuba_f3,
+    split_3_f3,
+    split_3_v2_f3,
+    split_4_v1_f3,
+    split_4_f3,
+    split_5_f3
+};
+
+void read_file(char* file_name, int dim_file){
+  	FILE *fp = fopen(file_name, "r");
+
+    list_f3 = calloc(dim_file, sizeof(int));
+	char str[50];
+    int cont = 0;
+    while(fgets(str, 50, fp) && cont < dim_file) {
+    	int num_algo = atoi(str);
+        list_f3[cont] = num_algo;
+        cont++;
+  	}
+}
+
+NextAlgoF3 choose_next_algo_f3(int degree){
+	int id_algo = list_f3[degree];
+    return look_up_table_sign_f3[id_algo];
+}
+
+/*END READ FILE*/
+
+
 /*SCHOOLBOOK IMPLEMENTATION*/
 
 f9_element* schoolbook_f9(int n, f9_element* p1, f9_element* p2) { //coefficenti solo in f9

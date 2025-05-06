@@ -42,6 +42,15 @@ int* split_5_f3(int m, int* p1, int* p2);
 
 f9_element* split_5_f9(int m, f9_element* p1, f9_element* p2);
 
+/* READ FILE BEST DEGREE*/
+typedef int* (*NextAlgoF3)(int n, int* p1, int* p2);
 
+extern NextAlgoF3 look_up_table_sign_f3[7];
+
+extern int* list_f3;
+
+void read_file(char* file_name, int dim_file);
+
+NextAlgoF3 choose_next_algo_f3(int n);
 
 #endif

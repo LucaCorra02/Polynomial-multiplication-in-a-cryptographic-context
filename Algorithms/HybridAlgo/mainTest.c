@@ -759,7 +759,7 @@ int main(int argc, char* argv[]) {
         free(ris);
     }*/
 
-    char buffer[BUFFERSIZE];
+    /*char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
         char* right = strtok(NULL, ";");
@@ -771,9 +771,35 @@ int main(int argc, char* argv[]) {
         free(p2);
         free(ris);
     }
-    printf("dim poly: %d\n", NUM_OPERANDS);
+    printf("dim poly: %d\n", NUM_OPERANDS);*/
 
+    read_file("prova.txt", 761);
+    for (int i = 0; i < 10; i++) {
+        int id = list_f3[i];
+        NextAlgoF3 chosen = choose_next_algo_f3(i);
 
+        printf("Indice %d -> id_algo: %d -> funzione scelta: ", i, id);
+
+        if (chosen == schoolbook_f3) {
+            printf("schoolbook_f3\n");
+        } else if (chosen == unbalanced_karatsuba_f3) {
+            printf("unbalanced_karatsuba_f3\n");
+        } else if (chosen == split_3_f3) {
+            printf("split_3_f3\n");
+        } else if (chosen == split_3_v2_f3) {
+            printf("split_3_v2_f3\n");
+        } else if (chosen == split_4_v1_f3) {
+            printf("split_4_v1_f3\n");
+        } else if (chosen == split_4_f3) {
+            printf("split_4_f3\n");
+        } else if (chosen == split_5_f3) {
+            printf("split_5_f3\n");
+        } else {
+            printf("funzione sconosciuta!\n");
+        }
+    }
+    printf("\n");
+    free(list_f3);
     return 0;
 
 }
