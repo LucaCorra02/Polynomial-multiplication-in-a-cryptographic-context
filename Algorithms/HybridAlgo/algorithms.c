@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "algorithms.h"
 
-/*READ FILE*/
+/*READ FILE */
 int* list_f3 = NULL;
 
 NextAlgoF3 look_up_table_sign_f3[7] = {
