@@ -740,14 +740,14 @@ int* split_operands_f3(char* p, int num_operands){
 }
 
 #define BUFFERSIZE 100000
-#define NUM_OPERANDS 151
+#define NUM_OPERANDS 761
 
 int main(int argc, char* argv[]) {
     //munit_suite_main(&suite, NULL, argc, argv);
 	//munit_suite_main(&suite_f3, NULL, argc, argv);
 
 
-	read_file_f9("f9_min.txt", 151);
+	read_file_f9("f9_min.txt", 762);
 	char buffer[BUFFERSIZE];
     while (fgets(buffer, BUFFERSIZE , stdin)){
         char* left = strtok(buffer, ";");
@@ -762,6 +762,7 @@ int main(int argc, char* argv[]) {
         free(ris);
     }
     printf("dim poly: %d\n", NUM_OPERANDS);
+    printf("last algo id: %d\n", list_f9[760]); //-1 rispetto agli indici di f9_min.txt
     free(list_f9);
 
     /*read_file_f3("prova.txt", 1024);
@@ -779,36 +780,6 @@ int main(int argc, char* argv[]) {
     }
     printf("dim poly: %d\n", NUM_OPERANDS);
 	*/
-
-
-	/*read_file_f9("prova.txt", 1024);
-	for (int i = 0; i < 10; i++) {
-        int id = list_f9[i];
-        NextAlgoF9 chosen = choose_next_algo_f9(i);
-
-        printf("Indice %d -> id_algo: %d -> funzione scelta: ", i, id);
-
-        if (chosen == schoolbook_f9) {
-            printf("schoolbook_f3\n");
-        } else if (chosen == unbalanced_karatsuba_f9) {
-            printf("unbalanced_karatsuba_f3\n");
-        } else if (chosen == split_3_f9) {
-            printf("split_3_f3\n");
-        } else if (chosen == split_3_v2_f9) {
-            printf("split_3_v2_f3\n");
-        } else if (chosen == split_4_v1_f9) {
-            printf("split_4_v1_f3\n");
-        } else if (chosen == split_4_f9) {
-            printf("split_4_f3\n");
-        } else if (chosen == split_5_f9) {
-            printf("split_5_f3\n");
-        } else {
-            printf("funzione sconosciuta!\n");
-        }
-    }
-    printf("\n");
-    free(list_f9);
-	 */
     return 0;
 
 }
