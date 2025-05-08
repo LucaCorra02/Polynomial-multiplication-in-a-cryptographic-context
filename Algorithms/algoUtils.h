@@ -6,7 +6,7 @@
     #include <string.h>
     #include <math.h>
     #include "FieldImplementation/f3Utils.h"
-    #include "FieldImplementation/F9Utils.h"
+    #include "FieldImplementation/f9Utils.h"
 
     /*
         m = num termini polinomio
