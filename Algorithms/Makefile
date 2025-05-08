@@ -15,7 +15,7 @@ $(TARGET): $(OBJ)
 f3Implementation.o: $(F9_SRC_DIR)/f3Implementation.c $(F9_SRC_DIR)/f3Utils.h
 	gcc $(CFLAGS) -c $(F9_SRC_DIR)/f3Implementation.c
 
-f9Implementation.o: $(F9_SRC_DIR)/f9Implementation.c $(F9_SRC_DIR)/F9Utils.h
+f9Implementation.o: $(F9_SRC_DIR)/f9Implementation.c $(F9_SRC_DIR)/f9Utils.h
 	gcc $(CFLAGS) -c $(F9_SRC_DIR)/f9Implementation.c
 
 algoUtils.o: algoUtils.c algorithms.h
