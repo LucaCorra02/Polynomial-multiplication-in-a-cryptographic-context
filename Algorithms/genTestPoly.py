@@ -115,7 +115,7 @@ def gen_f9(num_rows, num_terms, input_path, output_path, min_range, max_range):
 def main():
     args = sys.argv
     if len(args) < 5:
-        print("Parametri richiesti: num_rows num_terms f3/f9 in/out", file=sys.stderr)
+        print("Parametri richiesti: num_rows num_terms f3/f9 input_path output_path", file=sys.stderr)
         return
 
     num_rows, num_terms = int(args[1]), int(args[2])
