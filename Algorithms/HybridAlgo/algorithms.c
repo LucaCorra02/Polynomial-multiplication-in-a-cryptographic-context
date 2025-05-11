@@ -143,14 +143,17 @@ int* unbalanced_karatsuba_f3(int n, int* p1, int* p2) {
     polynomial_sum_f3(b0, mid, b1, size_b1, b0b1);
 
     int *P0, *P1, *P2;
+    NextAlgoF3 chosen_1 = choose_next_algo_f3(mid);
+    NextAlgoF3 chosen_2 = choose_next_algo_f3(size_a1);
+
     //#pragma omp parallel sections
     //{
         //#pragma omp section
-            P0 = unbalanced_karatsuba_f3(mid, a0, b0); // P0 = A0 * B0
+            P0 = chosen_1(mid, a0, b0); // P0 = A0 * B0
         //#pragma omp section
-            P2 = unbalanced_karatsuba_f3(size_a1, a1, b1); // P2 = A1 * B1
+            P2 = chosen_2(size_a1, a1, b1); // P2 = A1 * B1
         //#pragma omp section
-            P1 = unbalanced_karatsuba_f3(mid, a0a1, b0b1); // P1 = (A0 + A1) * (B0 + B1)
+            P1 = chosen_1(mid, a0a1, b0b1); // P1 = (A0 + A1) * (B0 + B1)
     //}
 
     for (int i = 0; i < (2 * mid ) - 1; i++){ P1[i] = f3_sum(P1[i], swap_bits(P0[i])); } // P1 = P1 - P0
@@ -377,18 +380,21 @@ int* split_3_f3(int m, int* p1, int* p2){
 
     int *P0, *P1, *P2, *P4;
     f9_element *P3;
+    NextAlgoF3 chosen_n = choose_next_algo_f3(n);
+    NextAlgoF3 chosen_k = choose_next_algo_f3(k);
+    NextAlgoF9 chosen_f9 = choose_next_algo_f9(n);
     //#pragma omp parallel sections
     //{
        //#pragma omp section
-       P0 = split_3_f3(n, A0, B0);
+       P0 = chosen_n(n, A0, B0);
        //#pragma omp section
-       P1 = split_3_f3(n, S2, S2_b);
+       P1 = chosen_n(n, S2, S2_b);
        //#pragma omp section
-       P2 = split_3_f3(n, S3, S3_b);
+       P2 = chosen_n(n, S3, S3_b);
        //#pragma omp section
-       P3 = split_3_f9(n, S5, S5_b);
+       P3 = chosen_f9(n, S5, S5_b);
        //#pragma omp section
-       P4 = split_3_f3(k, A2, B2);
+       P4 = chosen_k(k, A2, B2);
     //}
 
     int dim_subproduct = (2*n-1);
@@ -589,20 +595,22 @@ int* split_3_v2_f3(int m, int* p1, int* p2){
 
 	int *P0, *P1, *P4;
     f9_element *P2;
-
+    NextAlgoF3 chosen_n = choose_next_algo_f3(n);
+    NextAlgoF3 chosen_k = choose_next_algo_f3(k);
+    NextAlgoF9 chosen_f9 = choose_next_algo_f9(n);
     //#pragma omp parallel sections
     //{
         //#pragma omp section
-        P0 = split_3_v2_f3(n, A0, B0); // P0 = A0*B0
+        P0 = chosen_n(n, A0, B0); // P0 = A0*B0
 
         //#pragma omp section
-        P1 = split_3_v2_f3(n, S4, S4_b); // P1 = S4 * S4_b
+        P1 = chosen_n(n, S4, S4_b); // P1 = S4 * S4_b
 
         //#pragma omp section
-        P2 = split_3_v2_f9(n, S2, S2_b); //P2 = S2 * S2_b Su F9
+        P2 = chosen_f9(n, S2, S2_b); //P2 = S2 * S2_b Su F9
 
         //#pragma omp section
-        P4 = split_3_v2_f3(k, A2, B2); //P4 = A2 * B2
+        P4 = chosen_k(k, A2, B2); //P4 = A2 * B2
     //}
 
     int dim_subproduct = (2*n-1);
@@ -888,13 +896,15 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
 
     int *P6;
     f9_element *P0, *P1, *P2, *P3, *P4, *P5;
-    P0 = split_4_v1_f9(n, S8, S8_b);
-    P1 = split_4_v1_f9(n, S11, S11_b);
-    P2 = split_4_v1_f9(n, S9, S9_b);
-    P3 = split_4_v1_f9(n, S12, S12_b);
-    P4 = split_4_v1_f9(n, S10, S10_b);
-    P5 = split_4_v1_f9(n, S13, S13_b);
-    P6 = split_4_v1_f3(k, A3, B3);
+    NextAlgoF3 chosen_k = choose_next_algo_f3(k);
+    NextAlgoF9 chosen_f9 = choose_next_algo_f9(n);
+    P0 = chosen_f9(n, S8, S8_b);
+    P1 = chosen_f9(n, S11, S11_b);
+    P2 = chosen_f9(n, S9, S9_b);
+    P3 = chosen_f9(n, S12, S12_b);
+    P4 = chosen_f9(n, S10, S10_b);
+    P5 = chosen_f9(n, S13, S13_b);
+    P6 = chosen_k(k, A3, B3);
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
@@ -1182,13 +1192,17 @@ int* split_4_f3(int m, int* p1, int* p2){
 
     int *P0, *P1, *P6;
     f9_element *P2, *P3, *P4, *P5;
-    P0 = split_4_f3(n, A0, B0);
-    P1 = split_4_f3(n, S4, S4_b);
-    P2 = split_4_f9(n, S8, S8_b);
-    P3 = split_4_f9(n, S9, S9_b);
-    P4 = split_4_f9(n, S10, S10_b);
-    P5 = split_4_f9(n, S11, S11_b);
-    P6 = split_4_f3(k, A3, B3);
+    NextAlgoF3 chosen_n = choose_next_algo_f3(n);
+    NextAlgoF3 chosen_k = choose_next_algo_f3(k);
+    NextAlgoF9 chosen_f9 = choose_next_algo_f9(n);
+
+    P0 = chosen_n(n, A0, B0);
+    P1 = chosen_n(n, S4, S4_b);
+    P2 = chosen_f9(n, S8, S8_b);
+    P3 = chosen_f9(n, S9, S9_b);
+    P4 = chosen_f9(n, S10, S10_b);
+    P5 = chosen_f9(n, S11, S11_b);
+    P6 = chosen_k(k, A3, B3);
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
@@ -1556,15 +1570,18 @@ int* split_5_f3(int m, int* p1, int* p2) {
 
     int *P0, *P1, *P8;
     f9_element *P2, *P3, *P4, *P5, *P6, *P7;
-    P0 = split_5_f3(n, A0, B0);
-    P1 = split_5_f3(n, S11, S11_b);
-    P2 = split_5_f9(n, S12, S12_b);
-    P3 = split_5_f9(n, S13, S13_b);
-    P4 = split_5_f9(n, S14, S14_b);
-    P5 = split_5_f9(n, S15, S15_b);
-    P6 = split_5_f9(n, S16, S16_b);
-    P7 = split_5_f9(n, S17, S17_b);
-    P8 = split_5_f3(k, A4, B4);
+    NextAlgoF3 chosen_n = choose_next_algo_f3(n);
+    NextAlgoF3 chosen_k = choose_next_algo_f3(k);
+    NextAlgoF9 chosen_f9 = choose_next_algo_f9(n);
+    P0 = chosen_n(n, A0, B0);
+    P1 = chosen_n(n, S11, S11_b);
+    P2 = chosen_f9(n, S12, S12_b);
+    P3 = chosen_f9(n, S13, S13_b);
+    P4 = chosen_f9(n, S14, S14_b);
+    P5 = chosen_f9(n, S15, S15_b);
+    P6 = chosen_f9(n, S16, S16_b);
+    P7 = chosen_f9(n, S17, S17_b);
+    P8 = chosen_k(k, A4, B4);
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
