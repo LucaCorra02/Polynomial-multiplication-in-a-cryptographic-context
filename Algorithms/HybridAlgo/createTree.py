@@ -21,7 +21,7 @@ def write_best_algo(algo_id, file_name):
 def benchmark_degree_x_f3(degree):
     times = {}
     print("Degree: ", degree)
-    for algo_name, min_degree in f3_algo:
+    for algo_name, min_degree in f3_algo.items():
         if degree < min_degree:
             continue
         time = execute_benchmark(algo_name,degree)
@@ -47,10 +47,28 @@ def benchmark_degree_x_f9(degree):
     return list(f9_algo).index(min_algo[0])
 
 #Partire con file 0 a capo
-with open("f9_min.txt", "w") as file:
-    file.write(str(0) + "\n")
-for i in range(1,762):
-    min_algo_id = benchmark_degree_x_f9(i)
-    write_best_algo(min_algo_id, "f9_min.txt")
+def main():
+    args = sys.argv
+    if len(args) < 2:
+        print("Parametri richiesti: f3/f9 max_degree", file=sys.stderr)
+        return
+
+    field, degree = args[1], int(args[2])
+    if field == "f3":
+        with open("f3_min.txt", "w") as file:
+            file.write(str(0) + "\n")
+            for i in range(1,degree+1):
+                min_algo_id = benchmark_degree_x_f3(i)
+                write_best_algo(min_algo_id, "f3_min.txt")
+    elif field == "f9":
+        with open("f9_min.txt", "w") as file:
+            file.write(str(0) + "\n")
+            for i in range(1,degree+1):
+                min_algo_id = benchmark_degree_x_f9(i)
+                write_best_algo(min_algo_id, "f9_min.txt")
+    else:
+        print("Campo non riconosciuto")
 
 
+
+main()

@@ -104,6 +104,8 @@ static void BenchmarkF3(benchmark::State& state) {
         p2[i] = (i * 3) % 3;
     }
 
+    read_file_f3("f3_min.txt", size);
+    read_file_f9("f9_min.txt", size);
     auto it = algo_map_f3.find(selected_algo);
     if (it == algo_map_f3.end()) {
         std::cerr << "Algoritmo non riconosciuto: " << selected_algo << std::endl;
@@ -195,9 +197,18 @@ int main(int argc, char** argv) {
     }
 
     ::benchmark::Initialize(&argc, argv);
-    benchmark::RegisterBenchmark("BenchmarkF9", BenchmarkF9)
-        ->Arg(selected_degree)
-        ->Unit(benchmark::kMillisecond);
+    if (selected_algo.find("f9") != std::string::npos) {
+        benchmark::RegisterBenchmark("BenchmarkF9", BenchmarkF9)
+            ->Arg(selected_degree)
+            ->Unit(benchmark::kMillisecond);
+    } else if (selected_algo.find("f3") != std::string::npos) {
+        benchmark::RegisterBenchmark("BenchmarkF3", BenchmarkF3)
+            ->Arg(selected_degree)
+            ->Unit(benchmark::kMillisecond);
+    } else {
+        std::cerr << "Errore: algoritmo non riconosciuto (usa 'f3' o 'f9' nel nome)" << std::endl;
+        return 1;
+    }
 
     ::benchmark::RunSpecifiedBenchmarks();
     return 0;
