@@ -740,52 +740,71 @@ int* split_operands_f3(char* p, int num_operands){
 }
 
 #define BUFFERSIZE 100000
-#define NUM_OPERANDS 27
+//#define NUM_OPERANDS 27
 
 int main(int argc, char* argv[]) {
     //munit_suite_main(&suite, NULL, argc, argv);
 	//munit_suite_main(&suite_f3, NULL, argc, argv);
+    char* field = NULL;
+    int NUM_OPERANDS = 0;
 
-
-	/*read_file_f9("f9_min.txt", 762);
-	char buffer[BUFFERSIZE];
-    while (fgets(buffer, BUFFERSIZE , stdin)){
-        char* left = strtok(buffer, ";");
-        char* right = strtok(NULL, ";");
-        f9_element* p1 = split_operands_f9(left,NUM_OPERANDS);
-        f9_element* p2 = split_operands_f9(right,NUM_OPERANDS);
-        NextAlgoF9 chosen_1 = choose_next_algo_f9(NUM_OPERANDS);
-        f9_element* ris = chosen_1(NUM_OPERANDS, p1,p2);
-        print_vector_f9(ris,(2*NUM_OPERANDS)-1);
-        free(p1);
-        free(p2);
-        free(ris);
+    for (int i = 1; i < argc; ++i) {
+        if (strncmp(argv[i], "--field=", 8) == 0) {
+            field = argv[i] + 8;
+        } else if (strncmp(argv[i], "--degree=", 9) == 0) {
+            NUM_OPERANDS = atoi(argv[i] + 9);
+        }
     }
-    printf("dim poly: %d\n", NUM_OPERANDS);
-    printf("last algo id: %d\n", list_f9[760]); //-1 rispetto agli indici di f9_min.txt
-    free(list_f9);
-    */
 
-    read_file_f3("f3_min.txt", 28);
-    read_file_f9("f9_min.txt", 28);
+    if (field == NULL || (strcmp(field, "f3") != 0 && strcmp(field, "f9") != 0)) {
+        fprintf(stderr, "Errore: specificare il campo con --field=f3 oppure --field=f9\n");
+        return 1;
+    }
+
+    if (NUM_OPERANDS < 1) {
+        fprintf(stderr, "Errore: specificare il grado con --degree=degree\n");
+        return 1;
+    }
+
     char buffer[BUFFERSIZE];
-    while (fgets(buffer, BUFFERSIZE , stdin)){
-        char* left = strtok(buffer, ";");
-        char* right = strtok(NULL, ";");
-        int* p1 = split_operands_f3(left,NUM_OPERANDS);
-        int* p2 = split_operands_f3(right,NUM_OPERANDS);
-        NextAlgoF3 chosen_1 = choose_next_algo_f3(NUM_OPERANDS);
-        int* ris = chosen_1(NUM_OPERANDS, p1,p2);
-        print_vector_f3(ris,(2*NUM_OPERANDS)-1);
-        free(p1);
-        free(p2);
-        free(ris);
-    }
-    printf("dim poly: %d\n", NUM_OPERANDS);
-    free(list_f9);
-    free(list_f3);
-    return 0;
 
+    if (strcmp(field, "f9") == 0) {
+        read_file_f9("f9_min.txt", NUM_OPERANDS + 1);
+        while (fgets(buffer, BUFFERSIZE, stdin)) {
+            char* left = strtok(buffer, ";");
+            char* right = strtok(NULL, ";");
+            f9_element* p1 = split_operands_f9(left, NUM_OPERANDS);
+            f9_element* p2 = split_operands_f9(right, NUM_OPERANDS);
+            NextAlgoF9 chosen_1 = choose_next_algo_f9(NUM_OPERANDS);
+            f9_element* ris = chosen_1(NUM_OPERANDS, p1, p2);
+            print_vector_f9(ris, (2 * NUM_OPERANDS) - 1);
+            free(p1);
+            free(p2);
+            free(ris);
+        }
+        printf("dim poly: %d\n", NUM_OPERANDS);
+        printf("last algo id: %d\n", list_f9[NUM_OPERANDS - 1]);
+        free(list_f9);
+    } else if (strcmp(field, "f3") == 0) {
+        read_file_f3("f3_min.txt", NUM_OPERANDS + 1);
+        read_file_f9("f9_min.txt", NUM_OPERANDS + 1);
+        while (fgets(buffer, BUFFERSIZE, stdin)) {
+            char* left = strtok(buffer, ";");
+            char* right = strtok(NULL, ";");
+            int* p1 = split_operands_f3(left, NUM_OPERANDS);
+            int* p2 = split_operands_f3(right, NUM_OPERANDS);
+            NextAlgoF3 chosen_1 = choose_next_algo_f3(NUM_OPERANDS);
+            int* ris = chosen_1(NUM_OPERANDS, p1, p2);
+            print_vector_f3(ris, (2 * NUM_OPERANDS) - 1);
+            free(p1);
+            free(p2);
+            free(ris);
+        }
+        printf("dim poly: %d\n", NUM_OPERANDS);
+        free(list_f3);
+        free(list_f9);
+    }
+    return 0;
 }
 
 
