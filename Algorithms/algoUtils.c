@@ -95,101 +95,102 @@ int* allocate_mem_f3(int num_array, int dim_array, int num_array_comp, int dim_a
 }
 
 void sum_poly_f3(int terms_p1, int terms_p2, int* p1, int* p2, int* ris){ // P1 + P2
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = p1[i]; }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], p2[i]); }
 }
 
 void diff_poly_f3(int terms_p1, int terms_p2, int* p1, int* p2, int* ris){ // P1 - P2
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = p1[i]; }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(p2[i])); }
 }
 
 void diff_poly_double_f3(int terms_p1, int terms_p2, int* p1, int* p2, int* ris){ // -P1 -P2
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], swap_bits(p1[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = swap_bits(p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(p2[i])); }
 }
 
 void sum_poly_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* ris){ // F9(P1) + F9(P2)w
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(ris[i], get_f9_element(0, p1[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = get_f9_element(0, p1[i]); }
+
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], get_f9_element(p2[i], 0)); }
 }
 
 void sum_poly_neg_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* ris){ // F9(P1) - F9(P2)w
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(ris[i], get_f9_element(0, p1[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = get_f9_element(0, p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], get_f9_element(f9_neg(p2[i]), 0)); }
 }
 
 void diff_poly_neg_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* ris){ // -P1 - F9(P2)w
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(ris[i], get_f9_element(0, swap_bits(p1[i]))); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = get_f9_element(0, swap_bits(p1[i])); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], get_f9_element(f9_neg(p2[i]), 0)); }
 }
 
 void diff_poly_pos_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* ris){ // -P1 + F9(P2)w
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f9_sum(ris[i], get_f9_element(0, swap_bits(p1[i]))); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = get_f9_element(0, swap_bits(p1[i])); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], get_f9_element(p2[i], 0)); }
 }
 
 void diff_poly_img_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris){ // P1 - F9(P2_imag_part)
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = p1[i]; }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_imaginary_part(p2[i]))); }
 }
 
 void sum_poly_imag_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris){ // P1 + F9(P2_imag_part)
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = p1[i]; }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_imaginary_part(p2[i])); }
 }
 
 void diff_double_poly_imag_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris){ // - P1 - P2_imag_part
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], swap_bits(p1[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = swap_bits(p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_imaginary_part(p2[i]))); }
 }
 
 void diff_single_poly_imag_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris){ // - P1 + P2_imag_part
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], swap_bits(p1[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = swap_bits(p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_imaginary_part(p2[i])); }
 }
 
 void diff_poly_real_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris){ // P1 - F9(P2_real_part)
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = p1[i]; }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_real_part(p2[i]))); }
 }
 
 void sum_poly_real_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris){ // P1 + F9(P2_real_part)
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], p1[i]); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = p1[i]; }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_real_part(p2[i])); }
 }
 
 void diff_double_poly_real_f3(int terms_p1, int terms_p2, int* p1, f9_element* p2, int* ris){ // - P1 - P2_real_part
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], swap_bits(p1[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = swap_bits(p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_real_part(p2[i]))); }
 }
 
 void sum_poly_double_real_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris){ // F9(P1_real_part) + F9(P2_real_part)
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], get_real_part(p1[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = get_real_part(p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_real_part(p2[i])); }
 }
 
 void diff_poly_double_real_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris) { // F9(P1_real_part) - F9(P2_real_part)
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], get_real_part(p1[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = get_real_part(p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_real_part(p2[i]))); }
 }
 
 void sum_poly_double_img_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris){ // F9(P1_imag_part) + F9(P2_imag_part)
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], get_imaginary_part(p1[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = get_imaginary_part(p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_imaginary_part(p2[i])); }
 }
 
 void sum_poly_real_img_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris){ // F9(P1_real_part) + F9(P2_imag_part)
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], get_real_part(p1[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = get_real_part(p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], get_imaginary_part(p2[i])); }
 }
 
 void diff_poly_img_img_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris) {// F9(P1_imag_part) - F9(P2_imag_part)
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], get_imaginary_part(p1[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = get_imaginary_part(p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_imaginary_part(p2[i]))); }
 }
 
 void diff_poly_real_img_f3(int terms_p1, int terms_p2, f9_element* p1, f9_element* p2, int* ris) { // F9(P1_real_part) - F9(P2_imag_part)
-    for(int i = 0; i < terms_p1; i++){ ris[i] = f3_sum(ris[i], get_real_part(p1[i])); }
+    for(int i = 0; i < terms_p1; i++){ ris[i] = get_real_part(p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f3_sum(ris[i], swap_bits(get_imaginary_part(p2[i]))); }
 }
