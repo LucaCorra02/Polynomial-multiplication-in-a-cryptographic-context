@@ -110,22 +110,38 @@ void diff_poly_double_f3(int terms_p1, int terms_p2, int* p1, int* p2, int* ris)
 }
 
 void sum_poly_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* ris){ // F9(P1) + F9(P2)w
-    for(int i = 0; i < terms_p1; i++){ ris[i] = get_f9_element(0, p1[i]); }
-
+    /*int max =terms_p1 > terms_p2 ? terms_p1 : terms_p2;
+    for(int i = 0; i < max; i++) {
+        ris[i] = get_f9_element(i < terms_p2 ? p2[i] : 0, i < terms_p1 ? p1[i] : 0);
+    }*/
+    for(int i = 0; i < terms_p1; i++){ ris[i] = get_f9_element(0,p1[i]); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], get_f9_element(p2[i], 0)); }
+
 }
 
 void sum_poly_neg_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* ris){ // F9(P1) - F9(P2)w
+    /*int max =terms_p1 > terms_p2 ? terms_p1 : terms_p2;
+    for(int i = 0; i < max; i++) {
+        ris[i] = get_f9_element(i < terms_p2 ? swap_bits(p2[i]) : 0, i < terms_p1 ? p1[i] : 0);
+    }*/
     for(int i = 0; i < terms_p1; i++){ ris[i] = get_f9_element(0, p1[i]); }
-    for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], get_f9_element(f9_neg(p2[i]), 0)); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], get_f9_element(swap_bits(p2[i]), 0)); }
 }
 
 void diff_poly_neg_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* ris){ // -P1 - F9(P2)w
+    /*int max =terms_p1 > terms_p2 ? terms_p1 : terms_p2;
+    for(int i = 0; i < max; i++) {
+        ris[i] = get_f9_element(i < terms_p2 ? swap_bits(p2[i]) : 0, i < terms_p1 ? swap_bits(p1[i]) : 0);
+    }*/
     for(int i = 0; i < terms_p1; i++){ ris[i] = get_f9_element(0, swap_bits(p1[i])); }
-    for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], get_f9_element(f9_neg(p2[i]), 0)); }
+    for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], get_f9_element(swap_bits(p2[i]), 0)); }
 }
 
 void diff_poly_pos_img_f3(int terms_p1, int terms_p2, int* p1, int* p2, f9_element* ris){ // -P1 + F9(P2)w
+    /*int max =terms_p1 > terms_p2 ? terms_p1 : terms_p2;
+    for(int i = 0; i < max; i++) {
+        ris[i] = get_f9_element(i < terms_p2 ? p2[i] : 0, i < terms_p1 ? swap_bits(p1[i]) : 0);
+    }*/
     for(int i = 0; i < terms_p1; i++){ ris[i] = get_f9_element(0, swap_bits(p1[i])); }
     for(int i = 0; i < terms_p2; i++){ ris[i] = f9_sum(ris[i], get_f9_element(p2[i], 0)); }
 }
