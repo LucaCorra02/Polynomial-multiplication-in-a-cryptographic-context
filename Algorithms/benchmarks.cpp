@@ -164,9 +164,9 @@ static void BenchmarkF9(benchmark::State& state) {
     delete[] p2;
 }
 
-BENCHMARK(BenchmarkF9)->DenseRange(761, 761, 10)->Unit(benchmark::kMillisecond);
+//BENCHMARK(BenchmarkF9)->DenseRange(761, 761, 10)->Unit(benchmark::kMillisecond);
 //BENCHMARK(BenchmarkF9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
-//BENCHMARK(BenchmarkF3)->DenseRange(761, 761, 100)->Unit(benchmark::kMillisecond);
+BENCHMARK(BenchmarkF3)->DenseRange(761, 761, 100)->Unit(benchmark::kMillisecond);
 
 //BENCHMARK(Benchmark_4split_v2_f9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
 //BENCHMARK(Benchmark_4split_f3)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
