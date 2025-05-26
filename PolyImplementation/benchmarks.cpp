@@ -70,7 +70,6 @@ static void Test_F9_prod(benchmark::State& state){ //Testo tempo medio di un ope
         a_r *= 10;
         b_r *= 10;
     }
-
     unsigned int a_i = 9;
     unsigned int b_i = 9;
     for (auto i = 0; i < size; i++){
