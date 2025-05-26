@@ -17,10 +17,6 @@ int main(int argc, char *argv[]) { //ARGV = file_name , file_rows, num_operands
         results ris = benchmark_f9(f9_prod,file_rows, operations);
         //printf("Esecuzione: %d %d Mean Time %.14Lf -> Total time spent: %Lf\n", i ,ris.result, ris.mean_time , ris.total_time);
     }
-
-
-
-
     free_vector(operations, file_rows);
 
     /*
