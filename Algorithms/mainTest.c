@@ -791,6 +791,7 @@ int main(int argc, char* argv[]) {
             free(p1);
             free(p2);
             free(ris);
+
         }
         printf("dim poly: %d\n", NUM_OPERANDS);
     }
