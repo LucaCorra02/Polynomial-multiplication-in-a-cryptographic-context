@@ -810,13 +810,10 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
     sum_poly_neg_img_f3(n, n, S6_b, S7_b, S13_b); //S13_b = S6_b - wS7_b
 
     int *P6;
-    f9_element *P0, *P1, *P2, *P3, *P4, *P5;
+    f9_element *P0, *P2, *P4;
     P0 = split_4_v1_f9(n, S8, S8_b);
-    P1 = split_4_v1_f9(n, S11, S11_b);
     P2 = split_4_v1_f9(n, S9, S9_b);
-    P3 = split_4_v1_f9(n, S12, S12_b);
     P4 = split_4_v1_f9(n, S10, S10_b);
-    P5 = split_4_v1_f9(n, S13, S13_b);
     P6 = split_4_v1_f3(k, A3, B3);
 
     int dim_subproduct = (2*n-1);
@@ -875,11 +872,8 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
     free(op_pointer);
     free(op_pointer_f9);
     free(P0);
-    free(P1);
     free(P2);
-    free(P3);
     free(P4);
-    free(P5);
     free(P6);
     return ris;
 }
@@ -1102,13 +1096,11 @@ int* split_4_f3(int m, int* p1, int* p2){
     sum_poly_neg_img_f3(n, n, S3_b, S7_b, S11_b); //S11_b = S3_b - wS7_b
 
     int *P0, *P1, *P6;
-    f9_element *P2, *P3, *P4, *P5;
+    f9_element *P2, *P4;
     P0 = split_4_f3(n, A0, B0);
     P1 = split_4_f3(n, S4, S4_b);
     P2 = split_4_f9(n, S8, S8_b);
-    P3 = split_4_f9(n, S9, S9_b);
     P4 = split_4_f9(n, S10, S10_b);
-    P5 = split_4_f9(n, S11, S11_b);
     P6 = split_4_f3(k, A3, B3);
 
     int dim_subproduct = (2*n-1);
@@ -1167,9 +1159,7 @@ int* split_4_f3(int m, int* p1, int* p2){
     free(P0);
     free(P1);
     free(P2);
-    free(P3);
     free(P4);
-    free(P5);
     free(P6);
     return ris;
 }
@@ -1474,15 +1464,12 @@ int* split_5_f3(int m, int* p1, int* p2) {
     diff_poly_pos_img_f3(n, n, S8_b, S10_b, S17_b); //S17_b = -S8_b + wS10_b
 
     int *P0, *P1, *P8;
-    f9_element *P2, *P3, *P4, *P5, *P6, *P7;
+    f9_element *P2, *P4, *P6;
     P0 = split_5_f3(n, A0, B0);
     P1 = split_5_f3(n, S11, S11_b);
     P2 = split_5_f9(n, S12, S12_b);
-    P3 = split_5_f9(n, S13, S13_b);
     P4 = split_5_f9(n, S14, S14_b);
-    P5 = split_5_f9(n, S15, S15_b);
     P6 = split_5_f9(n, S16, S16_b);
-    P7 = split_5_f9(n, S17, S17_b);
     P8 = split_5_f3(k, A4, B4);
 
     int dim_subproduct = (2*n-1);
@@ -1563,11 +1550,8 @@ int* split_5_f3(int m, int* p1, int* p2) {
     free(P0);
     free(P1);
     free(P2);
-    free(P3);
     free(P4);
-    free(P5);
     free(P6);
-    free(P7);
     free(P8);
     return ris;
 }
