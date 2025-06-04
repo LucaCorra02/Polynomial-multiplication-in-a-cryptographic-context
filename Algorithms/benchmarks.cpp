@@ -166,22 +166,47 @@ static void BenchmarkF9(benchmark::State& state) {
 
 //BENCHMARK(BenchmarkF9)->DenseRange(761, 761, 10)->Unit(benchmark::kMillisecond);
 //BENCHMARK(BenchmarkF9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
-BENCHMARK(BenchmarkF3)->DenseRange(761, 761, 100)->Unit(benchmark::kMillisecond);
+//BENCHMARK(BenchmarkF3)->DenseRange(761, 761, 100)->Unit(benchmark::kMillisecond);
 
 //BENCHMARK(Benchmark_4split_v2_f9)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
 //BENCHMARK(Benchmark_4split_f3)->DenseRange(10, 3048, 100)->Unit(benchmark::kMillisecond);
 //BENCHMARK_MAIN();
 
+int selected_degree = -1;
 
 int main(int argc, char** argv) {
     for (int i = 1; i < argc; ++i) {
         std::string arg = argv[i];
         if (arg.rfind("--algo=", 0) == 0) {
             selected_algo = arg.substr(7);
+        } else if (arg.rfind("--degree=", 0) == 0) {
+            selected_degree = std::stoi(arg.substr(9));
         }
     }
-    std::cout << "Eseguo benchmark con algoritmo: " << selected_algo << std::endl;
+
+    if (selected_algo.empty()) {
+        std::cerr << "Errore: specificare l'algoritmo con --algo=nome_algoritmo" << std::endl;
+        return 1;
+    }
+    if (selected_degree < 1) {
+        std::cerr << "Errore: specificare il grado con --degree=numero" << std::endl;
+        return 1;
+    }
+
     ::benchmark::Initialize(&argc, argv);
+    if (selected_algo.find("f9") != std::string::npos) {
+        benchmark::RegisterBenchmark("BenchmarkF9", BenchmarkF9)
+            ->Arg(selected_degree)
+            ->Unit(benchmark::kMillisecond);
+    } else if (selected_algo.find("f3") != std::string::npos) {
+        benchmark::RegisterBenchmark("BenchmarkF3", BenchmarkF3)
+            ->Arg(selected_degree)
+            ->Unit(benchmark::kMillisecond);
+    } else {
+        std::cerr << "Errore: algoritmo non riconosciuto (usa 'f3' o 'f9' nel nome)" << std::endl;
+        return 1;
+    }
+
     ::benchmark::RunSpecifiedBenchmarks();
     return 0;
 }
