@@ -1391,7 +1391,7 @@ int* split_5_f3(int m, int* p1, int* p2) {
     int op_part1 = (22);
     int op_part2 = (19);
     int* op_pointer = allocate_mem_f3(op_part1, n, op_part2, (2*n-1));
-    f9_element* op_pointer_f9 = calloc((n) * 12, sizeof(f9_element));
+    f9_element* op_pointer_f9 = calloc((n) * 6, sizeof(f9_element));
 
     int* S1 = op_pointer;
     sum_poly_f3(n, k, A0 ,A4, S1); //S1 = A0 + A4
@@ -1417,16 +1417,16 @@ int* split_5_f3(int m, int* p1, int* p2) {
     sum_poly_f3(n, n, S5, A2, S11); //S11 = S5 + A2
     f9_element* S12 = op_pointer_f9;
     sum_poly_img_f3(n, n, S6, S4, S12); //S12 = S6 + wS4
-    f9_element* S13 = S12 + n;
-    sum_poly_neg_img_f3(n, n, S6, S4, S13); //S13 = S6 -wS4
-    f9_element* S14 = S13 + n;
+    //f9_element* S13 = S12 + n;
+    //sum_poly_neg_img_f3(n, n, S6, S4, S13); //S13 = S6 -wS4
+    f9_element* S14 = S12 + n;
     sum_poly_img_f3(n, n, S7, S9, S14); //S14 = S7 + wS9
-    f9_element* S15 = S14 + n;
-    sum_poly_neg_img_f3(n, n, S7, S9, S15); //S15 = S7 - wS9
-    f9_element* S16 = S15 + n;
+    //f9_element* S15 = S14 + n;
+    //sum_poly_neg_img_f3(n, n, S7, S9, S15); //S15 = S7 - wS9
+    f9_element* S16 = S14 + n;
     diff_poly_neg_img_f3(n, n, S8, S10, S16); //S16 = -S8 -wS10
-    f9_element* S17 = S16 + n;
-    diff_poly_pos_img_f3(n, n, S8, S10, S17); //S17 = -S8 + wS10
+    //f9_element* S17 = S16 + n;
+    //diff_poly_pos_img_f3(n, n, S8, S10, S17); //S17 = -S8 + wS10
 
     int* S1_b = S11 + n;
     sum_poly_f3(n, k, B0, B4, S1_b); //S1_b = B0 + B4
@@ -1450,18 +1450,18 @@ int* split_5_f3(int m, int* p1, int* p2) {
     sum_poly_f3(n, n, S4_b, B2, S10_b); //S10_b = S4_b + B2
     int* S11_b = S10_b + n;
     sum_poly_f3(n, n, S5_b, B2, S11_b); //S11_b = S5_b + B2
-    f9_element* S12_b = S17 + n;
+    f9_element* S12_b = S16 + n;
     sum_poly_img_f3(n, n, S6_b, S4_b, S12_b); //S12_b = S6_b + wS4_b
-    f9_element* S13_b = S12_b + n;
-    sum_poly_neg_img_f3(n, n, S6_b, S4_b, S13_b); //S13_b = S6_b -wS4_b
-    f9_element* S14_b = S13_b + n;
+    //f9_element* S13_b = S12_b + n;
+    //sum_poly_neg_img_f3(n, n, S6_b, S4_b, S13_b); //S13_b = S6_b -wS4_b
+    f9_element* S14_b = S12_b + n;
     sum_poly_img_f3(n, n, S7_b, S9_b, S14_b); //S14_b = S7_b + wS9_b
-    f9_element* S15_b = S14_b + n;
-    sum_poly_neg_img_f3(n, n, S7_b, S9_b, S15_b); //S15_b = S7_b - wS9_b
-    f9_element* S16_b = S15_b + n;
+    //f9_element* S15_b = S14_b + n;
+    //sum_poly_neg_img_f3(n, n, S7_b, S9_b, S15_b); //S15_b = S7_b - wS9_b
+    f9_element* S16_b = S14_b + n;
     diff_poly_neg_img_f3(n, n, S8_b, S10_b, S16_b); //S16_b = -S8_b -wS10_b
-    f9_element* S17_b = S16_b + n;
-    diff_poly_pos_img_f3(n, n, S8_b, S10_b, S17_b); //S17_b = -S8_b + wS10_b
+    //f9_element* S17_b = S16_b + n;
+    //diff_poly_pos_img_f3(n, n, S8_b, S10_b, S17_b); //S17_b = -S8_b + wS10_b
 
     int *P0, *P1, *P8;
     f9_element *P2, *P4, *P6;
