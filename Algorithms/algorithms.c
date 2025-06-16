@@ -54,8 +54,8 @@ int* schoolbook_f3(int n, int* p1, int* p2) {
 /* KARATSUBA Implementation */
 
 void polynomial_sum_f3(int* p1, int len_p1, int* p2, int len_p2, int* ris) { // Somma per polinomi sbilanciati
-    for (int i = 0; i < len_p1; i++) ris[i] = f3_sum(int_to_f3(ris[i]), int_to_f3(p1[i]));
-    for (int i = 0; i < len_p2; i++) ris[i] = f3_sum(int_to_f3(ris[i]), int_to_f3(p2[i]));
+    for (int i = 0; i < len_p1; i++) ris[i] = f3_sum(ris[i], p1[i]);
+    for (int i = 0; i < len_p2; i++) ris[i] = f3_sum(ris[i], p2[i]);
 }
 
 int* unbalanced_karatsuba_f3(int n, int* p1, int* p2) {
@@ -86,16 +86,16 @@ int* unbalanced_karatsuba_f3(int n, int* p1, int* p2) {
             P1 = unbalanced_karatsuba_f3(mid, a0a1, b0b1); // P1 = (A0 + A1) * (B0 + B1)
     }
 
-    for (int i = 0; i < (2 * mid ) - 1; i++){ P1[i] = f3_sum(int_to_f3(P1[i]), swap_bits(int_to_f3(P0[i]))); } // P1 = P1 - P0
-    for (int i = 0; i < (2 * size_a1) - 1; i++) { P1[i] = f3_sum(int_to_f3(P1[i]), swap_bits(int_to_f3(P2[i])));  } // P1 = (P1 - P0) - P0
+    for (int i = 0; i < (2 * mid ) - 1; i++){ P1[i] = f3_sum(P1[i], swap_bits(P0[i])); } // P1 = P1 - P0
+    for (int i = 0; i < (2 * size_a1) - 1; i++) { P1[i] = f3_sum(P1[i], swap_bits(P2[i]));  } // P1 = (P1 - P0) - P0
 
     //Combini i risultati
     for (int i = 0; i < (2 * mid ) - 1; i++) {
-        result[i] = f3_sum(int_to_f3(result[i]), int_to_f3(P0[i])); // Termini da 0 a mid-1
-        result[i + mid] = f3_sum(int_to_f3(result[i + mid]), int_to_f3(P1[i])); // Terimini da mid a (2*mid)-1
+        result[i] = f3_sum(result[i], P0[i]); // Termini da 0 a mid-1
+        result[i + mid] = f3_sum(result[i + mid], P1[i]); // Terimini da mid a (2*mid)-1
     }
     for (int i = 0; i < (2 * size_a1) - 1; i++) {
-        result[i + (2 * mid)] = f3_sum(int_to_f3(result[i + (2 * mid)]), int_to_f3(P2[i])); // Termini da (2*mid) a n-1
+        result[i + (2 * mid)] = f3_sum(result[i + (2 * mid)], P2[i]); // Termini da (2*mid) a n-1
     }
 
     free(a0a1);
