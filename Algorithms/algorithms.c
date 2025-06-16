@@ -76,15 +76,15 @@ int* unbalanced_karatsuba_f3(int n, int* p1, int* p2) {
     polynomial_sum_f3(b0, mid, b1, size_b1, b0b1);
 
     int *P0, *P1, *P2;
-    //#pragma omp parallel sections
-    //{
-        //#pragma omp section
+    #pragma omp parallel sections
+    {
+        #pragma omp section
             P0 = unbalanced_karatsuba_f3(mid, a0, b0); // P0 = A0 * B0
-        //#pragma omp section
+        #pragma omp section
             P2 = unbalanced_karatsuba_f3(size_a1, a1, b1); // P2 = A1 * B1
-        //#pragma omp section
+        #pragma omp section
             P1 = unbalanced_karatsuba_f3(mid, a0a1, b0b1); // P1 = (A0 + A1) * (B0 + B1)
-    //}
+    }
 
     for (int i = 0; i < (2 * mid ) - 1; i++){ P1[i] = f3_sum(int_to_f3(P1[i]), swap_bits(int_to_f3(P0[i]))); } // P1 = P1 - P0
     for (int i = 0; i < (2 * size_a1) - 1; i++) { P1[i] = f3_sum(int_to_f3(P1[i]), swap_bits(int_to_f3(P2[i])));  } // P1 = (P1 - P0) - P0
@@ -128,10 +128,16 @@ f9_element* unbalanced_karatsuba_f9(int n, f9_element* p1, f9_element* p2) {
     polynomial_sum_f9(a0, mid, a1, size_a1, a0a1);
     polynomial_sum_f9(b0, mid, b1, size_b1, b0b1);
 
-    f9_element* P0 = unbalanced_karatsuba_f9(mid, a0, b0); // P0 = A0 * B0
-    f9_element* P2 = unbalanced_karatsuba_f9(size_a1, a1, b1); // P2 = A1 * B1
-    f9_element* P1 = unbalanced_karatsuba_f9(mid, a0a1, b0b1); // P1 = (A0 + A1) * (B0 + B1)
-
+    f9_element *P0, *P1, *P2;
+	#pragma omp parallel sections
+    {
+		#pragma omp section
+    	P0 = unbalanced_karatsuba_f9(mid, a0, b0); // P0 = A0 * B0
+    	#pragma omp section
+        P2 = unbalanced_karatsuba_f9(size_a1, a1, b1); // P2 = A1 * B1
+    	#pragma omp section
+        P1 = unbalanced_karatsuba_f9(mid, a0a1, b0b1); // P1 = (A0 + A1) * (B0 + B1)
+	}
     for (int i = 0; i < (2 * mid ) - 1; i++){ P1[i] = f9_sum(P1[i], f9_neg(P0[i])); } // P1 = P1 - P0
     for (int i = 0; i < (2 * size_a1) - 1; i++) { P1[i] = f9_sum(P1[i], f9_neg(P2[i])); } // P1 = (P1 - P0) - P0
 
@@ -197,23 +203,23 @@ f9_element* split_3_f9(int m, f9_element* p1, f9_element* p2){
 
 
     f9_element *P0, *P1, *P2, *P3, *P4;
-    //#pragma omp parallel sections
-    //{
-        //#pragma omp section
+    #pragma omp parallel sections
+    {
+        #pragma omp section
         P0 = split_3_f9(n, A0, B0);
 
-        //#pragma omp section
+        #pragma omp section
         P1 = split_3_f9(n, S2, S2_b);
 
-        //#pragma omp section
+        #pragma omp section
         P2 = split_3_f9(n, S3, S3_b);
 
-        //#pragma omp section
+        #pragma omp section
         P3 = split_3_f9(n, S5, S5_b);
 
-        //#pragma omp section
+        #pragma omp section
         P4 = split_3_f9(k, A2, B2);
-    //}
+    }
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
@@ -306,19 +312,19 @@ int* split_3_f3(int m, int* p1, int* p2){
 
     int *P0, *P1, *P2, *P4;
     f9_element *P3;
-    //#pragma omp parallel sections
-    //{
-       //#pragma omp section
+    #pragma omp parallel sections
+    {
+       #pragma omp section
        P0 = split_3_f3(n, A0, B0);
-       //#pragma omp section
+       #pragma omp section
        P1 = split_3_f3(n, S2, S2_b);
-       //#pragma omp section
+       #pragma omp section
        P2 = split_3_f3(n, S3, S3_b);
-       //#pragma omp section
+       #pragma omp section
        P3 = split_3_f9(n, S5, S5_b);
-       //#pragma omp section
+       #pragma omp section
        P4 = split_3_f3(k, A2, B2);
-    //}
+    }
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
@@ -408,23 +414,23 @@ f9_element* split_3_v2_f9(int m, f9_element* p1, f9_element* p2){
     sum_poly(n, n, S4_b, B1, S5_b); // S5_b = S4_b + B1
 
     f9_element *P0, *P1, *P2, *P3, *P4;
-    //#pragma omp parallel sections
-    //{
-        //#pragma omp section
+    #pragma omp parallel sections
+    {
+        #pragma omp section
         P0 = split_3_v2_f9(n, A0, B0);
 
-        //#pragma omp section
+        #pragma omp section
         P1 = split_3_v2_f9(n, S5, S5_b);
 
-        //#pragma omp section
+        #pragma omp section
         P2 = split_3_v2_f9(n, S2, S2_b);
 
-        //#pragma omp section
+        #pragma omp section
         P3 = split_3_v2_f9(n, S3, S3_b);
 
-        //#pragma omp section
+        #pragma omp section
         P4 = split_3_v2_f9(k, A2, B2);
-    //}
+    }
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
@@ -516,20 +522,20 @@ int* split_3_v2_f3(int m, int* p1, int* p2){
 	int *P0, *P1, *P4;
     f9_element *P2;
 
-    //#pragma omp parallel sections
-    //{
-        //#pragma omp section
+    #pragma omp parallel sections
+    {
+        #pragma omp section
         P0 = split_3_v2_f3(n, A0, B0); // P0 = A0*B0
 
-        //#pragma omp section
+        #pragma omp section
         P1 = split_3_v2_f3(n, S4, S4_b); // P1 = S4 * S4_b
 
-        //#pragma omp section
+        #pragma omp section
         P2 = split_3_v2_f9(n, S2, S2_b); //P2 = S2 * S2_b Su F9
 
-        //#pragma omp section
+        #pragma omp section
         P4 = split_3_v2_f3(k, A2, B2); //P4 = A2 * B2
-    //}
+    }
 
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
@@ -644,14 +650,23 @@ f9_element* split_4_v1_f9(int m, f9_element* p1, f9_element* p2) {
     diff_poly_double_img(n, n, B2, S7_b, S11_b); //S11_b = -wB2 - wS7_b
 
     f9_element *P0, *P1, *P2, *P3, *P4, *P5, *P6;
-    P0 = split_4_v1_f9(n, S6, S6_b);
-    P1 = split_4_v1_f9(n, S4, S4_b);
-    P2 = split_4_v1_f9(n, S9, S9_b);
-    P3 = split_4_v1_f9(n, S8, S8_b);
-    P4 = split_4_v1_f9(n, S10, S10_b);
-    P5 = split_4_v1_f9(n, S11, S11_b);
-    P6 = split_4_v1_f9(k, A3, B3);
-
+    #pragma omp parallel sections
+    {
+      	#pragma omp section
+    		P0 = split_4_v1_f9(n, S6, S6_b);
+    	#pragma omp section
+            P1 = split_4_v1_f9(n, S4, S4_b);
+    	#pragma omp section
+            P2 = split_4_v1_f9(n, S9, S9_b);
+        #pragma omp section
+    		P3 = split_4_v1_f9(n, S8, S8_b);
+    	#pragma omp section
+            P4 = split_4_v1_f9(n, S10, S10_b);
+    	#pragma omp section
+            P5 = split_4_v1_f9(n, S11, S11_b);
+    	#pragma omp section
+            P6 = split_4_v1_f9(k, A3, B3);
+	}
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
 
@@ -811,11 +826,17 @@ int* split_4_v1_f3(int m, int* p1, int* p2) {
 
     int *P6;
     f9_element *P0, *P2, *P4;
-    P0 = split_4_v1_f9(n, S8, S8_b);
-    P2 = split_4_v1_f9(n, S9, S9_b);
-    P4 = split_4_v1_f9(n, S10, S10_b);
-    P6 = split_4_v1_f3(k, A3, B3);
-
+    #pragma omp parallel sections
+    {
+    	#pragma omp section
+    		P0 = split_4_v1_f9(n, S8, S8_b);
+    	#pragma omp section
+            P2 = split_4_v1_f9(n, S9, S9_b);
+    	#pragma omp section
+            P4 = split_4_v1_f9(n, S10, S10_b);
+    	#pragma omp section
+            P6 = split_4_v1_f3(k, A3, B3);
+	}
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
 
@@ -945,14 +966,23 @@ f9_element* split_4_f9(int m, f9_element* p1, f9_element* p2){
     sum_poly_img_neg(n, n, S1_b, S8_b, S10_b); //S10_b = S1_b - wS8_b
 
     f9_element *P0, *P1, *P2, *P3, *P4, *P5, *P6;
-    P0 = split_4_f9(n, A0, B0);
-    P1 = split_4_f9(n, S3, S3_b);
-    P2 = split_4_f9(n, S6, S6_b);
-    P3 = split_4_f9(n, S7, S7_b);
-    P4 = split_4_f9(n, S9, S9_b);
-    P5 = split_4_f9(n, S10, S10_b);
-    P6 = split_4_f9(k, A3, B3);
-
+    #pragma omp parallel sections
+    {
+    	#pragma omp section
+    		P0 = split_4_f9(n, A0, B0);
+    	#pragma omp section
+            P1 = split_4_f9(n, S3, S3_b);
+        #pragma omp section
+    		P2 = split_4_f9(n, S6, S6_b);
+    	#pragma omp section
+            P3 = split_4_f9(n, S7, S7_b);
+    	#pragma omp section
+            P4 = split_4_f9(n, S9, S9_b);
+    	#pragma omp section
+            P5 = split_4_f9(n, S10, S10_b);
+    	#pragma omp section
+            P6 = split_4_f9(k, A3, B3);
+	}
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
 
@@ -1097,12 +1127,19 @@ int* split_4_f3(int m, int* p1, int* p2){
 
     int *P0, *P1, *P6;
     f9_element *P2, *P4;
-    P0 = split_4_f3(n, A0, B0);
-    P1 = split_4_f3(n, S4, S4_b);
-    P2 = split_4_f9(n, S8, S8_b);
-    P4 = split_4_f9(n, S10, S10_b);
-    P6 = split_4_f3(k, A3, B3);
-
+    #pragma omp parallel sections
+    {
+    	#pragma omp section
+    		P0 = split_4_f3(n, A0, B0);
+    	#pragma omp section
+            P1 = split_4_f3(n, S4, S4_b);
+    	#pragma omp section
+            P2 = split_4_f9(n, S8, S8_b);
+        #pragma omp section
+    		P4 = split_4_f9(n, S10, S10_b);
+    	#pragma omp section
+            P6 = split_4_f3(k, A3, B3);
+	}
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
 
@@ -1260,16 +1297,27 @@ f9_element* split_5_f9(int m, f9_element* p1, f9_element* p2) {
     neg_sum_poly_img(n, n, S8_b, S10_b, S17_b); //S17_b = -S8_b + wS10_b
 
     f9_element *P0, *P1, *P2, *P3, *P4, *P5, *P6, *P7, *P8;
-    P0 = split_5_f9(n, A0, B0);
-    P1 = split_5_f9(n, S11, S11_b);
-    P2 = split_5_f9(n, S12, S12_b);
-    P3 = split_5_f9(n, S13, S13_b);
-    P4 = split_5_f9(n, S14, S14_b);
-    P5 = split_5_f9(n, S15, S15_b);
-    P6 = split_5_f9(n, S16, S16_b);
-    P7 = split_5_f9(n, S17, S17_b);
-    P8 = split_5_f9(k, A4, B4);
-
+    #pragma omp parallel sections
+    {
+    	#pragma omp section
+    		P0 = split_5_f9(n, A0, B0);
+    	#pragma omp section
+            P1 = split_5_f9(n, S11, S11_b);
+    	#pragma omp section
+            P2 = split_5_f9(n, S12, S12_b);
+    	#pragma omp section
+            P3 = split_5_f9(n, S13, S13_b);
+    	#pragma omp section
+            P4 = split_5_f9(n, S14, S14_b);
+    	#pragma omp section
+            P5 = split_5_f9(n, S15, S15_b);
+    	#pragma omp section
+            P6 = split_5_f9(n, S16, S16_b);
+    	#pragma omp section
+            P7 = split_5_f9(n, S17, S17_b);
+    	#pragma omp section
+            P8 = split_5_f9(k, A4, B4);
+	}
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
 
@@ -1465,13 +1513,21 @@ int* split_5_f3(int m, int* p1, int* p2) {
 
     int *P0, *P1, *P8;
     f9_element *P2, *P4, *P6;
-    P0 = split_5_f3(n, A0, B0);
-    P1 = split_5_f3(n, S11, S11_b);
-    P2 = split_5_f9(n, S12, S12_b);
-    P4 = split_5_f9(n, S14, S14_b);
-    P6 = split_5_f9(n, S16, S16_b);
-    P8 = split_5_f3(k, A4, B4);
-
+    #pragma omp parallel sections
+    {
+    	#pragma omp section
+    		P0 = split_5_f3(n, A0, B0);
+    	#pragma omp section
+        	P1 = split_5_f3(n, S11, S11_b);
+    	#pragma omp section
+            P2 = split_5_f9(n, S12, S12_b);
+    	#pragma omp section
+            P4 = split_5_f9(n, S14, S14_b);
+    	#pragma omp section
+            P6 = split_5_f9(n, S16, S16_b);
+    	#pragma omp section
+            P8 = split_5_f3(k, A4, B4);
+	}
     int dim_subproduct = (2*n-1);
     int dim_subproduct_rem = (2*k-1);
 
