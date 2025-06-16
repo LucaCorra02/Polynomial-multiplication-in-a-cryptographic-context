@@ -1544,7 +1544,6 @@ int* split_5_f3(int m, int* p1, int* p2) {
     for(int i = 0; i < dim_subproduct_rem && i < dim_ris; i++){
         ris[i+8*n] = f3_sum(ris[i+8*n], P8[i]); //R6
     }
-
     free(op_pointer);
     free(op_pointer_f9);
     free(P0);
