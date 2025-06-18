@@ -60,7 +60,7 @@ void polynomial_sum_f3(int* p1, int len_p1, int* p2, int len_p2, int* ris) { // 
 
 int* unbalanced_karatsuba_f3(int n, int* p1, int* p2) {
     int* result = calloc((2 * n) - 1, sizeof(int));
-    if (n == 1) { result[0] = f3_prod(int_to_f3(p1[0]), int_to_f3(p2[0])); return result; }
+    if (n == 1) { result[0] = f3_prod(p1[0], p2[0]); return result; }
 
     int k = n / 2;
     int mid = n - k; // Resto divisione
