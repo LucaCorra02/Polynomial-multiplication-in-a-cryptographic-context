@@ -228,5 +228,17 @@ static const MunitSuite suite = {
 };
 
 int main(int argc, char* argv[]) {
-    return munit_suite_main(&suite, NULL, argc, argv);
+    munit_suite_main(&suite, NULL, argc, argv);
+    /*for(int i = 0; i < 16; i++){
+        int ris = f3_prod(i>>2, i&3);
+        //printf("f3_sum(%d, %d) = %d\n", i>>2, i&3, ris);
+        printf("%d, \n", ris);
+    }*/
+    /*for(int i = 0; i < 256; i++){
+       int ris = f9_prod(i>>4, i&0b1111);
+       //printf("f9_sum(%d, %d) = %d\n", i>>2, i&3, ris);
+       printf("%d,", ris);
+   }*/
+
+
 }

@@ -5,6 +5,10 @@ const unsigned int swap_look_up_table[] = {0b00,0b10,0b01,0b00};
 const unsigned int LSB_I = 0; //la posizione del bit meno significativo
 const unsigned int MSB_I = 1; //posizione bit più significativo
 
+const unsigned int look_up_sum_f3[] = {0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0};
+const unsigned int look_up_prod_f3[] = {0,0,0,0,0,1,2,0,0,2,1,0,0,0,0,0};
+
+
 unsigned int mod (int a, int b) { // a mod b. con b >= 0
     return ((a % b) + b) % b;
 }
@@ -25,7 +29,7 @@ void print_binary(unsigned int n) { //stampa rappresentazione binaria di un inte
 }
 
 unsigned int f3_sum(unsigned int a, unsigned int b){
-    unsigned int a1 = kth_bit(a,MSB_I), a0 = kth_bit(a,LSB_I), b1 = kth_bit(b,MSB_I), b0 = kth_bit(b,LSB_I);
+    /*unsigned int a1 = kth_bit(a,MSB_I), a0 = kth_bit(a,LSB_I), b1 = kth_bit(b,MSB_I), b0 = kth_bit(b,LSB_I);
     unsigned int xor00 = a0^b0;
     unsigned int xor01 = a1^b1;
     unsigned int and00 = a0&b0;
@@ -33,18 +37,20 @@ unsigned int f3_sum(unsigned int a, unsigned int b){
 
     unsigned int sum_lo = ((xor00) ^ (and01)) ^ ((xor01) & (and00));
     unsigned int sum_up = ((xor01) ^ (and00)) ^ ((xor00) & (and01));
-    return look_up_table[sum_up*2+sum_lo]; //Mod 3
+    return look_up_table[sum_up*2+sum_lo]; //Mod 3 */
+    return look_up_sum_f3[a<<2 | b];
 }
 
 unsigned int f3_prod(unsigned int a, unsigned int b){
-    unsigned int a1 = kth_bit(a,LSB_I), a0 = kth_bit(a,MSB_I), b1 = kth_bit(b,LSB_I), b0 = kth_bit(b,MSB_I);
+    /*unsigned int a1 = kth_bit(a,LSB_I), a0 = kth_bit(a,MSB_I), b1 = kth_bit(b,LSB_I), b0 = kth_bit(b,MSB_I);
     unsigned int and00 = a0&b0;
     unsigned int and03 = a1&b1;
     unsigned int and12 = (and00&and03);
 
     unsigned int prod_lo = and00 ^ and03 ^ (and12);
     unsigned int prod_up = (a1&b0) ^ (a0&b1) ^ (and12);
-    return look_up_table[prod_up*2+prod_lo]; //Mod 3
+    return look_up_table[prod_up*2+prod_lo]; //Mod 3*/
+    return look_up_prod_f3[a<<2 | b];
 }
 
 unsigned int swap_bits(unsigned int n){  return swap_look_up_table[n]; }
