@@ -98,7 +98,7 @@ make benchmarks
 ```
 ## Test
 
-### Unit Tests
+### Unit Test
 
 To run the unit tests, the following functions must be called from the `./mainTest.c` file:
 
@@ -108,7 +108,7 @@ munit_suite_main(&suite_f3, NULL, argc, argv);
 ```
 After execution, the test runner will indicate whether each test has passed or failed.
 
-### Unit Tests
+### Integration Test
 Integration tests rely on the `Poly` module from the `NumPy` library and require random polynomial inputs.
 To generate them, use the script `Algorithms/genTestPoly.py`:
 ```bash
